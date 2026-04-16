@@ -3,1520 +3,1851 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DataForge — AI-Powered Company Analytics</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<title>DataForge — Analyst Prompt System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════
-   DATAFORGE — AI Company Analytics Platform
-   ═══════════════════════════════════════════ */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#05050c;
-  --bg2:#09091a;
-  --surf:#0f0f1e;
-  --surf2:#161628;
-  --surf3:#1c1c34;
-  --b1:rgba(255,255,255,.05);
-  --b2:rgba(255,255,255,.09);
-  --b3:rgba(255,255,255,.15);
-  --b4:rgba(255,255,255,.22);
-  --g:#00f5a0;
-  --gd:rgba(0,245,160,.1);
-  --gg:rgba(0,245,160,.05);
-  --gline:rgba(0,245,160,.2);
-  --p:#7c6dfa;
-  --pd:rgba(124,109,250,.12);
-  --a:#ffaa2c;
-  --ad:rgba(255,170,44,.1);
-  --r:#ff4d6d;
-  --rd:rgba(255,77,109,.1);
-  --bl:#3d9cff;
-  --bld:rgba(61,156,255,.1);
-  --t1:#f0f0fa;
-  --t2:#9898c0;
-  --t3:#5a5a80;
-  --fh:'Syne',sans-serif;
-  --fb:'DM Sans',sans-serif;
-  --fm:'JetBrains Mono',monospace;
-  --rad:10px;
-  --rad2:16px;
-  --shad:0 0 0 1px var(--b2), 0 8px 32px rgba(0,0,0,.4);
+:root {
+  --bg: #080b12;
+  --bg2: #0d1220;
+  --bg3: #111827;
+  --card: #131b2e;
+  --card2: #1a2540;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #e8ecf4;
+  --text2: #8892a4;
+  --text3: #5c6478;
+  --green: #00e5a0;
+  --green2: rgba(0,229,160,0.12);
+  --green3: rgba(0,229,160,0.06);
+  --purple: #7c6af7;
+  --purple2: rgba(124,106,247,0.12);
+  --amber: #f5a623;
+  --amber2: rgba(245,166,35,0.12);
+  --blue: #4da6ff;
+  --blue2: rgba(77,166,255,0.12);
+  --pink: #ff6b9d;
+  --pink2: rgba(255,107,157,0.12);
+  --red: #ff4d6d;
+  --red2: rgba(255,77,109,0.12);
+  --sidebar: 260px;
+  --radius: 14px;
+  --radius-sm: 8px;
+  --shadow: 0 8px 32px rgba(0,0,0,0.4);
+  --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
 }
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--t1);font-family:var(--fb);font-size:15px;line-height:1.7;min-height:100vh;overflow-x:hidden}
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--b3);border-radius:2px}
-a{text-decoration:none;color:inherit}
-button{cursor:pointer;font-family:var(--fb)}
-input,select,textarea{font-family:var(--fb)}
 
-/* ── GLOBAL GRID BG ── */
-.grid-bg{position:fixed;inset:0;pointer-events:none;z-index:0;
-  background-image:linear-gradient(var(--b1) 1px,transparent 1px),
-    linear-gradient(90deg,var(--b1) 1px,transparent 1px);
-  background-size:52px 52px}
-.glow-top{position:fixed;top:0;left:50%;transform:translateX(-50%);width:600px;height:300px;
-  background:radial-gradient(ellipse,rgba(0,245,160,.06) 0%,transparent 70%);
-  pointer-events:none;z-index:0}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px;scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
-/* ── PAGE MANAGEMENT ── */
-.page{display:none;position:relative;z-index:1;min-height:100vh}
-.page.active{display:flex}
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--card2);border-radius:99px}
 
-/* ══════════════════════════════════
-   AUTH PAGES (Login + Register)
-══════════════════════════════════ */
-.auth-page{align-items:center;justify-content:center;padding:24px}
-.auth-box{width:100%;max-width:440px;background:var(--surf);border:1px solid var(--b2);border-radius:var(--rad2);padding:40px 36px;box-shadow:var(--shad)}
-.auth-logo{display:flex;align-items:center;gap:10px;margin-bottom:32px}
-.logo-mark{width:34px;height:34px;background:var(--g);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.logo-mark svg{color:#05050c}
-.logo-name{font-family:var(--fh);font-size:18px;font-weight:800;color:var(--t1)}
-.logo-name span{color:var(--g)}
-.auth-title{font-family:var(--fh);font-size:24px;font-weight:800;margin-bottom:6px;letter-spacing:-.02em}
-.auth-sub{font-size:13px;color:var(--t2);margin-bottom:28px}
-.auth-sub a,.auth-link{color:var(--g);cursor:pointer}
+/* ── AUTH SCREEN ── */
+#authScreen{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;background:var(--bg);background-image:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(0,229,160,0.07) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(124,106,247,0.06) 0%,transparent 50%)}
+#authScreen.hidden{display:none}
+
+.auth-logo{display:flex;align-items:center;gap:10px;margin-bottom:36px;justify-content:center}
+.auth-logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--green),var(--purple));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;font-family:'Syne',sans-serif}
+.auth-logo-text{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--text);letter-spacing:-0.5px}
+
+.auth-box{background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:40px;width:420px;max-width:calc(100vw - 32px);box-shadow:0 32px 80px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.04)}
+
+.auth-tabs{display:flex;gap:0;background:var(--bg2);border-radius:var(--radius-sm);padding:4px;margin-bottom:28px}
+.auth-tab{flex:1;padding:9px;text-align:center;border-radius:6px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text2);transition:var(--transition);border:none;background:none}
+.auth-tab.active{background:var(--card2);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,0.3)}
+
+.auth-title{font-family:'Syne',sans-serif;font-size:24px;font-weight:700;color:var(--text);margin-bottom:6px}
+.auth-sub{font-size:13px;color:var(--text2);margin-bottom:28px}
 
 .form-group{margin-bottom:16px}
-.form-label{display:block;font-size:12px;color:var(--t2);font-family:var(--fm);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em}
-.form-input{width:100%;background:var(--surf2);border:1px solid var(--b2);border-radius:var(--rad);padding:11px 14px;font-size:14px;color:var(--t1);outline:none;transition:border .15s}
-.form-input:focus{border-color:var(--g)}
-.form-input::placeholder{color:var(--t3)}
+.form-group label{display:block;font-size:12px;font-weight:500;color:var(--text2);margin-bottom:6px;letter-spacing:0.3px}
+.form-group input,.form-group select{width:100%;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:11px 14px;font-size:14px;color:var(--text);font-family:'DM Sans',sans-serif;transition:var(--transition);outline:none}
+.form-group input:focus,.form-group select:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(0,229,160,0.1)}
+.form-group input::placeholder{color:var(--text3)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.form-hint{font-size:11px;color:var(--t3);font-family:var(--fm);margin-top:5px}
 
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 20px;border-radius:var(--rad);border:none;font-size:14px;font-weight:500;transition:all .15s;white-space:nowrap}
-.btn-primary{background:var(--g);color:#05050c;font-weight:600;width:100%;margin-top:4px}
-.btn-primary:hover{background:#00d988;transform:translateY(-1px)}
-.btn-primary:active{transform:translateY(0)}
-.btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.btn-secondary{background:var(--surf2);color:var(--t1);border:1px solid var(--b2)}
-.btn-secondary:hover{background:var(--surf3);border-color:var(--b3)}
-.btn-ghost{background:transparent;color:var(--t2);border:1px solid var(--b2)}
-.btn-ghost:hover{background:var(--surf2);color:var(--t1)}
-.btn-danger{background:var(--rd);color:var(--r);border:1px solid rgba(255,77,109,.2)}
-.btn-danger:hover{background:rgba(255,77,109,.18)}
+.auth-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--green),#00c47a);border:none;border-radius:var(--radius-sm);font-size:14px;font-weight:600;color:#06110d;cursor:pointer;transition:var(--transition);font-family:'DM Sans',sans-serif;margin-top:8px;letter-spacing:0.2px}
+.auth-btn:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(0,229,160,0.25)}
+.auth-btn:active{transform:none}
 
-.divider{display:flex;align-items:center;gap:12px;margin:20px 0;color:var(--t3);font-size:12px;font-family:var(--fm)}
-.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--b2)}
+.auth-divider{display:flex;align-items:center;gap:12px;margin:18px 0;color:var(--text3);font-size:12px}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border)}
 
-.error-msg{font-size:12px;color:var(--r);font-family:var(--fm);margin-top:4px;display:none}
-.error-msg.show{display:block}
-.success-msg{font-size:12px;color:var(--g);font-family:var(--fm);margin-top:4px;display:none}
-.success-msg.show{display:block}
+.auth-demo-btn{width:100%;padding:12px;background:transparent;border:1px solid var(--border2);border-radius:var(--radius-sm);font-size:13px;color:var(--text2);cursor:pointer;transition:var(--transition);font-family:'DM Sans',sans-serif}
+.auth-demo-btn:hover{border-color:var(--border2);background:var(--bg2);color:var(--text)}
+.auth-demo-hint{text-align:center;font-size:11px;color:var(--text3);margin-top:10px}
+.auth-error{background:var(--red2);border:1px solid rgba(255,77,109,0.25);border-radius:var(--radius-sm);padding:10px 14px;font-size:12px;color:var(--red);margin-bottom:14px;display:none}
 
-/* ══════════════════════════════════
-   MAIN APP LAYOUT
-══════════════════════════════════ */
-.app-page{flex-direction:row}
+/* ── APP SHELL ── */
+#app{display:none;min-height:100vh}
+#app.visible{display:flex}
 
-/* SIDEBAR */
-.sidebar{width:240px;flex-shrink:0;background:var(--surf);border-right:1px solid var(--b1);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:100;transition:transform .25s}
-.sb-logo{display:flex;align-items:center;gap:10px;padding:22px 20px 18px;border-bottom:1px solid var(--b1)}
-.sb-logo-name{font-family:var(--fh);font-size:15px;font-weight:800}
-.sb-logo-name span{color:var(--g)}
-.sb-nav{flex:1;padding:12px 10px;overflow-y:auto}
-.sb-section{font-family:var(--fm);font-size:9px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;padding:16px 10px 6px}
-.sb-item{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:var(--rad);color:var(--t2);font-size:13px;cursor:pointer;transition:all .15s;border:none;background:transparent;width:100%;text-align:left;position:relative}
-.sb-item:hover{background:var(--surf2);color:var(--t1)}
-.sb-item.active{background:var(--gd);color:var(--g);border:1px solid var(--gline)}
-.sb-item.active svg{color:var(--g)}
-.sb-item svg{flex-shrink:0;color:var(--t3);transition:color .15s}
-.sb-badge{margin-left:auto;font-family:var(--fm);font-size:9px;background:var(--gd);color:var(--g);border:1px solid var(--gline);padding:2px 7px;border-radius:20px}
-.sb-user{padding:14px 16px;border-top:1px solid var(--b1);display:flex;align-items:center;gap:10px}
-.sb-avatar{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--p),var(--g));display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
-.sb-user-info{flex:1;min-width:0}
-.sb-user-name{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sb-user-role{font-size:10px;color:var(--t3);font-family:var(--fm)}
-.sb-logout{width:28px;height:28px;border-radius:6px;background:transparent;border:1px solid var(--b2);color:var(--t3);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;flex-shrink:0}
-.sb-logout:hover{background:var(--rd);color:var(--r);border-color:rgba(255,77,109,.3)}
+/* ── SIDEBAR ── */
+.sidebar{width:var(--sidebar);background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;height:100vh;z-index:100;transition:transform var(--transition)}
 
-/* MAIN CONTENT */
-.main{margin-left:240px;flex:1;display:flex;flex-direction:column;min-height:100vh}
-.topbar{height:58px;background:rgba(5,5,12,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--b1);display:flex;align-items:center;padding:0 28px;gap:16px;position:sticky;top:0;z-index:50}
-.topbar-title{font-family:var(--fh);font-size:16px;font-weight:800;flex:1}
-.topbar-title span{color:var(--t3);font-size:13px;font-weight:400;font-family:var(--fb);margin-left:8px}
-.tb-btn{display:flex;align-items:center;gap:6px;font-size:12px;padding:7px 14px;border-radius:var(--rad);border:1px solid var(--b2);background:transparent;color:var(--t2);transition:all .15s}
-.tb-btn:hover{background:var(--surf2);color:var(--t1);border-color:var(--b3)}
-.tb-btn.primary{background:var(--g);color:#05050c;border-color:var(--g);font-weight:600}
-.tb-btn.primary:hover{background:#00d988}
+.sidebar-logo{padding:24px 20px 20px;border-bottom:1px solid var(--border)}
+.sidebar-logo-inner{display:flex;align-items:center;gap:10px}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--green),var(--purple));border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:15px;color:#fff;flex-shrink:0}
+.logo-text{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;color:var(--text);letter-spacing:-0.3px}
+.logo-badge{font-size:10px;color:var(--text3);margin-top:1px;font-weight:400}
 
-.content{padding:28px;flex:1}
+.sidebar-nav{flex:1;padding:16px 12px;overflow-y:auto;display:flex;flex-direction:column;gap:3px}
+.nav-section-label{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:1px;padding:8px 8px 4px}
 
-/* ══════════════════════════════════
-   VIEWS (sections inside app)
-══════════════════════════════════ */
-.view{display:none}
-.view.active{display:block}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--radius-sm);cursor:pointer;transition:var(--transition);color:var(--text2);font-size:13.5px;font-weight:400;border:none;background:none;width:100%;text-align:left;position:relative}
+.nav-item:hover{background:var(--bg3);color:var(--text)}
+.nav-item.active{background:var(--green2);color:var(--green);font-weight:500}
+.nav-item.active .nav-icon{color:var(--green)}
+.nav-icon{width:18px;height:18px;flex-shrink:0;opacity:0.7}
+.nav-item.active .nav-icon,.nav-item:hover .nav-icon{opacity:1}
+.nav-badge{margin-left:auto;background:var(--card2);color:var(--text2);font-size:10px;font-weight:600;padding:2px 7px;border-radius:99px;min-width:20px;text-align:center}
+.nav-item.active .nav-badge{background:rgba(0,229,160,0.2);color:var(--green)}
+.nav-ai-badge{margin-left:auto;background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:99px;letter-spacing:0.5px}
 
-/* ── DASHBOARD ── */
-.dash-greeting{margin-bottom:28px}
-.dash-greeting h2{font-family:var(--fh);font-size:26px;font-weight:800;letter-spacing:-.02em}
-.dash-greeting p{color:var(--t2);font-size:14px;margin-top:4px}
+.sidebar-user{padding:16px 12px;border-top:1px solid var(--border)}
+.user-card{display:flex;align-items:center;gap:10px;padding:10px;border-radius:var(--radius-sm);cursor:pointer;transition:var(--transition)}
+.user-card:hover{background:var(--bg3)}
+.user-avatar{width:34px;height:34px;border-radius:99px;background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;font-family:'Syne',sans-serif}
+.user-info{flex:1;min-width:0}
+.user-name{font-size:13px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.user-role{font-size:11px;color:var(--text3)}
+.user-more{color:var(--text3);width:16px;height:16px;flex-shrink:0}
 
-.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:24px}
-.kpi{background:var(--surf);border:1px solid var(--b1);border-radius:var(--rad2);padding:20px;transition:border-color .15s}
-.kpi:hover{border-color:var(--b2)}
-.kpi-label{font-size:11px;color:var(--t3);font-family:var(--fm);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.kpi-val{font-family:var(--fh);font-size:28px;font-weight:800;color:var(--t1);line-height:1}
-.kpi-sub{font-size:11px;color:var(--t3);margin-top:5px;display:flex;align-items:center;gap:4px}
-.kpi-up{color:var(--g)}.kpi-down{color:var(--r)}
+/* ── MAIN CONTENT ── */
+.main{margin-left:var(--sidebar);flex:1;display:flex;flex-direction:column;min-height:100vh}
 
-.dash-grid{display:grid;grid-template-columns:1fr 340px;gap:16px}
-@media(max-width:900px){.dash-grid{grid-template-columns:1fr}}
+/* ── TOPBAR ── */
+.topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;backdrop-filter:blur(12px)}
+.topbar-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--text)}
+.topbar-actions{display:flex;align-items:center;gap:10px}
+.topbar-btn{display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;cursor:pointer;transition:var(--transition);border:none;font-family:'DM Sans',sans-serif}
+.topbar-btn-secondary{background:var(--card);color:var(--text2);border:1px solid var(--border2)}
+.topbar-btn-secondary:hover{color:var(--text);border-color:var(--border2)}
+.topbar-btn-primary{background:linear-gradient(135deg,var(--green),#00c47a);color:#06110d;font-weight:600}
+.topbar-btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,229,160,0.3)}
 
-.card{background:var(--surf);border:1px solid var(--b1);border-radius:var(--rad2);padding:22px}
-.card-title{font-family:var(--fh);font-size:13px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
-.card-title span{color:var(--t3);font-family:var(--fm);font-size:10px;font-weight:400}
+/* ── PAGE ── */
+.page{padding:28px;display:none;flex-direction:column;gap:24px;flex:1}
+.page.active{display:flex}
 
-/* Activity list */
-.act-list{display:flex;flex-direction:column;gap:10px}
-.act-item{display:flex;align-items:center;gap:12px;padding:11px 14px;background:var(--surf2);border-radius:var(--rad);border:1px solid var(--b1)}
-.act-ico{width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
-.act-ico.g{background:var(--gd)}.act-ico.p{background:var(--pd)}.act-ico.a{background:var(--ad)}.act-ico.b{background:var(--bld)}
-.act-text{flex:1;min-width:0}
-.act-title{font-size:13px;font-weight:500}
-.act-sub{font-size:11px;color:var(--t3);font-family:var(--fm)}
-.act-time{font-family:var(--fm);font-size:10px;color:var(--t3);flex-shrink:0}
+/* ── STATS GRID ── */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;position:relative;overflow:hidden;transition:var(--transition)}
+.stat-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.stat-card::before{content:'';position:absolute;inset:0;opacity:0;transition:var(--transition)}
+.stat-card:hover::before{opacity:1}
+.stat-card.green::before{background:radial-gradient(ellipse at top left,rgba(0,229,160,0.06),transparent 60%)}
+.stat-card.purple::before{background:radial-gradient(ellipse at top left,rgba(124,106,247,0.06),transparent 60%)}
+.stat-card.amber::before{background:radial-gradient(ellipse at top left,rgba(245,166,35,0.06),transparent 60%)}
+.stat-card.blue::before{background:radial-gradient(ellipse at top left,rgba(77,166,255,0.06),transparent 60%)}
+.stat-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;margin-bottom:14px}
+.stat-icon.green{background:var(--green2);color:var(--green)}
+.stat-icon.purple{background:var(--purple2);color:var(--purple)}
+.stat-icon.amber{background:var(--amber2);color:var(--amber)}
+.stat-icon.blue{background:var(--blue2);color:var(--blue)}
+.stat-value{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--text);letter-spacing:-1px;line-height:1}
+.stat-label{font-size:12px;color:var(--text2);margin-top:4px}
+.stat-change{font-size:11px;margin-top:8px;display:flex;align-items:center;gap:4px}
+.stat-change.up{color:var(--green)}
+.stat-change.neutral{color:var(--text3)}
 
-/* Quick tools */
-.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.qt{background:var(--surf2);border:1px solid var(--b1);border-radius:var(--rad);padding:14px;cursor:pointer;transition:all .15s;text-align:left;border:none;width:100%}
-.qt:hover{background:var(--surf3);border-color:var(--b2)}
-.qt-ico{font-size:20px;margin-bottom:8px;display:block}
-.qt-title{font-family:var(--fh);font-size:12px;font-weight:700;color:var(--t1);margin-bottom:2px}
-.qt-sub{font-size:11px;color:var(--t3)}
+/* ── SECTION HEADER ── */
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.section-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--text)}
+.section-link{font-size:12px;color:var(--green);cursor:pointer;display:flex;align-items:center;gap:4px}
+.section-link:hover{text-decoration:underline}
 
-/* Company size badges */
-.size-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
-.size-chip{font-family:var(--fm);font-size:11px;padding:5px 14px;border-radius:20px;border:1px solid var(--b2);color:var(--t3);cursor:pointer;transition:all .15s;background:transparent}
-.size-chip:hover{border-color:var(--b3);color:var(--t2)}
-.size-chip.on{background:var(--gd);border-color:var(--gline);color:var(--g)}
+/* ── CARDS ── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius)}
+.card-body{padding:20px}
+.card-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-size:14px;font-weight:600;color:var(--text)}
 
-/* ── AI ANALYZER ── */
-.analyzer-layout{display:grid;grid-template-columns:1fr 360px;gap:20px;min-height:calc(100vh - 160px)}
-@media(max-width:900px){.analyzer-layout{grid-template-columns:1fr}}
-.analyzer-left{}
-.analyzer-right{display:flex;flex-direction:column;gap:14px}
+/* ── ACTIVITY LIST ── */
+.activity-list{display:flex;flex-direction:column;gap:0}
+.activity-item{display:flex;align-items:center;gap:14px;padding:13px 20px;border-bottom:1px solid var(--border);transition:var(--transition);cursor:pointer}
+.activity-item:last-child{border-bottom:none}
+.activity-item:hover{background:rgba(255,255,255,0.02)}
+.activity-dot{width:8px;height:8px;border-radius:99px;flex-shrink:0}
+.activity-dot.green{background:var(--green)}
+.activity-dot.purple{background:var(--purple)}
+.activity-dot.amber{background:var(--amber)}
+.activity-dot.blue{background:var(--blue)}
+.activity-info{flex:1}
+.activity-title{font-size:13px;color:var(--text);font-weight:400}
+.activity-meta{font-size:11px;color:var(--text3);margin-top:2px}
+.activity-badge{font-size:10px;font-weight:600;padding:3px 8px;border-radius:99px}
+.activity-badge.green{background:var(--green2);color:var(--green)}
+.activity-badge.purple{background:var(--purple2);color:var(--purple)}
+.activity-badge.amber{background:var(--amber2);color:var(--amber)}
+.activity-badge.blue{background:var(--blue2);color:var(--blue)}
 
-.ai-form{background:var(--surf);border:1px solid var(--b1);border-radius:var(--rad2);padding:24px;margin-bottom:16px}
-.ai-form-title{font-family:var(--fh);font-size:15px;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:8px}
-.ai-form-title .dot{width:7px;height:7px;border-radius:50%;background:var(--g);animation:blink 2s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+/* ── QUICK TOOLS ── */
+.quick-tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.quick-tool{background:var(--card2);border:1px solid var(--border);border-radius:var(--radius);padding:18px;cursor:pointer;transition:var(--transition);text-align:center}
+.quick-tool:hover{border-color:var(--border2);transform:translateY(-2px);background:var(--bg3)}
+.quick-tool-icon{font-size:24px;margin-bottom:10px}
+.quick-tool-label{font-size:12px;font-weight:600;color:var(--text)}
+.quick-tool-sub{font-size:11px;color:var(--text3);margin-top:3px}
 
-.form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.form-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-.fi-label{font-size:11px;color:var(--t3);font-family:var(--fm);margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em;display:block}
-.fi-input{width:100%;background:var(--surf2);border:1px solid var(--b2);border-radius:var(--rad);padding:10px 13px;font-size:13px;color:var(--t1);outline:none;transition:border .15s}
-.fi-input:focus{border-color:var(--g)}
-.fi-input::placeholder{color:var(--t3)}
-.fi-select{width:100%;background:var(--surf2);border:1px solid var(--b2);border-radius:var(--rad);padding:10px 13px;font-size:13px;color:var(--t1);outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%235a5a80' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
-.fi-select:focus{border-color:var(--g)}
-.fi-select option{background:var(--surf2)}
-.fi-textarea{width:100%;background:var(--surf2);border:1px solid var(--b2);border-radius:var(--rad);padding:10px 13px;font-size:13px;color:var(--t1);outline:none;resize:vertical;min-height:80px;font-family:var(--fb)}
-.fi-textarea:focus{border-color:var(--g)}
-.fi-textarea::placeholder{color:var(--t3)}
+/* ── AI ANALYZER PAGE ── */
+.analyzer-layout{display:grid;grid-template-columns:380px 1fr;gap:18px;align-items:start}
+.analyzer-form{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;position:sticky;top:88px}
+.analyzer-form-header{padding:18px 20px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,rgba(0,229,160,0.05),rgba(124,106,247,0.05))}
+.analyzer-form-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px}
+.ai-badge-pill{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:99px;letter-spacing:0.5px}
+.analyzer-form-body{padding:20px;display:flex;flex-direction:column;gap:14px;max-height:calc(100vh - 200px);overflow-y:auto}
+.form-label{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px;display:block}
+.form-input,.form-select,.form-textarea{width:100%;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:10px 13px;font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif;transition:var(--transition);outline:none}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(0,229,160,0.1)}
+.form-textarea{resize:vertical;min-height:80px;line-height:1.5}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--text3)}
+.form-select option{background:var(--bg2)}
 
-.analyze-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border-radius:var(--rad);background:var(--g);color:#05050c;font-size:14px;font-weight:700;font-family:var(--fh);border:none;cursor:pointer;transition:all .15s;margin-top:4px}
-.analyze-btn:hover{background:#00d988;transform:translateY(-1px)}
-.analyze-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.analyze-btn svg{transition:transform .6s}
-.analyze-btn.loading svg{animation:spin .8s linear infinite}
+.focus-tags{display:flex;flex-wrap:wrap;gap:6px}
+.focus-tag{padding:5px 10px;border-radius:99px;font-size:11px;font-weight:500;cursor:pointer;transition:var(--transition);border:1px solid var(--border2);background:transparent;color:var(--text2)}
+.focus-tag:hover{border-color:var(--green);color:var(--green)}
+.focus-tag.active{background:var(--green2);border-color:var(--green);color:var(--green)}
+
+.analyzer-run-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--green),#00c47a);border:none;border-radius:var(--radius-sm);font-size:14px;font-weight:700;color:#06110d;cursor:pointer;transition:var(--transition);font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px}
+.analyzer-run-btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,229,160,0.3)}
+.analyzer-run-btn:disabled{opacity:0.6;cursor:not-allowed;transform:none;box-shadow:none}
+
+.analyzer-result-panel{display:flex;flex-direction:column;gap:14px}
+.result-empty{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:60px 20px;text-align:center;color:var(--text3)}
+.result-empty-icon{font-size:48px;margin-bottom:16px;opacity:0.4}
+.result-empty-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--text2);margin-bottom:8px}
+.result-empty-sub{font-size:13px;line-height:1.6}
+
+.result-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.result-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.result-company{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--text)}
+.result-meta{font-size:12px;color:var(--text2);margin-left:auto;display:flex;align-items:center;gap:8px}
+.result-body{padding:20px;font-size:13.5px;line-height:1.8;color:var(--text2);white-space:pre-wrap;font-family:'DM Mono','Courier New',monospace;max-height:400px;overflow-y:auto}
+.result-actions{padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:8px}
+.result-action-btn{padding:8px 14px;border-radius:var(--radius-sm);font-size:12px;font-weight:500;cursor:pointer;transition:var(--transition);border:1px solid var(--border2);background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:6px}
+.result-action-btn:hover{border-color:var(--border2);background:var(--card2);color:var(--text)}
+.result-action-btn.primary{background:var(--green2);border-color:var(--green);color:var(--green)}
+
+.loading-result{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:40px;text-align:center}
+.loading-spinner{width:40px;height:40px;border:3px solid var(--border2);border-top-color:var(--green);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px}
 @keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-size:13px;color:var(--text2);margin-bottom:6px}
+.loading-sub{font-size:11px;color:var(--text3)}
 
-/* AI RESULT */
-.ai-result{background:var(--surf);border:1px solid var(--b1);border-radius:var(--rad2);padding:24px;display:none}
-.ai-result.show{display:block}
-.result-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px}
-.result-company{font-family:var(--fh);font-size:18px;font-weight:800}
-.result-meta{display:flex;gap:8px;flex-wrap:wrap}
-.tag{font-family:var(--fm);font-size:10px;padding:3px 9px;border-radius:20px;border:1px solid;text-transform:uppercase;letter-spacing:.05em}
-.tag.g{background:var(--gd);color:var(--g);border-color:var(--gline)}
-.tag.p{background:var(--pd);color:var(--p);border-color:rgba(124,109,250,.2)}
-.tag.a{background:var(--ad);color:var(--a);border-color:rgba(255,170,44,.2)}
-.result-body{font-size:14px;color:var(--t2);line-height:1.8;white-space:pre-wrap;font-family:var(--fm);font-size:12px;padding:16px;background:var(--surf2);border-radius:var(--rad);border:1px solid var(--b1);max-height:600px;overflow-y:auto;word-break:break-word}
-.result-actions{display:flex;gap:10px;margin-top:16px}
-.result-actions button{flex:1}
-
-/* Streaming cursor */
-.cursor{display:inline-block;width:2px;height:14px;background:var(--g);animation:blink 1s infinite;vertical-align:middle;margin-left:2px}
-
-/* Right panel */
-.panel-card{background:var(--surf);border:1px solid var(--b1);border-radius:var(--rad2);padding:18px}
-.panel-title{font-family:var(--fh);font-size:12px;font-weight:700;margin-bottom:14px;color:var(--t1);display:flex;align-items:center;gap:7px}
-.panel-title svg{color:var(--g)}
-.history-list{display:flex;flex-direction:column;gap:8px;max-height:280px;overflow-y:auto}
-.hist-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surf2);border-radius:var(--rad);border:1px solid var(--b1);cursor:pointer;transition:all .15s}
-.hist-item:hover{border-color:var(--b2)}
-.hist-company{flex:1;min-width:0}
-.hist-name{font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.hist-time{font-family:var(--fm);font-size:10px;color:var(--t3)}
-.hist-ic{width:28px;height:28px;border-radius:6px;background:var(--gd);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px}
-
-.prompt-quick{display:flex;flex-direction:column;gap:6px;max-height:300px;overflow-y:auto}
-.pq{padding:10px 12px;background:var(--surf2);border-radius:var(--rad);border:1px solid var(--b1);cursor:pointer;transition:all .15s;font-size:11px;color:var(--t2);font-family:var(--fm);line-height:1.5;text-align:left}
-.pq:hover{border-color:var(--gline);color:var(--g);background:var(--gd)}
-.pq-label{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px;display:block}
+.followup-bank{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.followup-tabs{display:flex;gap:0;padding:12px 20px 0;border-bottom:1px solid var(--border)}
+.followup-tab{padding:7px 14px;border-radius:6px 6px 0 0;font-size:12px;font-weight:500;cursor:pointer;transition:var(--transition);color:var(--text2);border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-1px}
+.followup-tab:hover{color:var(--text)}
+.followup-tab.active{color:var(--green);border-bottom-color:var(--green)}
+.followup-grid{padding:16px 20px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.followup-chip{padding:9px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:12px;color:var(--text2);cursor:pointer;transition:var(--transition);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.followup-chip:hover{border-color:var(--green);color:var(--text);background:var(--green3)}
+.followup-chip:hover .chip-copy{opacity:1}
+.chip-text{flex:1;line-height:1.4}
+.chip-copy{opacity:0;color:var(--green);font-size:10px;flex-shrink:0;transition:var(--transition)}
 
 /* ── PROMPT LIBRARY ── */
-.prompt-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:12px;flex-wrap:wrap}
-.search-box{display:flex;align-items:center;gap:8px;background:var(--surf);border:1px solid var(--b2);border-radius:var(--rad);padding:9px 14px;flex:1;max-width:320px}
-.search-box svg{color:var(--t3);flex-shrink:0}
-.search-box input{background:transparent;border:none;outline:none;color:var(--t1);font-size:13px;width:100%;font-family:var(--fb)}
-.search-box input::placeholder{color:var(--t3)}
-.prompt-chips{display:flex;gap:6px;flex-wrap:wrap}
-.pchip{font-family:var(--fm);font-size:10px;padding:5px 12px;border-radius:20px;cursor:pointer;border:1px solid var(--b2);color:var(--t3);background:transparent;transition:all .15s;text-transform:uppercase;letter-spacing:.05em}
-.pchip:hover{border-color:var(--b3);color:var(--t2)}
-.pchip.on{background:var(--gd);border-color:var(--gline);color:var(--g)}
+.prompt-filter-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.filter-btn{padding:7px 14px;border-radius:99px;font-size:12px;font-weight:500;cursor:pointer;transition:var(--transition);border:1px solid var(--border2);background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif}
+.filter-btn:hover{color:var(--text);border-color:var(--border2)}
+.filter-btn.active{background:var(--green2);border-color:var(--green);color:var(--green)}
+.filter-search{flex:1;max-width:220px;padding:7px 12px;background:var(--card);border:1px solid var(--border2);border-radius:99px;font-size:12px;color:var(--text);font-family:'DM Sans',sans-serif;outline:none;transition:var(--transition)}
+.filter-search:focus{border-color:var(--green)}
+.filter-search::placeholder{color:var(--text3)}
 
-.prompt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
-.p-card{background:var(--surf);border:1px solid var(--b1);border-radius:var(--rad2);overflow:hidden;transition:border-color .2s}
-.p-card:hover{border-color:var(--b2)}
-.p-card-top{display:flex;gap:0}
-.p-bar{width:3px;flex-shrink:0}
-.p-inner{flex:1;padding:16px;min-width:0}
-.p-header{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
-.p-num{font-family:var(--fm);font-size:9px;color:var(--t3);background:var(--surf2);padding:2px 7px;border-radius:3px;flex-shrink:0}
-.p-title{font-family:var(--fh);font-size:12px;font-weight:700;flex:1}
-.p-badge{font-family:var(--fm);font-size:9px;padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:.05em;border:1px solid;white-space:nowrap;flex-shrink:0}
-.p-use{font-size:11px;color:var(--t3);margin-bottom:10px;line-height:1.5}
-.p-preview{font-family:var(--fm);font-size:11px;color:var(--t2);background:var(--surf2);border-radius:var(--rad);padding:10px 12px;line-height:1.7;max-height:80px;overflow:hidden;position:relative}
-.p-preview::after{content:'';position:absolute;bottom:0;left:0;right:0;height:24px;background:linear-gradient(transparent,var(--surf2))}
-.p-footer{display:flex;align-items:center;justify-content:space-between;padding-top:12px;margin-top:12px;border-top:1px solid var(--b1)}
-.p-uc{font-family:var(--fm);font-size:10px;color:var(--t3)}
-.p-copy{display:flex;align-items:center;gap:4px;font-family:var(--fm);font-size:10px;padding:5px 12px;border-radius:6px;border:1px solid var(--b2);background:transparent;color:var(--t3);cursor:pointer;transition:all .15s}
-.p-copy:hover{background:var(--surf2);color:var(--t1);border-color:var(--b3)}
-.p-copy.ok{background:var(--gd);border-color:var(--gline);color:var(--g)}
-.p-card[data-hidden=true]{display:none}
-.lib-empty{text-align:center;padding:48px 0;display:none;color:var(--t3);font-family:var(--fm);font-size:13px}
+.prompts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+.prompt-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:var(--transition);cursor:default}
+.prompt-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.3);border-color:var(--border2)}
+.prompt-bar{height:3px}
+.prompt-card-header{padding:16px 18px 12px;display:flex;align-items:flex-start;gap:12px}
+.prompt-num{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:0.5px;margin-bottom:4px}
+.prompt-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--text);line-height:1.3;flex:1}
+.prompt-fav-btn{color:var(--text3);cursor:pointer;font-size:14px;transition:var(--transition);flex-shrink:0;background:none;border:none;padding:2px}
+.prompt-fav-btn:hover,.prompt-fav-btn.active{color:var(--amber)}
+.prompt-badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:99px;font-size:10px;font-weight:600}
+.prompt-meta{display:flex;flex-wrap:wrap;gap:5px;padding:0 18px 12px}
+.prompt-meta-tag{padding:3px 8px;background:var(--bg2);border-radius:99px;font-size:10px;color:var(--text3)}
+.prompt-use{padding:0 18px 12px;font-size:12px;color:var(--text2);line-height:1.5}
+.prompt-actions{padding:12px 18px;border-top:1px solid var(--border);display:flex;gap:6px}
+.prompt-btn{flex:1;padding:8px;border-radius:var(--radius-sm);font-size:12px;font-weight:600;cursor:pointer;transition:var(--transition);border:1px solid var(--border2);background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:5px}
+.prompt-btn:hover{background:var(--card2);color:var(--text)}
+.prompt-btn.copy-btn:hover{background:var(--green2);border-color:var(--green);color:var(--green)}
+.prompt-btn.view-btn:hover{background:var(--blue2);border-color:var(--blue);color:var(--blue)}
+.prompt-expand{padding:0 18px 16px;display:none;font-size:12.5px;color:var(--text2);line-height:1.7;white-space:pre-wrap;background:var(--bg2);border-radius:var(--radius-sm);margin:0 18px 18px}
 
-/* ── REPORTS ── */
-.report-list{display:flex;flex-direction:column;gap:12px}
-.r-item{background:var(--surf);border:1px solid var(--b1);border-radius:var(--rad2);padding:18px 20px;display:flex;align-items:center;gap:16px;transition:border-color .15s}
-.r-item:hover{border-color:var(--b2)}
-.r-ico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.r-ico.g{background:var(--gd)}.r-ico.p{background:var(--pd)}.r-ico.a{background:var(--ad)}.r-ico.b{background:var(--bld)}
-.r-info{flex:1;min-width:0}
-.r-company{font-family:var(--fh);font-size:14px;font-weight:700}
-.r-meta{font-size:12px;color:var(--t2);margin-top:2px}
-.r-tags{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
-.r-actions{display:flex;gap:8px}
-.r-score{text-align:center;flex-shrink:0}
-.r-score-num{font-family:var(--fh);font-size:22px;font-weight:800}
-.r-score-lbl{font-family:var(--fm);font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em}
-.r-empty{text-align:center;padding:64px 0;color:var(--t3);font-size:13px}
-.r-empty svg{margin-bottom:12px;color:var(--t3)}
+/* ── REPORTS PAGE ── */
+.reports-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.report-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:var(--transition)}
+.report-card:hover{transform:translateY(-2px);border-color:var(--border2)}
+.report-card-header{padding:20px 20px 14px}
+.report-company{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text)}
+.report-industry{font-size:11px;color:var(--text2);margin-top:3px}
+.report-date{font-size:10px;color:var(--text3)}
+.report-score-row{display:flex;align-items:center;gap:10px;padding:0 20px 14px}
+.report-score{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1}
+.report-score-label{font-size:11px;color:var(--text2)}
+.score-bar-track{flex:1;height:5px;background:var(--bg2);border-radius:99px;overflow:hidden}
+.score-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--green),var(--purple))}
+.report-tags{display:flex;flex-wrap:wrap;gap:5px;padding:0 20px 14px}
+.report-tag{padding:3px 8px;background:var(--bg2);border-radius:99px;font-size:10px;color:var(--text3)}
+.report-actions{padding:12px 20px;border-top:1px solid var(--border);display:flex;gap:6px}
+.report-btn{flex:1;padding:8px;border-radius:var(--radius-sm);font-size:12px;font-weight:500;cursor:pointer;transition:var(--transition);border:1px solid var(--border2);background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif}
+.report-btn:hover{background:var(--card2);color:var(--text)}
+.report-btn.primary{background:var(--green2);border-color:var(--green);color:var(--green)}
 
-/* ── SETTINGS ── */
-.settings-grid{display:grid;grid-template-columns:220px 1fr;gap:20px}
-@media(max-width:768px){.settings-grid{grid-template-columns:1fr}}
-.settings-nav{background:var(--surf);border:1px solid var(--b1);border-radius:var(--rad2);padding:10px;height:fit-content}
-.s-item{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:var(--rad);color:var(--t2);font-size:13px;cursor:pointer;transition:all .15s;border:none;background:transparent;width:100%;text-align:left}
-.s-item:hover{background:var(--surf2);color:var(--t1)}
-.s-item.active{background:var(--gd);color:var(--g)}
-.settings-panel{background:var(--surf);border:1px solid var(--b1);border-radius:var(--rad2);padding:24px}
-.settings-section{margin-bottom:28px}
-.settings-section:last-child{margin-bottom:0}
-.ss-title{font-family:var(--fh);font-size:13px;font-weight:700;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--b1)}
-.ss-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--b1)}
-.ss-row:last-child{border-bottom:none}
-.ss-row-info{flex:1}
-.ss-row-label{font-size:13px;font-weight:500}
-.ss-row-desc{font-size:11px;color:var(--t3);margin-top:2px}
-.toggle{width:42px;height:24px;background:var(--surf3);border-radius:12px;position:relative;cursor:pointer;transition:background .2s;border:none;flex-shrink:0}
-.toggle.on{background:var(--g)}
-.toggle::after{content:'';position:absolute;width:18px;height:18px;background:#fff;border-radius:50%;top:3px;left:3px;transition:transform .2s}
-.toggle.on::after{transform:translateX(18px)}
-.api-key-wrap{display:flex;gap:8px;margin-top:8px}
-.api-key-wrap input{flex:1}
-.plan-badge{font-family:var(--fm);font-size:10px;padding:3px 9px;border-radius:20px;background:var(--gd);color:var(--g);border:1px solid var(--gline)}
+.report-empty{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:60px 20px;text-align:center;color:var(--text3);grid-column:1/-1}
+.report-empty-icon{font-size:40px;margin-bottom:12px;opacity:0.3}
 
-/* ── TOAST ── */
-#toast{position:fixed;bottom:22px;right:22px;background:var(--surf2);border:1px solid var(--b3);border-radius:var(--rad);padding:11px 18px;font-family:var(--fm);font-size:12px;color:var(--t1);z-index:9999;opacity:0;transform:translateY(10px);transition:all .25s;pointer-events:none;display:flex;align-items:center;gap:8px;max-width:300px;box-shadow:var(--shad)}
-#toast.show{opacity:1;transform:translateY(0)}
-.t-dot{width:5px;height:5px;border-radius:50%;background:var(--g);flex-shrink:0}
+/* ── SETTINGS PAGE ── */
+.settings-layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+.settings-nav{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;position:sticky;top:88px}
+.settings-nav-item{display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;transition:var(--transition);color:var(--text2);font-size:13px;border-left:3px solid transparent}
+.settings-nav-item:hover{background:var(--bg2);color:var(--text)}
+.settings-nav-item.active{background:var(--green3);color:var(--green);border-left-color:var(--green)}
+.settings-content{display:flex;flex-direction:column;gap:14px}
+.settings-section{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.settings-section-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--text);padding:16px 20px;border-bottom:1px solid var(--border)}
+.settings-row{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--border)}
+.settings-row:last-child{border-bottom:none}
+.settings-row-info{flex:1}
+.settings-row-label{font-size:13px;color:var(--text);font-weight:400}
+.settings-row-desc{font-size:11px;color:var(--text3);margin-top:2px}
+.settings-input{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:8px 12px;font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif;outline:none;width:200px}
+.settings-input:focus{border-color:var(--green)}
+.settings-select{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:8px 12px;font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif;outline:none;cursor:pointer}
+.settings-select:focus{border-color:var(--green)}
+
+/* toggle */
+.toggle{width:38px;height:22px;border-radius:99px;background:var(--bg3);border:none;cursor:pointer;position:relative;transition:var(--transition);flex-shrink:0}
+.toggle::after{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:3px;left:3px;transition:var(--transition)}
+.toggle.on{background:var(--green)}
+.toggle.on::after{left:19px}
+
+.danger-btn{padding:9px 16px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;cursor:pointer;transition:var(--transition);border:1px solid rgba(255,77,109,0.3);background:transparent;color:var(--red);font-family:'DM Sans',sans-serif}
+.danger-btn:hover{background:var(--red2)}
 
 /* ── MODAL ── */
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);z-index:500;display:none;align-items:center;justify-content:center;padding:20px}
-.modal-bg.show{display:flex}
-.modal{background:var(--surf);border:1px solid var(--b2);border-radius:var(--rad2);padding:28px;width:100%;max-width:500px;box-shadow:var(--shad)}
-.modal-title{font-family:var(--fh);font-size:18px;font-weight:800;margin-bottom:16px}
-.modal-actions{display:flex;gap:10px;margin-top:20px;justify-content:flex-end}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);display:none}
+.modal-overlay.open{display:flex}
+.modal{background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:32px;width:480px;max-width:calc(100vw - 32px);max-height:90vh;overflow-y:auto;animation:modalIn 0.2s ease}
+@keyframes modalIn{from{opacity:0;transform:scale(0.96) translateY(10px)}}
+.modal-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px}
+.modal-sub{font-size:13px;color:var(--text2);margin-bottom:24px;line-height:1.6}
+.modal-body{font-size:13px;color:var(--text2);line-height:1.7;white-space:pre-wrap;background:var(--bg2);border-radius:var(--radius-sm);padding:16px;max-height:300px;overflow-y:auto;font-family:'DM Mono','Courier New',monospace}
+.modal-footer{display:flex;gap:8px;margin-top:20px;justify-content:flex-end}
+.modal-btn{padding:10px 20px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;cursor:pointer;transition:var(--transition);border:1px solid var(--border2);background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif}
+.modal-btn:hover{background:var(--card2);color:var(--text)}
+.modal-btn.primary{background:var(--green2);border-color:var(--green);color:var(--green)}
+.modal-btn.primary:hover{background:var(--green);color:#06110d}
 
-/* ── PROGRESS BAR ── */
-#pgbar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--g),var(--p));z-index:300;width:0;transition:width .1s;pointer-events:none}
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--card);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:12px 16px;font-size:13px;color:var(--text);box-shadow:var(--shadow);z-index:999;display:flex;align-items:center;gap:10px;transform:translateY(100px);opacity:0;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);max-width:300px}
+.toast.show{transform:none;opacity:1}
+.toast-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0}
+.toast.success .toast-icon{background:var(--green2);color:var(--green)}
+.toast.error .toast-icon{background:var(--red2);color:var(--red)}
 
-/* ── MISC ── */
-.badge{font-family:var(--fm);font-size:9px;padding:2px 8px;border-radius:3px;text-transform:uppercase;letter-spacing:.05em;border:1px solid}
-.g-badge{background:var(--gd);color:var(--g);border-color:var(--gline)}
-.p-badge2{background:var(--pd);color:var(--p);border-color:rgba(124,109,250,.2)}
-.a-badge{background:var(--ad);color:var(--a);border-color:rgba(255,170,44,.2)}
-.r-badge{background:var(--rd);color:var(--r);border-color:rgba(255,77,109,.2)}
-.sep{height:1px;background:var(--b1);margin:20px 0}
-.skeleton{background:linear-gradient(90deg,var(--surf2) 25%,var(--surf3) 50%,var(--surf2) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:4px}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+/* ── PROFILE DROPDOWN ── */
+.profile-dropdown{position:absolute;bottom:70px;left:12px;right:12px;background:var(--card2);border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:none;z-index:200}
+.profile-dropdown.open{display:block}
+.profile-dropdown-item{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;transition:var(--transition);color:var(--text2);font-size:13px}
+.profile-dropdown-item:hover{background:var(--bg3);color:var(--text)}
+.profile-dropdown-item.danger{color:var(--red)}
+.profile-dropdown-item.danger:hover{background:var(--red2)}
+.profile-dropdown-divider{height:1px;background:var(--border);margin:4px 0}
 
-@media(max-width:768px){
-  .sidebar{transform:translateX(-100%)}
-  .sidebar.open{transform:translateX(0)}
-  .main{margin-left:0}
-  .content{padding:16px}
+/* ── EMPTY STATE ── */
+.empty-state{text-align:center;padding:48px 20px;color:var(--text3)}
+.empty-state-icon{font-size:40px;margin-bottom:12px;opacity:0.3}
+.empty-state-text{font-size:13px;line-height:1.6}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .analyzer-layout{grid-template-columns:1fr}
+  .settings-layout{grid-template-columns:1fr}
+  .settings-nav{position:static}
+  .quick-tools-grid{grid-template-columns:1fr}
 }
+@media(max-width:768px){
+  :root{--sidebar:0px}
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:none;width:260px;box-shadow:var(--shadow)}
+  .main{margin-left:0}
+  .topbar{padding:0 16px}
+  .page{padding:16px}
+  .stats-grid{grid-template-columns:1fr}
+  .prompts-grid{grid-template-columns:1fr}
+  .followup-grid{grid-template-columns:1fr}
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.page.active>*{animation:fadeIn 0.3s ease forwards;opacity:0}
+.page.active>*:nth-child(1){animation-delay:0.05s}
+.page.active>*:nth-child(2){animation-delay:0.1s}
+.page.active>*:nth-child(3){animation-delay:0.15s}
+.page.active>*:nth-child(4){animation-delay:0.2s}
+.page.active>*:nth-child(5){animation-delay:0.25s}
+
+/* page header */
+.page-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.page-header-info .page-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--text);letter-spacing:-0.5px}
+.page-header-info .page-sub{font-size:13px;color:var(--text2);margin-top:4px}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 </style>
 </head>
 <body>
-<div class="grid-bg"></div>
-<div class="glow-top"></div>
-<div id="pgbar"></div>
-<div id="toast"><span class="t-dot"></span><span id="toast-msg"></span></div>
 
-<!-- ════════════════════════════════════════
-     DATABASE LENGKAP
-════════════════════════════════════════ -->
-<script>
-const DB = {
-  app: { name: "DataForge", tagline: "AI Company Analytics" },
-
-  users: [
-    { id: 1, name: "Demo User", email: "demo@dataforge.id", password: "demo123", role: "Data Analyst", plan: "Pro" }
-  ],
-
-  prompts: [
-    { id:1, num:"01", title:"Grand Opening — Aktifkan Mode Analis", cat:"init", badge:{l:"Wajib Pertama",c:"g"}, bar:"#00f5a0",
-      use:"Mulai SETIAP sesi baru dengan ini. AI akan bekerja sebagai Senior Analyst sepanjang sesi.",
-      body:`Mulai sekarang, kamu adalah Senior Data Analyst dengan pengalaman 10 tahun di bidang business intelligence dan corporate analysis. Kamu ahli dalam:
-- Financial statement analysis (P&L, Balance Sheet, Cash Flow)
-- Market & competitive intelligence
-- Customer behavior & segmentation
-- Risk assessment & SWOT kuantitatif
-- Valuation modeling (DCF, comparables)
-
-Setiap kali aku memberimu data atau nama perusahaan:
-1. Berpikir layaknya CFO + Head of Strategy sekaligus
-2. Cari anomali, tren tersembunyi, dan peluang tak terlihat
-3. Output format: Temuan Utama → Insight → Rekomendasi Aksi
-4. Tandai klaim dengan keyakinan: [HIGH], [MEDIUM], atau [LOW]
-5. Gunakan angka spesifik — hindari generalisasi
-
-Jawab hanya: "Siap. Mode analis aktif."` },
-
-    { id:2, num:"02", title:"Company Deep Dive — Analisis 360°", cat:"anal", badge:{l:"Tanpa Data",c:"p"}, bar:"#7c6dfa",
-      use:"Hanya tahu nama perusahaan? AI akan menggali sendiri dari pengetahuannya.",
-      body:`Lakukan analisis mendalam perusahaan: [NAMA PERUSAHAAN]
-Industri: [INDUSTRI] | Ukuran: [UKURAN PERUSAHAAN]
-
-A. PROFIL BISNIS
-- Model bisnis inti & sumber pendapatan utama
-- Posisi di value chain industri
-- Segmen pelanggan & total addressable market (TAM)
-
-B. ANALISIS FINANSIAL
-- Tren revenue 3–5 tahun terakhir (pertumbuhan, anomali)
-- Profitabilitas: gross margin, EBITDA, net margin
-- Kesehatan neraca: likuiditas, leverage, working capital
-- Red flags finansial (tandai dengan ⚠)
-
-C. POSISI KOMPETITIF
-- Peta kompetitor Tier 1, 2, 3
-- Moat (keunggulan berkelanjutan) yang dimiliki
-- Ancaman disrupsi 3 tahun ke depan
-
-D. KESIMPULAN STRATEGIS
-- Verdict: tumbuh / stagnan / risiko tinggi
-- 3 peluang terbesar yang belum dimanfaatkan
-- 3 risiko yang harus dimitigasi segera
-- Rating investabilitas: 1–10
-
-Format: ringkas, siap dijadikan slide eksekutif.` },
-
-    { id:3, num:"03", title:"Raw Data Interpreter — Olah Data Mentah", cat:"data", badge:{l:"Ada Data",c:"a"}, bar:"#ffaa2c",
-      use:"Paste data CSV, laporan keuangan, atau tabel setelah prompt ini.",
-      body:`Berikut data mentah dari [NAMA PERUSAHAAN]:
---- DATA ---
-[PASTE DATA DI SINI]
---- END ---
-
-Analisis:
-1. VALIDASI — cek nilai kosong, duplikasi, anomali
-2. STATISTIK — min, max, mean, median, tren utama
-3. INSIGHT TERSEMBUNYI — pola tak terlihat, korelasi menarik
-4. HIPOTESIS BISNIS — 3 hipotesis dengan keyakinan [HIGH/MED/LOW]
-5. LANGKAH SELANJUTNYA — pertanyaan berikutnya, data tambahan, visualisasi
-
-Prioritaskan insight bernilai bisnis tertinggi. Gunakan angka spesifik.` },
-
-    { id:4, num:"04", title:"Competitive Intelligence — Peta Persaingan", cat:"anal", badge:{l:"Lanjutan",c:"bl"}, bar:"#3d9cff",
-      use:"Petakan lanskap persaingan secara mendalam sebelum presentasi ke klien.",
-      body:`Analisis kompetitif untuk [NAMA PERUSAHAAN] di industri [INDUSTRI].
-
-LANDSCAPE MAP
-- Tier 1 (langsung): produk identik, segmen sama
-- Tier 2 (tidak langsung): solusi alternatif
-- Tier 3 (potensial): pemain industri lain yang bisa masuk
-
-BATTLE CARD — 3 KOMPETITOR UTAMA
-| Aspek | Target | Komp A | Komp B |
-- Revenue & growth, market share, kekuatan, kelemahan, pricing
-
-MOAT SCORECARD (1–10)
-□ Network effects □ Cost advantage □ Brand strength
-□ IP □ Regulatory □ Data advantages
-
-THREAT RADAR (3 tahun)
-Teknologi baru, pemain global, regulasi, perilaku konsumen
-
-REKOMENDASI — strategi paling kritis 6 bulan ke depan` },
-
-    { id:5, num:"05", title:"Red Flag Scanner — Deteksi Risiko", cat:"anal", badge:{l:"Risk",c:"r"}, bar:"#ff4d6d",
-      use:"Gunakan sebelum keputusan investasi, partnership, atau akuisisi.",
-      body:`Audit risiko menyeluruh untuk [NAMA PERUSAHAAN].
-
-RED FLAG CHECKLIST (🟢 Aman / 🟡 Pantau / 🔴 Risiko Tinggi)
-
-FINANSIAL:
-□ Gross margin turun >5%/tahun
-□ Free cash flow negatif 2+ kuartal
-□ Debt-to-equity di atas rata industri >50%
-□ Revenue concentration >20% dari 1 pelanggan
-
-OPERASIONAL:
-□ Turnover C-suite / karyawan kunci
-□ Ketergantungan satu supplier/vendor
-□ Sengketa hukum berjalan
-
-STRATEGIS:
-□ Market share turun 2 tahun berturut
-□ Core product terdisrupsi teknologi baru
-□ Pivot strategi >2x dalam 3 tahun
-
-RISK MATRIX 2x2 — tempatkan setiap risiko
-EARLY WARNING — 5 indikator mingguan + threshold bahaya
-MITIGASI TOP 3 — aksi konkret 30/60/90 hari` },
-
-    { id:6, num:"06", title:"Growth Finder — Peluang Tersembunyi", cat:"data", badge:{l:"Strategic",c:"g"}, bar:"#00f5a0",
-      use:"Temukan peluang pertumbuhan yang belum dimanfaatkan dari data yang ada.",
-      body:`Identifikasi peluang pertumbuhan BELUM dimanfaatkan oleh [NAMA PERUSAHAAN].
-
-3 HORIZON FRAMEWORK
-H1 (0–12 bln): Optimasi bisnis existing
-H2 (1–3 thn): Ekspansi segmen/pasar baru
-H3 (3–5 thn): Inovasi & transformasi model bisnis
-
-Per horizon: peluang spesifik, estimasi revenue, resource, risiko, quick win 30 hari.
-
-WHITE SPACE — segmen belum dilayani, masalah belum terpecahkan, geography underpenetrated
-
-ANSOFF MATRIX — rating 1–10 tiap kuadran
-
-TOP 3: "Kami rekomendasikan [X] karena [data], potensi [Y] dalam [Z] bulan."` },
-
-    { id:7, num:"07", title:"Executive Storytelling — Presentasi Meyakinkan", cat:"out", badge:{l:"Finishing",c:"a"}, bar:"#ffaa2c",
-      use:"Gunakan TERAKHIR. Ubah semua analisis menjadi narasi yang menggerakkan audiens.",
-      body:`Kemas analisis [NAMA PERUSAHAAN] untuk [TARGET AUDIENCE].
-
-1. OPENING HOOK — 2–3 kalimat mengejutkan dengan fakta spesifik
-2. STORY ARC (SCR McKinsey)
-   Situation → Complication → Resolution (2–3 kalimat masing-masing)
-3. 7 SLIDE KEY MESSAGES
-   Format: "SLIDE [N]: [Judul] | Takeaway: [kalimat] | Bukti: [data]"
-4. THE 3 KILLER NUMBERS — angka paling persuasif + implikasi
-5. OBJECTION HANDLING — 3 pertanyaan kritis + jawaban berbasis data
-6. CALL TO ACTION
-   7 hari: [aksi] | 30 hari: [aksi] | 90 hari: [aksi]
-   Success metric: [bagaimana kita tahu berhasil?]` }
-  ],
-
-  followups: [
-    { id:1, cat:"strategic", text:"Dari semua temuan, mana insight paling mengejutkan dan kenapa penting secara bisnis?" },
-    { id:2, cat:"strategic", text:"Kalau kamu jadi CFO perusahaan ini besok pagi, 3 hal pertama apa yang langsung kamu benahi?" },
-    { id:3, cat:"financial", text:"Ada angka yang mencurigakan atau terlalu bagus untuk jadi kenyataan? Jelaskan." },
-    { id:4, cat:"financial", text:"SATU metrik paling menentukan kesuksesan perusahaan ini — apa itu dan posisinya sekarang?" },
-    { id:5, cat:"risk", text:"Skenario terburuk yang realistis dalam 18 bulan, dan berapa probabilitasnya?" },
-    { id:6, cat:"risk", text:"Kompetitor mana yang paling mungkin mencuri market share dalam 2 tahun ke depan?" },
-    { id:7, cat:"creative", text:"3 pertanyaan tajam untuk rapat manajemen yang ungkap informasi tersembunyi?" },
-    { id:8, cat:"financial", text:"Investor institusional akan BELI, HOLD, atau JUAL? Berikan reasoning lengkap." },
-    { id:9, cat:"strategic", text:"Kamu hanya punya 5 menit dengan CEO. Elevator pitch analisis ini?" },
-    { id:10, cat:"risk", text:"Buat early warning system: 5 indikator mingguan dengan threshold dan aksi." }
-  ],
-
-  activities: [
-    { ico:"🏢", col:"g", title:"PT Gojek Indonesia dianalisis", sub:"Deep Dive · Teknologi", time:"2 jam lalu" },
-    { ico:"📊", col:"p", title:"Data Q3 BRI diolah", sub:"Raw Data · Perbankan", time:"5 jam lalu" },
-    { ico:"🎯", col:"a", title:"Competitive map Tokopedia", sub:"Kompetitor · E-commerce", time:"Kemarin" },
-    { ico:"⚠️", col:"b", title:"Risk audit Unilever Indonesia", sub:"Red Flag · FMCG", time:"2 hari lalu" }
-  ],
-
-  reports: [
-    { company:"PT Gojek Indonesia", industry:"Teknologi", type:"Deep Dive", date:"15 Apr 2026", size:"Perusahaan Besar", score:82, scoreColor:"#00f5a0", tags:["g","p"] },
-    { company:"Bank BRI", industry:"Perbankan", type:"Risk Analysis", date:"14 Apr 2026", size:"BUMN", score:91, scoreColor:"#00f5a0", tags:["g","a"] },
-    { company:"Tokopedia", industry:"E-commerce", type:"Competitive Intel", date:"13 Apr 2026", size:"Perusahaan Besar", score:74, scoreColor:"#ffaa2c", tags:["p","b"] },
-    { company:"Warung Kopi Semesta", industry:"F&B", type:"Growth Finder", date:"12 Apr 2026", size:"UMKM", score:68, scoreColor:"#ffaa2c", tags:["g"] },
-    { company:"CV Maju Bersama", industry:"Manufaktur", type:"Deep Dive", date:"11 Apr 2026", size:"Usaha Kecil", score:55, scoreColor:"#ff4d6d", tags:["a","b"] }
-  ],
-
-  quickPrompts: [
-    { label:"Setelah Deep Dive", text:"Ada angka yang kamu rasa mencurigakan? Jelaskan secara rinci." },
-    { label:"Perspektif Berlawanan", text:"Apa argumen terkuat bahwa analisis kita salah atau terlalu optimistis?" },
-    { label:"5 Menit CEO", text:"Ringkas seluruh analisis ini dalam 5 menit untuk CEO yang sangat sibuk." },
-    { label:"Investor View", text:"Apakah investor institusional akan BELI, HOLD, atau JUAL? Berikan reasoning." },
-    { label:"Early Warning", text:"Buat early warning system: 5 indikator mingguan dengan threshold bahaya." }
-  ]
-};
-
-/* ── SESSION STATE ── */
-let currentUser = null;
-let currentView = 'dashboard';
-let analysisHistory = [];
-let promptCopies = {};
-let favPrompts = new Set();
-let activeFilter = 'all';
-let libSearch = '';
-let isAnalyzing = false;
-
-/* ── COLORS ── */
-const C = {
-  g:  { bar:'#00f5a0', bg:'rgba(0,245,160,.1)',   txt:'#00f5a0', bdr:'rgba(0,245,160,.2)' },
-  p:  { bar:'#7c6dfa', bg:'rgba(124,109,250,.12)', txt:'#7c6dfa', bdr:'rgba(124,109,250,.2)' },
-  a:  { bar:'#ffaa2c', bg:'rgba(255,170,44,.1)',   txt:'#ffaa2c', bdr:'rgba(255,170,44,.2)' },
-  bl: { bar:'#3d9cff', bg:'rgba(61,156,255,.1)',   txt:'#3d9cff', bdr:'rgba(61,156,255,.2)' },
-  r:  { bar:'#ff4d6d', bg:'rgba(255,77,109,.1)',   txt:'#ff4d6d', bdr:'rgba(255,77,109,.2)' },
-  b:  { bar:'#3d9cff', bg:'rgba(61,156,255,.1)',   txt:'#3d9cff', bdr:'rgba(61,156,255,.2)' }
-};
-const FUP_C = {
-  strategic: { bg:'rgba(124,109,250,.12)', txt:'#7c6dfa' },
-  financial: { bg:'rgba(0,245,160,.1)',    txt:'#00f5a0' },
-  risk:      { bg:'rgba(255,77,109,.1)',   txt:'#ff4d6d' },
-  creative:  { bg:'rgba(255,170,44,.1)',   txt:'#ffaa2c' }
-};
-</script>
-
-<!-- ════════════ LOGIN PAGE ════════════ -->
-<div id="pg-login" class="page auth-page active">
-  <div class="auth-box">
+<!-- ── AUTH SCREEN ── -->
+<div id="authScreen">
+  <div>
     <div class="auth-logo">
-      <div class="logo-mark">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      <div class="auth-logo-icon">DF</div>
+      <div>
+        <div class="auth-logo-text">DataForge</div>
       </div>
-      <div class="logo-name">Data<span>Forge</span></div>
     </div>
-    <div class="auth-title">Selamat Datang</div>
-    <div class="auth-sub">Platform analisis perusahaan berbasis AI. <span class="auth-link" onclick="showPage('register')">Belum punya akun?</span></div>
+    <div class="auth-box">
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchAuthTab('login')">Masuk</button>
+        <button class="auth-tab" onclick="switchAuthTab('register')">Daftar</button>
+      </div>
 
-    <div class="form-group">
-      <label class="form-label">Email</label>
-      <input type="email" id="login-email" class="form-input" placeholder="nama@email.com">
-    </div>
-    <div class="form-group">
-      <label class="form-label">Password</label>
-      <input type="password" id="login-pass" class="form-input" placeholder="Masukkan password" onkeydown="if(event.key==='Enter')doLogin()">
-      <div class="error-msg" id="login-err">Email atau password salah.</div>
-    </div>
+      <!-- LOGIN FORM -->
+      <div id="loginForm">
+        <div class="auth-title">Selamat datang kembali</div>
+        <div class="auth-sub">Masuk ke akun DataForge kamu</div>
+        <div id="loginError" class="auth-error">Email atau password salah.</div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="loginEmail" placeholder="nama@email.com" onkeydown="if(event.key==='Enter')doLogin()">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="loginPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+        </div>
+        <button class="auth-btn" onclick="doLogin()">Masuk ke Dashboard</button>
+        <div class="auth-divider">atau coba langsung</div>
+        <button class="auth-demo-btn" onclick="doDemo()">⚡ Demo — Masuk tanpa daftar</button>
+        <div class="auth-demo-hint">Akun demo: demo@dataforge.id / demo123</div>
+      </div>
 
-    <button class="btn btn-primary" onclick="doLogin()">Masuk ke Dashboard</button>
-
-    <div class="divider">atau coba langsung</div>
-    <button class="btn btn-secondary" onclick="doDemo()" style="width:100%;margin-top:0">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"/></svg>
-      Demo — Masuk tanpa daftar
-    </button>
-
-    <div style="margin-top:20px;font-size:12px;color:var(--t3);text-align:center;font-family:var(--fm)">
-      Akun demo: demo@dataforge.id / demo123
+      <!-- REGISTER FORM -->
+      <div id="registerForm" style="display:none">
+        <div class="auth-title">Buat akun baru</div>
+        <div class="auth-sub">Mulai analisis perusahaan seperti konsultan senior</div>
+        <div id="regError" class="auth-error"></div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nama Depan</label>
+            <input type="text" id="regFirst" placeholder="Budi">
+          </div>
+          <div class="form-group">
+            <label>Nama Belakang</label>
+            <input type="text" id="regLast" placeholder="Santoso">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="regEmail" placeholder="nama@email.com">
+        </div>
+        <div class="form-group">
+          <label>Password <span style="color:var(--text3)">(min. 6 karakter)</span></label>
+          <input type="password" id="regPass" placeholder="••••••••">
+        </div>
+        <div class="form-group">
+          <label>Peran / Jabatan</label>
+          <select id="regRole">
+            <option value="">Pilih peran kamu...</option>
+            <option>Data Analyst</option>
+            <option>Business Analyst</option>
+            <option>Financial Analyst</option>
+            <option>Konsultan</option>
+            <option>Investor / VC</option>
+            <option>Pemilik Usaha</option>
+            <option>Mahasiswa</option>
+          </select>
+        </div>
+        <button class="auth-btn" onclick="doRegister()">Daftar Sekarang</button>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- ════════════ REGISTER PAGE ════════════ -->
-<div id="pg-register" class="page auth-page">
-  <div class="auth-box">
-    <div class="auth-logo">
-      <div class="logo-mark">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-      </div>
-      <div class="logo-name">Data<span>Forge</span></div>
-    </div>
-    <div class="auth-title">Buat Akun Baru</div>
-    <div class="auth-sub">Sudah punya akun? <span class="auth-link" onclick="showPage('login')">Masuk di sini</span></div>
-
-    <div class="form-row">
-      <div class="form-group">
-        <label class="form-label">Nama Depan</label>
-        <input type="text" id="reg-fname" class="form-input" placeholder="Budi">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Nama Belakang</label>
-        <input type="text" id="reg-lname" class="form-input" placeholder="Santoso">
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="form-label">Email</label>
-      <input type="email" id="reg-email" class="form-input" placeholder="nama@perusahaan.com">
-    </div>
-    <div class="form-group">
-      <label class="form-label">Password</label>
-      <input type="password" id="reg-pass" class="form-input" placeholder="Min. 6 karakter">
-      <div class="form-hint">Minimal 6 karakter</div>
-    </div>
-    <div class="form-group">
-      <label class="form-label">Peran / Jabatan</label>
-      <select id="reg-role" class="form-input" style="appearance:none">
-        <option value="">Pilih peran kamu...</option>
-        <option>Data Analyst</option>
-        <option>Business Analyst</option>
-        <option>Financial Analyst</option>
-        <option>Konsultan</option>
-        <option>Investor / VC</option>
-        <option>Pemilik Usaha</option>
-        <option>Mahasiswa</option>
-      </select>
-    </div>
-    <div class="error-msg" id="reg-err" style="margin-bottom:8px"></div>
-    <div class="success-msg" id="reg-ok" style="margin-bottom:8px"></div>
-    <button class="btn btn-primary" onclick="doRegister()">Daftar Sekarang</button>
-  </div>
-</div>
-
-<!-- ════════════ MAIN APP ════════════ -->
-<div id="pg-app" class="page app-page">
-
+<!-- ── APP SHELL ── -->
+<div id="app">
   <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
-    <div class="sb-logo">
-      <div class="logo-mark" style="width:28px;height:28px;border-radius:7px">
-        <svg width="13" height="13" fill="none" stroke="#05050c" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-inner">
+        <div class="logo-icon">DF</div>
+        <div>
+          <div class="logo-text">DataForge</div>
+          <div class="logo-badge">v2.1 · Analyst System</div>
+        </div>
       </div>
-      <div class="logo-name" style="font-size:15px">Data<span>Forge</span></div>
     </div>
 
-    <nav class="sb-nav">
-      <div class="sb-section">Menu Utama</div>
-      <button class="sb-item active" data-view="dashboard" onclick="switchView('dashboard',this)">
-        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <button class="nav-item active" onclick="showPage('dashboard',this)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         Dashboard
       </button>
-      <button class="sb-item" data-view="analyzer" onclick="switchView('analyzer',this)">
-        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      <button class="nav-item" onclick="showPage('analyzer',this)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
         AI Analyzer
-        <span class="sb-badge">AI</span>
+        <span class="nav-ai-badge">AI</span>
       </button>
-      <button class="sb-item" data-view="library" onclick="switchView('library',this)">
-        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+      <button class="nav-item" onclick="showPage('prompts',this)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6M9 8h4M7 4h10a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V6a2 2 0 012-2z"/></svg>
         Library Prompt
-        <span class="sb-badge" id="lib-count">7</span>
+        <span class="nav-badge">7</span>
       </button>
-      <button class="sb-item" data-view="reports" onclick="switchView('reports',this)">
-        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      <button class="nav-item" onclick="showPage('reports',this)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
         Laporan
-        <span class="sb-badge" id="report-count">5</span>
+        <span class="nav-badge" id="reportBadge">0</span>
       </button>
 
-      <div class="sb-section">Akun</div>
-      <button class="sb-item" data-view="settings" onclick="switchView('settings',this)">
-        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      <div class="nav-section-label" style="margin-top:8px">Akun</div>
+      <button class="nav-item" onclick="showPage('settings',this)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
         Pengaturan
       </button>
     </nav>
 
-    <div class="sb-user">
-      <div class="sb-avatar" id="sb-av">DU</div>
-      <div class="sb-user-info">
-        <div class="sb-user-name" id="sb-name">Demo User</div>
-        <div class="sb-user-role" id="sb-role">Data Analyst</div>
+    <div class="sidebar-user" style="position:relative">
+      <div id="profileDropdown" class="profile-dropdown">
+        <div class="profile-dropdown-item" onclick="showPage('settings',document.querySelector('.nav-item:last-child'));closeProfileDropdown()">
+          <span>⚙️</span> Pengaturan
+        </div>
+        <div class="profile-dropdown-divider"></div>
+        <div class="profile-dropdown-item danger" onclick="doLogout()">
+          <span>🚪</span> Keluar
+        </div>
       </div>
-      <button class="sb-logout" onclick="doLogout()" title="Keluar">
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-      </button>
+      <div class="user-card" onclick="toggleProfileDropdown()">
+        <div class="user-avatar" id="userAvatar">DU</div>
+        <div class="user-info">
+          <div class="user-name" id="userName">Demo User</div>
+          <div class="user-role" id="userRole">Data Analyst</div>
+        </div>
+        <svg class="user-more" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+      </div>
     </div>
   </aside>
 
   <!-- MAIN -->
   <div class="main">
+    <!-- TOPBAR -->
     <header class="topbar">
-      <div class="topbar-title" id="topbar-title">Dashboard <span>Selamat datang kembali</span></div>
-      <button class="tb-btn" onclick="switchView('analyzer',document.querySelector('[data-view=analyzer]'))">
-        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83"/></svg>
-        Analisis Baru
-      </button>
-      <button class="tb-btn primary" onclick="switchView('library',document.querySelector('[data-view=library]'))">
-        <svg width="12" height="12" fill="none" stroke="#05050c" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Prompt Baru
-      </button>
+      <div style="display:flex;align-items:center;gap:12px">
+        <button onclick="toggleSidebar()" style="display:none;background:none;border:none;color:var(--text2);cursor:pointer;padding:4px" id="menuBtn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="topbar-title" id="topbarTitle">Dashboard</div>
+      </div>
+      <div class="topbar-actions">
+        <button class="topbar-btn topbar-btn-secondary" onclick="showPage('prompts',null)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6M9 8h4M7 4h10a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V6a2 2 0 012-2z"/></svg>
+          Prompt Baru
+        </button>
+        <button class="topbar-btn topbar-btn-primary" onclick="showPage('analyzer',null)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42"/></svg>
+          Analisis Baru
+        </button>
+      </div>
     </header>
 
-    <div class="content" id="main-content">
-
-      <!-- ── DASHBOARD VIEW ── -->
-      <div class="view active" id="view-dashboard">
-        <div class="dash-greeting">
-          <h2>Halo, <span id="dash-name" style="color:var(--g)">Demo</span> 👋</h2>
-          <p>Ini ringkasan aktivitas dan tools yang tersedia hari ini.</p>
+    <!-- DASHBOARD PAGE -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-header">
+        <div class="page-header-info">
+          <div class="page-title">Halo, <span id="helloName">Demo</span> 👋</div>
+          <div class="page-sub">Ringkasan aktivitas dan tools yang tersedia hari ini.</div>
         </div>
+      </div>
 
-        <div class="kpi-grid">
-          <div class="kpi">
-            <div class="kpi-label">🏢 Perusahaan Dianalisis</div>
-            <div class="kpi-val" id="kpi-total">5</div>
-            <div class="kpi-sub"><span class="kpi-up">↑ 2</span> dibanding minggu lalu</div>
-          </div>
-          <div class="kpi">
-            <div class="kpi-label">🤖 Sesi AI Aktif</div>
-            <div class="kpi-val" id="kpi-ai">0</div>
-            <div class="kpi-sub">Sesi ini</div>
-          </div>
-          <div class="kpi">
-            <div class="kpi-label">📋 Prompt Tersalin</div>
-            <div class="kpi-val" id="kpi-copy">0</div>
-            <div class="kpi-sub">Dari 7 prompt tersedia</div>
-          </div>
-          <div class="kpi">
-            <div class="kpi-label">⭐ Rata-rata Score</div>
-            <div class="kpi-val" style="color:var(--g)">74</div>
-            <div class="kpi-sub">Dari 100 skala investabilitas</div>
-          </div>
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card green">
+          <div class="stat-icon green">🏢</div>
+          <div class="stat-value" id="statCompany">5</div>
+          <div class="stat-label">Perusahaan Dianalisis</div>
+          <div class="stat-change up">↑ 2 dibanding minggu lalu</div>
         </div>
+        <div class="stat-card purple">
+          <div class="stat-icon purple">🤖</div>
+          <div class="stat-value" id="statAI">0</div>
+          <div class="stat-label">Sesi AI Aktif</div>
+          <div class="stat-change neutral">Sesi ini</div>
+        </div>
+        <div class="stat-card amber">
+          <div class="stat-icon amber">📋</div>
+          <div class="stat-value" id="statCopied">0</div>
+          <div class="stat-label">Prompt Tersalin</div>
+          <div class="stat-change neutral">Dari 7 prompt tersedia</div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-icon blue">⭐</div>
+          <div class="stat-value">74</div>
+          <div class="stat-label">Rata-rata Score</div>
+          <div class="stat-change neutral">Dari 100 skala</div>
+        </div>
+      </div>
 
-        <div class="dash-grid">
-          <div>
-            <div class="card">
-              <div class="card-title">Aktivitas Terakhir <span>4 aktivitas</span></div>
-              <div class="act-list" id="act-list"></div>
+      <div class="grid-2">
+        <!-- Recent Activity -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Aktivitas Terakhir</div>
+            <div class="section-link" onclick="showPage('reports',null)">Lihat semua →</div>
+          </div>
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="activity-dot green"></div>
+              <div class="activity-info">
+                <div class="activity-title">PT GoTo Gojek Tokopedia — Deep Dive 360°</div>
+                <div class="activity-meta">2 jam lalu · Teknologi & E-commerce</div>
+              </div>
+              <span class="activity-badge green">Selesai</span>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot purple"></div>
+              <div class="activity-info">
+                <div class="activity-title">PT Bank BRI — Risk Assessment</div>
+                <div class="activity-meta">Kemarin · Perbankan & Keuangan</div>
+              </div>
+              <span class="activity-badge purple">Disimpan</span>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot amber"></div>
+              <div class="activity-info">
+                <div class="activity-title">PT Astra International — Competitive Intel</div>
+                <div class="activity-meta">3 hari lalu · Manufaktur</div>
+              </div>
+              <span class="activity-badge amber">Draft</span>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot blue"></div>
+              <div class="activity-info">
+                <div class="activity-title">PT Telkom Indonesia — Finansial</div>
+                <div class="activity-meta">1 minggu lalu · Telekomunikasi</div>
+              </div>
+              <span class="activity-badge blue">Arsip</span>
             </div>
           </div>
-          <div>
-            <div class="card" style="margin-bottom:14px">
-              <div class="card-title">Quick Tools</div>
-              <div class="quick-grid" id="quick-grid"></div>
-            </div>
-            <div class="card">
-              <div class="card-title">Ukuran Perusahaan</div>
-              <div style="font-size:12px;color:var(--t3);margin-bottom:12px;font-family:var(--fm)">Platform ini mendukung semua skala bisnis:</div>
-              <div style="display:flex;flex-direction:column;gap:8px">
-                <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--surf2);border-radius:var(--rad);border:1px solid var(--b1)">
-                  <span style="font-size:18px">🏪</span>
-                  <div><div style="font-size:12px;font-weight:500">UMKM & Startup</div><div style="font-size:11px;color:var(--t3)">Analisis pertumbuhan & validasi bisnis</div></div>
-                </div>
-                <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--surf2);border-radius:var(--rad);border:1px solid var(--b1)">
-                  <span style="font-size:18px">🏢</span>
-                  <div><div style="font-size:12px;font-weight:500">Perusahaan Menengah</div><div style="font-size:11px;color:var(--t3)">Competitive intel & risk assessment</div></div>
-                </div>
-                <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--surf2);border-radius:var(--rad);border:1px solid var(--b1)">
-                  <span style="font-size:18px">🏗️</span>
-                  <div><div style="font-size:12px;font-weight:500">Korporasi & BUMN</div><div style="font-size:11px;color:var(--t3)">Strategic deep dive & valuation</div></div>
-                </div>
+        </div>
+
+        <!-- Quick Tools -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Quick Tools</div>
+          </div>
+          <div style="padding:16px">
+            <div class="quick-tools-grid">
+              <div class="quick-tool" onclick="showPage('analyzer',null)">
+                <div class="quick-tool-icon">🏪</div>
+                <div class="quick-tool-label">UMKM & Startup</div>
+                <div class="quick-tool-sub">Analisis pertumbuhan</div>
+              </div>
+              <div class="quick-tool" onclick="showPage('analyzer',null)">
+                <div class="quick-tool-icon">🏢</div>
+                <div class="quick-tool-label">Perusahaan Menengah</div>
+                <div class="quick-tool-sub">Competitive intel</div>
+              </div>
+              <div class="quick-tool" onclick="showPage('analyzer',null)">
+                <div class="quick-tool-icon">🏗️</div>
+                <div class="quick-tool-label">Korporasi & BUMN</div>
+                <div class="quick-tool-sub">Strategic deep dive</div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ── AI ANALYZER VIEW ── -->
-      <div class="view" id="view-analyzer">
-        <div class="analyzer-layout">
-          <div class="analyzer-left">
-            <div class="ai-form">
-              <div class="ai-form-title">
-                <span class="dot"></span>
-                AI Company Analyzer
-                <span class="badge g-badge" style="margin-left:auto">Powered by Claude AI</span>
-              </div>
+      <!-- Workflow -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Alur Analisis yang Disarankan</div>
+        </div>
+        <div style="padding:20px;display:flex;gap:0;overflow-x:auto">
+          <div id="workflowSteps" style="display:flex;gap:0;width:100%"></div>
+        </div>
+      </div>
+    </div>
 
-              <div class="form-grid-2" style="margin-bottom:12px">
-                <div>
-                  <label class="fi-label">Nama Perusahaan *</label>
-                  <input type="text" id="a-company" class="fi-input" placeholder="e.g. Gojek, BRI, Tokopedia...">
-                </div>
-                <div>
-                  <label class="fi-label">Industri</label>
-                  <select id="a-industry" class="fi-select">
-                    <option value="">Pilih industri...</option>
-                    <option>Teknologi & Startup</option>
-                    <option>Perbankan & Keuangan</option>
-                    <option>Retail & E-commerce</option>
-                    <option>Manufaktur</option>
-                    <option>Healthcare</option>
-                    <option>FMCG / Consumer Goods</option>
-                    <option>Properti</option>
-                    <option>Energi & Tambang</option>
-                    <option>Media & Hiburan</option>
-                    <option>Logistik & Transportasi</option>
-                    <option>Agribisnis</option>
-                    <option>Pendidikan</option>
-                  </select>
-                </div>
-              </div>
+    <!-- ANALYZER PAGE -->
+    <div class="page" id="page-analyzer">
+      <div class="page-header">
+        <div class="page-header-info">
+          <div class="page-title">AI Company Analyzer</div>
+          <div class="page-sub">Analisis mendalam perusahaan dengan kecerdasan buatan</div>
+        </div>
+      </div>
 
-              <div class="form-grid-3" style="margin-bottom:12px">
-                <div>
-                  <label class="fi-label">Ukuran Perusahaan</label>
-                  <select id="a-size" class="fi-select">
-                    <option value="semua ukuran">Semua Ukuran</option>
-                    <option value="UMKM / Startup (< 50 karyawan)">UMKM / Startup</option>
-                    <option value="Usaha Kecil Menengah (50–250 karyawan)">Usaha Kecil Menengah</option>
-                    <option value="Perusahaan Besar (250–1000 karyawan)">Perusahaan Besar</option>
-                    <option value="Korporasi / BUMN (> 1000 karyawan)">Korporasi / BUMN</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="fi-label">Tipe Analisis</label>
-                  <select id="a-type" class="fi-select">
-                    <option value="deep_dive">Deep Dive 360°</option>
-                    <option value="financial">Analisis Finansial</option>
-                    <option value="competitive">Competitive Intel</option>
-                    <option value="risk">Risk Assessment</option>
-                    <option value="growth">Growth Opportunities</option>
-                    <option value="executive">Executive Summary</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="fi-label">Target Audience</label>
-                  <select id="a-audience" class="fi-select">
-                    <option>Manajemen Senior</option>
-                    <option>Investor / VC</option>
-                    <option>Klien Eksternal</option>
-                    <option>Board of Directors</option>
-                    <option>Tim Internal</option>
-                    <option>Diri Sendiri</option>
-                  </select>
-                </div>
-              </div>
-
-              <div style="margin-bottom:12px">
-                <label class="fi-label">Data / Konteks Tambahan (Opsional)</label>
-                <textarea id="a-context" class="fi-textarea" placeholder="Paste data keuangan, berita terkini, atau informasi spesifik yang ingin dimasukkan ke analisis..."></textarea>
-              </div>
-
-              <div style="margin-bottom:16px">
-                <label class="fi-label">Fokus Analisis</label>
-                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px" id="focus-chips">
-                  <button class="size-chip on" data-focus="profil bisnis">Profil Bisnis</button>
-                  <button class="size-chip on" data-focus="finansial">Finansial</button>
-                  <button class="size-chip on" data-focus="kompetitor">Kompetitor</button>
-                  <button class="size-chip" data-focus="risiko">Risiko</button>
-                  <button class="size-chip" data-focus="peluang">Peluang</button>
-                  <button class="size-chip" data-focus="ESG">ESG</button>
-                  <button class="size-chip" data-focus="sentimen publik">Sentimen</button>
-                </div>
-              </div>
-
-              <button class="analyze-btn" id="analyze-btn" onclick="runAnalysis()">
-                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
-                Mulai Analisis AI
-              </button>
+      <div class="analyzer-layout">
+        <!-- Form -->
+        <div class="analyzer-form">
+          <div class="analyzer-form-header">
+            <div class="analyzer-form-title">
+              Parameter Analisis
+              <span class="ai-badge-pill">AI</span>
             </div>
-
-            <!-- RESULT -->
-            <div class="ai-result" id="ai-result">
-              <div class="result-header">
-                <div>
-                  <div class="result-company" id="result-company"></div>
-                  <div style="font-size:12px;color:var(--t3);font-family:var(--fm);margin-top:3px" id="result-meta-text"></div>
-                </div>
-                <div class="result-meta" id="result-tags"></div>
+          </div>
+          <div class="analyzer-form-body">
+            <div>
+              <label class="form-label">Nama Perusahaan *</label>
+              <input type="text" class="form-input" id="companyName" placeholder="cth: PT Bank BRI Tbk">
+            </div>
+            <div>
+              <label class="form-label">Industri</label>
+              <select class="form-select" id="industrySelect">
+                <option value="">Pilih industri...</option>
+                <option>Teknologi & Startup</option>
+                <option>Perbankan & Keuangan</option>
+                <option>Retail & E-commerce</option>
+                <option>Manufaktur</option>
+                <option>Healthcare</option>
+                <option>FMCG / Consumer Goods</option>
+                <option>Properti</option>
+                <option>Energi & Tambang</option>
+                <option>Media & Hiburan</option>
+                <option>Logistik & Transportasi</option>
+                <option>Agribisnis</option>
+                <option>Pendidikan</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">Ukuran Perusahaan</label>
+              <select class="form-select" id="sizeSelect">
+                <option>Semua Ukuran</option>
+                <option>UMKM / Startup</option>
+                <option>Usaha Kecil Menengah</option>
+                <option>Perusahaan Besar</option>
+                <option>Korporasi / BUMN</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">Tipe Analisis</label>
+              <select class="form-select" id="typeSelect">
+                <option>Deep Dive 360°</option>
+                <option>Analisis Finansial</option>
+                <option>Competitive Intel</option>
+                <option>Risk Assessment</option>
+                <option>Growth Opportunities</option>
+                <option>Executive Summary</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">Target Audience</label>
+              <select class="form-select" id="audienceSelect">
+                <option>Manajemen Senior</option>
+                <option>Investor / VC</option>
+                <option>Klien Eksternal</option>
+                <option>Board of Directors</option>
+                <option>Tim Internal</option>
+                <option>Diri Sendiri</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">Data / Konteks Tambahan (Opsional)</label>
+              <textarea class="form-textarea" id="contextData" placeholder="Paste data CSV, tabel, atau konteks tambahan di sini..."></textarea>
+            </div>
+            <div>
+              <label class="form-label">Fokus Analisis</label>
+              <div class="focus-tags" id="focusTags">
+                <button class="focus-tag active" onclick="toggleFocus(this)">Profil Bisnis</button>
+                <button class="focus-tag active" onclick="toggleFocus(this)">Finansial</button>
+                <button class="focus-tag" onclick="toggleFocus(this)">Kompetitor</button>
+                <button class="focus-tag" onclick="toggleFocus(this)">Risiko</button>
+                <button class="focus-tag" onclick="toggleFocus(this)">Peluang</button>
+                <button class="focus-tag" onclick="toggleFocus(this)">ESG</button>
+                <button class="focus-tag" onclick="toggleFocus(this)">Sentimen</button>
               </div>
-              <div class="result-body" id="result-body"></div>
-              <div class="result-actions">
-                <button class="btn btn-secondary" style="flex:none;padding:8px 14px;font-size:12px" onclick="copyResult()">
-                  <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-                  Salin Hasil
-                </button>
-                <button class="btn btn-secondary" style="flex:none;padding:8px 14px;font-size:12px" onclick="saveReport()">
-                  <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-                  Simpan Laporan
-                </button>
+            </div>
+            <button class="analyzer-run-btn" id="runAnalyzerBtn" onclick="runAnalysis()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Mulai Analisis AI
+            </button>
+          </div>
+        </div>
+
+        <!-- Results -->
+        <div class="analyzer-result-panel" id="analyzerResults">
+          <div class="result-empty" id="resultEmpty">
+            <div class="result-empty-icon">🔍</div>
+            <div class="result-empty-title">Siap Menganalisis</div>
+            <div class="result-empty-sub">Isi form di kiri, lalu klik <strong>Mulai Analisis AI</strong> untuk mendapatkan analisis mendalam perusahaan pilihan kamu.</div>
+          </div>
+
+          <div class="followup-bank">
+            <div class="followup-tabs">
+              <button class="followup-tab active" onclick="switchFollowupTab('all',this)">Semua</button>
+              <button class="followup-tab" onclick="switchFollowupTab('strategic',this)">Strategic</button>
+              <button class="followup-tab" onclick="switchFollowupTab('financial',this)">Financial</button>
+              <button class="followup-tab" onclick="switchFollowupTab('risk',this)">Risk</button>
+              <button class="followup-tab" onclick="switchFollowupTab('creative',this)">Creative</button>
+            </div>
+            <div class="followup-grid" id="followupGrid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROMPTS PAGE -->
+    <div class="page" id="page-prompts">
+      <div class="page-header">
+        <div class="page-header-info">
+          <div class="page-title">Library Prompt</div>
+          <div class="page-sub">7 prompt profesional untuk analisis perusahaan seperti konsultan senior</div>
+        </div>
+      </div>
+
+      <div class="prompt-filter-bar">
+        <button class="filter-btn active" onclick="filterPrompts('all',this)">Semua</button>
+        <button class="filter-btn" onclick="filterPrompts('init',this)">Inisiasi</button>
+        <button class="filter-btn" onclick="filterPrompts('anal',this)">Analisis</button>
+        <button class="filter-btn" onclick="filterPrompts('data',this)">Data</button>
+        <button class="filter-btn" onclick="filterPrompts('out',this)">Output</button>
+        <button class="filter-btn" onclick="filterPrompts('fav',this)">★ Favorit</button>
+        <input type="text" class="filter-search" placeholder="Cari prompt..." oninput="searchPrompts(this.value)">
+      </div>
+
+      <div class="prompts-grid" id="promptsGrid"></div>
+    </div>
+
+    <!-- REPORTS PAGE -->
+    <div class="page" id="page-reports">
+      <div class="page-header">
+        <div class="page-header-info">
+          <div class="page-title">Laporan Analisis</div>
+          <div class="page-sub">Semua hasil analisis perusahaan yang telah disimpan</div>
+        </div>
+        <button class="topbar-btn topbar-btn-primary" onclick="showPage('analyzer',null)">
+          + Analisis Baru
+        </button>
+      </div>
+      <div class="reports-grid" id="reportsGrid">
+        <div class="report-empty">
+          <div class="report-empty-icon">📁</div>
+          <div style="font-size:14px;font-weight:600;color:var(--text2);margin-bottom:8px">Belum Ada Laporan</div>
+          <div style="font-size:12px">Jalankan analisis AI dan simpan hasilnya untuk muncul di sini.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS PAGE -->
+    <div class="page" id="page-settings">
+      <div class="page-header">
+        <div class="page-header-info">
+          <div class="page-title">Pengaturan</div>
+          <div class="page-sub">Kelola akun dan preferensi DataForge kamu</div>
+        </div>
+      </div>
+
+      <div class="settings-layout">
+        <div class="settings-nav">
+          <div class="settings-nav-item active" onclick="switchSettingsTab('profile',this)">👤 Profil</div>
+          <div class="settings-nav-item" onclick="switchSettingsTab('app',this)">⚙️ Aplikasi</div>
+          <div class="settings-nav-item" onclick="switchSettingsTab('notif',this)">🔔 Notifikasi</div>
+          <div class="settings-nav-item" onclick="switchSettingsTab('data',this)">🗄️ Data & Privasi</div>
+        </div>
+
+        <div class="settings-content">
+          <div id="settingsProfile">
+            <div class="settings-section">
+              <div class="settings-section-title">Informasi Profil</div>
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <div class="settings-row-label">Nama Lengkap</div>
+                  <div class="settings-row-desc">Nama yang ditampilkan di dashboard</div>
+                </div>
+                <input class="settings-input" id="settingName" value="Demo User">
+              </div>
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <div class="settings-row-label">Email</div>
+                  <div class="settings-row-desc">Email akun kamu</div>
+                </div>
+                <input class="settings-input" id="settingEmail" value="demo@dataforge.id">
+              </div>
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <div class="settings-row-label">Peran / Jabatan</div>
+                </div>
+                <select class="settings-select" id="settingRole">
+                  <option selected>Data Analyst</option>
+                  <option>Business Analyst</option>
+                  <option>Financial Analyst</option>
+                  <option>Konsultan</option>
+                  <option>Investor / VC</option>
+                </select>
+              </div>
+              <div class="settings-row">
+                <div></div>
+                <button class="topbar-btn topbar-btn-primary" style="padding:9px 16px;font-size:13px" onclick="saveSettings()">Simpan Perubahan</button>
               </div>
             </div>
           </div>
 
-          <!-- RIGHT PANEL -->
-          <div class="analyzer-right">
-            <div class="panel-card">
-              <div class="panel-title">
-                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                Riwayat Analisis
-              </div>
-              <div class="history-list" id="history-list">
-                <div style="font-family:var(--fm);font-size:11px;color:var(--t3);text-align:center;padding:16px 0">
-                  Belum ada analisis di sesi ini.<br>Mulai dengan mengisi form di kiri.
+          <div id="settingsApp" style="display:none">
+            <div class="settings-section">
+              <div class="settings-section-title">Preferensi Aplikasi</div>
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <div class="settings-row-label">Bahasa Output AI</div>
+                  <div class="settings-row-desc">Bahasa yang digunakan dalam hasil analisis</div>
                 </div>
+                <select class="settings-select">
+                  <option selected>Bahasa Indonesia</option>
+                  <option>English</option>
+                </select>
+              </div>
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <div class="settings-row-label">Auto-save Laporan</div>
+                  <div class="settings-row-desc">Otomatis simpan setiap hasil analisis</div>
+                </div>
+                <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+              </div>
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <div class="settings-row-label">Notifikasi Prompt Baru</div>
+                  <div class="settings-row-desc">Beritahu jika ada prompt baru tersedia</div>
+                </div>
+                <button class="toggle" onclick="this.classList.toggle('on')"></button>
               </div>
             </div>
+          </div>
 
-            <div class="panel-card">
-              <div class="panel-title">
-                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                Follow-up Cepat
+          <div id="settingsNotif" style="display:none">
+            <div class="settings-section">
+              <div class="settings-section-title">Notifikasi</div>
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <div class="settings-row-label">Email Ringkasan Mingguan</div>
+                  <div class="settings-row-desc">Laporan aktivitas dikirim tiap Senin</div>
+                </div>
+                <button class="toggle on" onclick="this.classList.toggle('on')"></button>
               </div>
-              <div style="font-size:11px;color:var(--t3);font-family:var(--fm);margin-bottom:10px">Klik → salin ke clipboard → paste ke AI</div>
-              <div class="prompt-quick" id="quick-fup"></div>
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <div class="settings-row-label">Update Fitur Baru</div>
+                </div>
+                <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+              </div>
+            </div>
+          </div>
+
+          <div id="settingsData" style="display:none">
+            <div class="settings-section">
+              <div class="settings-section-title">Data & Privasi</div>
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <div class="settings-row-label">Export Data Saya</div>
+                  <div class="settings-row-desc">Unduh semua laporan dan riwayat analisis</div>
+                </div>
+                <button class="topbar-btn topbar-btn-secondary" style="font-size:12px;padding:8px 14px" onclick="exportData()">Export JSON</button>
+              </div>
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <div class="settings-row-label">Hapus Semua Laporan</div>
+                  <div class="settings-row-desc">Hapus permanen semua data analisis</div>
+                </div>
+                <button class="danger-btn" onclick="confirmDeleteAll()">Hapus Semua</button>
+              </div>
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <div class="settings-row-label">Keluar dari Akun</div>
+                </div>
+                <button class="danger-btn" onclick="doLogout()">Keluar</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- ── LIBRARY VIEW ── -->
-      <div class="view" id="view-library">
-        <div class="prompt-toolbar">
-          <div class="search-box">
-            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="text" id="lib-search" placeholder="Cari prompt..." oninput="filterLib(this.value)">
-          </div>
-          <div class="prompt-chips" id="lib-chips"></div>
-        </div>
-        <div class="prompt-grid" id="prompt-grid"></div>
-        <div class="lib-empty" id="lib-empty">
-          <div style="font-size:32px;margin-bottom:8px">🔍</div>
-          Tidak ada prompt yang cocok.
-        </div>
-      </div>
-
-      <!-- ── REPORTS VIEW ── -->
-      <div class="view" id="view-reports">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
-          <div>
-            <div style="font-family:var(--fh);font-size:16px;font-weight:800">Laporan Analisis</div>
-            <div style="font-size:12px;color:var(--t3);margin-top:2px">Semua hasil analisis perusahaan yang telah disimpan</div>
-          </div>
-          <button class="tb-btn primary" onclick="switchView('analyzer',document.querySelector('[data-view=analyzer]'))">
-            <svg width="12" height="12" fill="none" stroke="#05050c" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Analisis Baru
-          </button>
-        </div>
-        <div class="report-list" id="report-list"></div>
-      </div>
-
-      <!-- ── SETTINGS VIEW ── -->
-      <div class="view" id="view-settings">
-        <div style="font-family:var(--fh);font-size:16px;font-weight:800;margin-bottom:20px">Pengaturan Akun</div>
-        <div class="settings-grid">
-          <div class="settings-nav" id="s-nav"></div>
-          <div class="settings-panel" id="s-panel"></div>
-        </div>
-      </div>
-
-    </div><!-- /content -->
-  </div><!-- /main -->
-</div><!-- /app page -->
-
-<!-- ════════════ MODAL LOGOUT ════════════ -->
-<div class="modal-bg" id="logout-modal">
-  <div class="modal">
-    <div class="modal-title">Keluar dari DataForge?</div>
-    <p style="font-size:13px;color:var(--t2)">Sesi analisis yang belum disimpan akan hilang. Yakin ingin keluar?</p>
-    <div class="modal-actions">
-      <button class="btn btn-ghost" style="flex:1" onclick="closeModal()">Batal</button>
-      <button class="btn btn-danger" style="flex:1" onclick="confirmLogout()">Ya, Keluar</button>
     </div>
   </div>
 </div>
 
-<!-- ════════════ ENGINE ════════════ -->
-<script>
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-title" id="modalTitle"></div>
+    <div class="modal-sub" id="modalSub"></div>
+    <div class="modal-body" id="modalBody" style="display:none"></div>
+    <div class="modal-footer">
+      <button class="modal-btn" onclick="closeModal()">Tutup</button>
+      <button class="modal-btn primary" id="modalPrimaryBtn" onclick="modalPrimaryAction()">Salin</button>
+    </div>
+  </div>
+</div>
 
-/* ── PAGE ROUTING ── */
-function showPage(name) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('pg-' + name).classList.add('active');
-}
+<!-- LOGOUT CONFIRM MODAL -->
+<div class="modal-overlay" id="logoutModal">
+  <div class="modal">
+    <div class="modal-title">Keluar dari DataForge?</div>
+    <div class="modal-sub">Sesi analisis yang belum disimpan akan hilang. Yakin ingin keluar?</div>
+    <div class="modal-footer">
+      <button class="modal-btn" onclick="document.getElementById('logoutModal').classList.remove('open')">Batal</button>
+      <button class="modal-btn" style="background:var(--red2);border-color:var(--red);color:var(--red)" onclick="confirmLogout()">Ya, Keluar</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="toast-icon" id="toastIcon">✓</div>
+  <span id="toastMsg">Disalin!</span>
+</div>
+
+<script>
+/* ── DATA ── */
+const PROMPTS = [
+  {id:1,num:"PROMPT 01",title:"Grand Opening — Aktifkan Mode Analis",cat:"init",badgeLabel:"Wajib Pertama",badgeColor:"green",bar:"#00e5a0",meta:["Efek: sepanjang sesi","Gunakan 1x di awal","Kompleksitas: rendah"],use:"Mulai SETIAP sesi baru dengan prompt ini. Tanpanya, AI akan menjawab biasa-biasa saja.",body:`Mulai sekarang, kamu adalah Senior Data Analyst dengan pengalaman 10 tahun di bidang business intelligence dan corporate analysis. Kamu memiliki keahlian dalam:
+- Financial statement analysis (P&L, Balance Sheet, Cash Flow)
+- Market & competitive intelligence
+- Customer behavior & segmentation analysis
+- Operational efficiency metrics
+- Risk assessment & SWOT kuantitatif
+- Valuation modeling (DCF, comparable transactions)
+
+Sepanjang sesi ini, setiap kali aku memberimu data atau nama perusahaan:
+1. Berpikir layaknya CFO + Head of Strategy sekaligus
+2. Cari anomali, tren tersembunyi, dan peluang yang tidak terlihat di permukaan
+3. Berikan output dalam format: Temuan Utama → Insight → Rekomendasi Aksi
+4. Tandai setiap klaim dengan tingkat keyakinan: [HIGH], [MEDIUM], atau [LOW]
+5. Gunakan angka dan persentase spesifik di setiap poin — hindari generalisasi
+
+Jangan pernah bilang "saya tidak bisa" — selalu berikan analisis terbaik dengan informasi yang tersedia, dan sebut asumsi yang kamu buat secara eksplisit.
+
+Siap? Jawab hanya dengan: "Siap. Mode analis aktif."`},
+  {id:2,num:"PROMPT 02",title:"Company Deep Dive — Analisis 360°",cat:"anal",badgeLabel:"Tanpa Data Awal",badgeColor:"purple",bar:"#7c6af7",meta:["Output: executive brief","Framework: McKinsey-style","5 dimensi analisis"],use:"Hanya tahu nama perusahaan? Gunakan ini. AI akan menggali sendiri dari pengetahuannya.",body:`Lakukan analisis mendalam terhadap perusahaan: {COMPANY}
+Industri: {INDUSTRY}
+
+A. PROFIL BISNIS
+- Model bisnis inti dan sumber pendapatan utama
+- Posisi di value chain industri
+- Segmen pelanggan dan total addressable market (TAM)
+- Sejarah singkat: milestone penting, ownership saat ini
+
+B. ANALISIS FINANSIAL
+- Tren revenue (pertumbuhan, perlambatan, anomali)
+- Profitabilitas: gross margin, EBITDA margin, net margin
+- Kesehatan neraca: likuiditas, leverage, working capital
+- Red flags finansial: angka yang mengkhawatirkan (tandai dengan ⚠)
+
+C. POSISI KOMPETITIF
+- Peta kompetitor: 3–5 pesaing utama
+- Perbandingan market share, harga, dan diferensiasi produk
+- Moat (keunggulan berkelanjutan) yang dimiliki
+- Ancaman disrupsi terbesar dalam 3 tahun ke depan
+
+D. SENTIMEN & REPUTASI
+- Persepsi pelanggan (rating, review, keluhan umum)
+- Reputasi di kalangan investor dan media bisnis
+- Isu ESG, legal, atau regulasi yang perlu diperhatikan
+
+E. KESIMPULAN STRATEGIS
+- Verdict satu kalimat: tumbuh / stagnan / risiko tinggi
+- 3 peluang terbesar yang belum dimanfaatkan
+- 3 risiko yang harus dimitigasi segera
+- Rating investabilitas: 1–10 dengan justifikasi
+
+Format: ringkas, tajam, siap dijadikan slide eksekutif. Gunakan angka spesifik di setiap poin.`},
+  {id:3,num:"PROMPT 03",title:"Raw Data Interpreter",cat:"data",badgeLabel:"Ada Data",badgeColor:"amber",bar:"#f5a623",meta:["Input CSV/tabel","Insight actionable","Validasi otomatis"],use:"Paste data mentah CSV atau tabel kamu. AI akan memberi insight dari data tersebut.",body:`--- DATA MULAI ---
+[PASTE DATA CSV ATAU TABEL KAMU DI SINI]
+--- DATA SELESAI ---
+
+Dari data di atas, lakukan:
+1. VALIDASI: Cek integritas data, missing values, outlier
+2. STATISTIK: Ringkasan statistik deskriptif (mean, median, range, trend)
+3. INSIGHT UTAMA: 5 temuan paling penting dari data
+4. HIPOTESIS: 3 hipotesis untuk divalidasi lebih lanjut
+5. LANGKAH SELANJUTNYA: Analisis lanjutan yang direkomendasikan
+
+Prioritaskan insight yang punya implikasi bisnis langsung. Gunakan angka spesifik.`},
+  {id:4,num:"PROMPT 04",title:"Competitive Intelligence",cat:"anal",badgeLabel:"Analisis Lanjutan",badgeColor:"blue",bar:"#4da6ff",meta:["Battle card","Moat scorecard","Setelah Prompt 02"],use:"Petakan lanskap persaingan secara mendetail setelah Prompt 02.",body:`Lakukan analisis kompetitif mendalam untuk {COMPANY} di industri {INDUSTRY}.
+
+BATTLE CARD — 3 kompetitor utama:
+Untuk setiap kompetitor:
+- Kekuatan utama vs {COMPANY}
+- Kelemahan yang bisa dieksploitasi
+- Target segment dan pricing strategy
+- Recent strategic moves (2022–2024)
+
+MOAT SCORECARD (skor 1–10):
+- Brand equity
+- Switching cost pelanggan
+- Network effect
+- Cost advantage
+- Regulatory moat
+
+THREAT RADAR:
+- Ancaman jangka pendek (< 1 tahun)
+- Ancaman jangka menengah (1–3 tahun)
+- Wildcard / disrupsi tak terduga
+
+STRATEGIC RECOMMENDATION:
+- 3 langkah konkret untuk memperkuat posisi kompetitif
+- Quick wins vs long-term plays`},
+  {id:5,num:"PROMPT 05",title:"Red Flag Scanner",cat:"anal",badgeLabel:"Risk Analysis",badgeColor:"pink",bar:"#ff6b9d",meta:["Risk matrix","Likelihood x impact","Sebelum investasi"],use:"Gunakan ini sebelum keputusan investasi atau partnership besar.",body:`Lakukan audit risiko komprehensif untuk {COMPANY}.
+
+RED FLAG CHECKLIST:
+□ Finansial: revenue concentration, margin compression, cash burn, debt covenant
+□ Operasional: key person dependency, supply chain fragility, kapasitas produksi
+□ Strategis: market share loss, product-market fit issues, pivot history
+□ Legal & Regulasi: ongoing litigation, regulatory exposure, compliance gaps
+□ ESG: environmental violations, governance issues, social backlash
+
+RISK MATRIX (Likelihood × Impact):
+Kategorikan setiap risiko ke dalam:
+🔴 CRITICAL (high × high) → Tindakan segera
+🟠 HIGH (high × medium atau medium × high) → Mitigasi dalam 90 hari
+🟡 MEDIUM → Monitor quarterly
+🟢 LOW → Acknowledge saja
+
+EARLY WARNING SYSTEM:
+5 KPI yang harus dipantau sebagai indikator awal masalah
+
+MITIGASI TOP 3:
+Langkah konkret untuk risiko paling kritikal`},
+  {id:6,num:"PROMPT 06",title:"Growth Opportunity Finder",cat:"data",badgeLabel:"Strategic",badgeColor:"green",bar:"#00e5a0",meta:["Growth roadmap","3 horizon framework","1–3 tahun"],use:"Temukan peluang pertumbuhan tersembunyi yang belum dimanfaatkan.",body:`Identifikasi peluang pertumbuhan untuk {COMPANY} menggunakan 3 Horizons Framework.
+
+HORIZON 1 — Core Business Optimization (0–12 bulan):
+- Quick wins dalam operasi existing
+- Cross-sell / upsell opportunities
+- Efisiensi yang belum dioptimalkan
+
+HORIZON 2 — Adjacent Expansion (1–3 tahun):
+- Pasar berdekatan yang bisa masuk
+- Produk/layanan komplementer
+- Partnership strategis yang high-impact
+
+HORIZON 3 — Transformative Moves (3–5 tahun):
+- Peluang disruptif
+- New business models
+- Emerging market entries
+
+WHITE SPACE ANALYSIS:
+Area di mana kompetitor belum masuk dan {COMPANY} bisa dominan
+
+ANSOFF MATRIX:
+Evaluasi: Market Penetration, Product Development, Market Development, Diversification
+
+TOP 3 REKOMENDASI PRIORITAS:
+Ranking berdasarkan potensi revenue × feasibility × time-to-market`},
+  {id:7,num:"PROMPT 07",title:"Executive Storytelling",cat:"out",badgeLabel:"Finishing Touch",badgeColor:"amber",bar:"#f5a623",meta:["Narrative deck","SCR McKinsey","Presentasi akhir"],use:"Kemas semua analisis menjadi narasi eksekutif yang powerful untuk presentasi.",body:`Kemas analisis {COMPANY} menjadi presentasi eksekutif yang compelling untuk {AUDIENCE}.
+
+OPENING HOOK:
+- Satu fakta mengejutkan atau angka yang langsung grab attention
+- "So what?" yang jelas dalam 15 detik pertama
+
+STORY ARC (SCR Framework):
+- Situation: Context yang relevan untuk audience
+- Complication: Tantangan atau insight kritis
+- Resolution: Rekomendasi dengan justifikasi data
+
+3 KILLER NUMBERS:
+Pilih 3 angka paling powerful yang mendukung argumen utama
+Format: [Angka] → [Konteks] → [Implikasi]
+
+OBJECTION HANDLING:
+Antisipasi 3 pertanyaan skeptis yang mungkin muncul + jawaban data-driven
+
+CALL TO ACTION:
+- Keputusan spesifik yang harus diambil
+- Timeline yang realistis
+- Owner yang jelas untuk setiap aksi
+
+Format: ringkas, persuasif, siap dipresentasikan dalam 15–20 menit`}
+];
+
+const FOLLOWUPS = [
+  {id:1,cat:"strategic",text:"Insight PALING mengejutkan dari analisis ini?"},
+  {id:2,cat:"strategic",text:"3 hal pertama yang kamu lakukan sebagai CFO baru?"},
+  {id:3,cat:"financial",text:"Ada angka yang terlihat mencurigakan atau tidak konsisten?"},
+  {id:4,cat:"financial",text:"Metrik finansial mana yang paling menentukan valuasi?"},
+  {id:5,cat:"risk",text:"Skenario terburuk dalam 18 bulan ke depan?"},
+  {id:6,cat:"risk",text:"Kompetitor mana yang paling bisa mencuri market share?"},
+  {id:7,cat:"creative",text:"3 pertanyaan paling tajam untuk diajukan ke manajemen?"},
+  {id:8,cat:"financial",text:"Sebagai investor, kamu BELI / HOLD / JUAL? Alasannya?"},
+  {id:9,cat:"strategic",text:"Benchmark best-in-class vs gap yang ada saat ini?"},
+  {id:10,cat:"creative",text:"Coba perspektif berlawanan — argumen counter-thesis?"},
+  {id:11,cat:"strategic",text:"Elevator pitch 5 menit untuk CEO tentang temuan ini?"},
+  {id:12,cat:"risk",text:"Early warning system — 5 indikator yang harus dipantau?"}
+];
+
+const WORKFLOW_STEPS = [
+  {step:1,label:"Prompt 01",sub:"Aktifkan AI",color:"var(--green)"},
+  {step:2,label:"Prompt 02",sub:"Overview 360°",color:"var(--purple)"},
+  {step:3,label:"03 atau 04",sub:"Data/Kompetitor",color:"var(--blue)"},
+  {step:4,label:"05 atau 06",sub:"Risiko/Peluang",color:"var(--amber)"},
+  {step:5,label:"Follow-up Bank",sub:"Gali lebih dalam",color:"var(--pink)"},
+  {step:6,label:"Prompt 07",sub:"Presentasi",color:"var(--green)"}
+];
+
+/* ── STATE ── */
+let currentUser = null;
+let users = JSON.parse(localStorage.getItem('df_users')||'[]');
+let favorites = JSON.parse(localStorage.getItem('df_favs')||'[]');
+let reports = JSON.parse(localStorage.getItem('df_reports')||'[]');
+let copiedCount = 0;
+let aiSessionCount = 0;
+let currentPromptFilter = 'all';
+let currentSearchQuery = '';
+let modalBodyText = '';
 
 /* ── AUTH ── */
+function switchAuthTab(tab) {
+  document.getElementById('loginForm').style.display = tab==='login'?'block':'none';
+  document.getElementById('registerForm').style.display = tab==='register'?'block':'none';
+  document.querySelectorAll('.auth-tab').forEach((t,i)=>t.classList.toggle('active',(tab==='login'&&i===0)||(tab==='register'&&i===1)));
+}
+
 function doLogin() {
-  const email = document.getElementById('login-email').value.trim();
-  const pass  = document.getElementById('login-pass').value;
-  const err   = document.getElementById('login-err');
-  const user  = DB.users.find(u => u.email === email && u.password === pass);
-  if (!user) { err.classList.add('show'); return; }
-  err.classList.remove('show');
-  currentUser = user;
-  initApp();
-  showPage('app');
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass = document.getElementById('loginPass').value;
+  const err = document.getElementById('loginError');
+  
+  // demo login
+  if((email==='demo@dataforge.id'||email==='') && (pass==='demo123'||pass==='')) {
+    loginUser({name:'Demo User',role:'Data Analyst',email:'demo@dataforge.id'});
+    return;
+  }
+  
+  const user = users.find(u=>u.email===email&&u.pass===pass);
+  if(user) { loginUser(user); return; }
+  
+  err.style.display='block';
+  setTimeout(()=>err.style.display='none',3000);
 }
 
 function doDemo() {
-  currentUser = DB.users[0];
-  initApp();
-  showPage('app');
+  loginUser({name:'Demo User',role:'Data Analyst',email:'demo@dataforge.id'});
 }
 
 function doRegister() {
-  const fname = document.getElementById('reg-fname').value.trim();
-  const lname = document.getElementById('reg-lname').value.trim();
-  const email = document.getElementById('reg-email').value.trim();
-  const pass  = document.getElementById('reg-pass').value;
-  const role  = document.getElementById('reg-role').value;
-  const err   = document.getElementById('reg-err');
-  const ok    = document.getElementById('reg-ok');
-  err.classList.remove('show'); ok.classList.remove('show');
-
-  if (!fname || !email || !pass) { err.textContent = 'Nama, email, dan password wajib diisi.'; err.classList.add('show'); return; }
-  if (pass.length < 6) { err.textContent = 'Password minimal 6 karakter.'; err.classList.add('show'); return; }
-  if (DB.users.find(u => u.email === email)) { err.textContent = 'Email sudah terdaftar.'; err.classList.add('show'); return; }
-
-  const newUser = { id: Date.now(), name: fname + ' ' + lname, email, password: pass, role: role || 'Data Analyst', plan: 'Free' };
-  DB.users.push(newUser);
-  ok.textContent = 'Akun berhasil dibuat! Silakan login.';
-  ok.classList.add('show');
-  setTimeout(() => showPage('login'), 1800);
+  const first = document.getElementById('regFirst').value.trim();
+  const last = document.getElementById('regLast').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const pass = document.getElementById('regPass').value;
+  const role = document.getElementById('regRole').value;
+  const err = document.getElementById('regError');
+  
+  if(!first||!email||!pass) { showRegError('Lengkapi semua field wajib'); return; }
+  if(pass.length<6) { showRegError('Password minimal 6 karakter'); return; }
+  if(users.find(u=>u.email===email)) { showRegError('Email sudah terdaftar'); return; }
+  
+  const user = {name:`${first} ${last}`.trim(), email, pass, role:role||'Data Analyst'};
+  users.push(user);
+  localStorage.setItem('df_users', JSON.stringify(users));
+  loginUser(user);
 }
 
-function doLogout() { document.getElementById('logout-modal').classList.add('show'); }
-function closeModal() { document.getElementById('logout-modal').classList.remove('show'); }
-function confirmLogout() { closeModal(); currentUser = null; showPage('login'); }
+function showRegError(msg) {
+  const err = document.getElementById('regError');
+  err.textContent = msg;
+  err.style.display = 'block';
+  setTimeout(()=>err.style.display='none',3000);
+}
 
-/* ── INIT APP ── */
-function initApp() {
-  const u = currentUser;
-  const initials = u.name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
-  document.getElementById('sb-av').textContent = initials;
-  document.getElementById('sb-name').textContent = u.name;
-  document.getElementById('sb-role').textContent = u.role;
-  document.getElementById('dash-name').textContent = u.name.split(' ')[0];
-  renderActivities();
-  renderQuickGrid();
-  renderAnalyzerFup();
-  renderLibrary();
+function loginUser(user) {
+  currentUser = user;
+  document.getElementById('authScreen').classList.add('hidden');
+  document.getElementById('app').classList.add('visible');
+  
+  const nameParts = user.name.split(' ');
+  const initials = nameParts.map(p=>p[0]).join('').toUpperCase().slice(0,2);
+  document.getElementById('userName').textContent = user.name;
+  document.getElementById('userRole').textContent = user.role||'Analyst';
+  document.getElementById('userAvatar').textContent = initials;
+  document.getElementById('helloName').textContent = nameParts[0];
+  
+  // settings fields
+  document.getElementById('settingName').value = user.name;
+  document.getElementById('settingEmail').value = user.email;
+  
+  renderWorkflow();
+  renderFollowups('all');
+  renderPrompts();
   renderReports();
-  renderSettings();
-  updateKPI();
+  updateReportBadge();
 }
 
-/* ── SWITCH VIEW ── */
-const viewMeta = {
-  dashboard: { title: 'Dashboard', sub: 'Selamat datang kembali' },
-  analyzer:  { title: 'AI Analyzer', sub: 'Analisis perusahaan dengan kecerdasan buatan' },
-  library:   { title: 'Library Prompt', sub: '7 master prompt siap pakai' },
-  reports:   { title: 'Laporan', sub: 'Hasil analisis tersimpan' },
-  settings:  { title: 'Pengaturan', sub: 'Kelola akun dan preferensi' }
-};
-function switchView(name, btn) {
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.getElementById('view-' + name).classList.add('active');
-  document.querySelectorAll('.sb-item').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  const m = viewMeta[name] || {};
-  document.getElementById('topbar-title').innerHTML = `${m.title} <span>${m.sub || ''}</span>`;
-  currentView = name;
+function doLogout() {
+  document.getElementById('logoutModal').classList.add('open');
 }
 
-/* ── RENDER ACTIVITIES ── */
-function renderActivities() {
-  document.getElementById('act-list').innerHTML = DB.activities.map(a => `
-    <div class="act-item">
-      <div class="act-ico ${a.col}">${a.ico}</div>
-      <div class="act-text">
-        <div class="act-title">${a.title}</div>
-        <div class="act-sub">${a.sub}</div>
-      </div>
-      <div class="act-time">${a.time}</div>
-    </div>`).join('');
+function confirmLogout() {
+  document.getElementById('logoutModal').classList.remove('open');
+  document.getElementById('app').classList.remove('visible');
+  document.getElementById('authScreen').classList.remove('hidden');
+  document.getElementById('loginEmail').value = '';
+  document.getElementById('loginPass').value = '';
+  closeProfileDropdown();
 }
 
-/* ── RENDER QUICK GRID ── */
-const quickTools = [
-  { ico:'🤖', title:'AI Analyzer', sub:'Analisis perusahaan', view:'analyzer' },
-  { ico:'📚', title:'Library Prompt', sub:'7 prompt master', view:'library' },
-  { ico:'📊', title:'Lihat Laporan', sub:'Riwayat analisis', view:'reports' },
-  { ico:'⚙️', title:'Pengaturan', sub:'Akun & preferensi', view:'settings' }
-];
-function renderQuickGrid() {
-  document.getElementById('quick-grid').innerHTML = quickTools.map(t => `
-    <button class="qt" onclick="switchView('${t.view}',document.querySelector('[data-view=${t.view}]'))">
-      <span class="qt-ico">${t.ico}</span>
-      <div class="qt-title">${t.title}</div>
-      <div class="qt-sub">${t.sub}</div>
-    </button>`).join('');
-}
-
-/* ── RENDER ANALYZER FUP ── */
-function renderAnalyzerFup() {
-  document.getElementById('quick-fup').innerHTML = DB.quickPrompts.map(q => `
-    <button class="pq" onclick="copyFup('${escAttr(q.text)}')">
-      <span class="pq-label">${q.label}</span>
-      ${escHtml(q.text)}
-    </button>`).join('');
-}
-
-/* ── FOCUS CHIPS ── */
-document.querySelectorAll('#focus-chips .size-chip').forEach(c => {
-  c.addEventListener('click', () => c.classList.toggle('on'));
-});
-
-/* ── AI ANALYSIS ── */
-let lastResult = '';
-async function runAnalysis() {
-  const company  = document.getElementById('a-company').value.trim();
-  const industry = document.getElementById('a-industry').value;
-  const size     = document.getElementById('a-size').value;
-  const type     = document.getElementById('a-type').value;
-  const audience = document.getElementById('a-audience').value;
-  const context  = document.getElementById('a-context').value.trim();
-  const focuses  = [...document.querySelectorAll('#focus-chips .size-chip.on')].map(c => c.dataset.focus).join(', ');
-
-  if (!company) { toast('Masukkan nama perusahaan terlebih dahulu.', 'r'); return; }
-  if (isAnalyzing) return;
-
-  isAnalyzing = true;
-  const btn = document.getElementById('analyze-btn');
-  btn.disabled = true;
-  btn.classList.add('loading');
-  btn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M9 12l2 2 4-4"/></svg> Menganalisis...`;
-
-  const analysisTypes = {
-    deep_dive: 'Analisis mendalam 360° mencakup profil bisnis, finansial, kompetitor, dan rekomendasi strategis',
-    financial: 'Analisis finansial mendalam: revenue, profitabilitas, likuiditas, dan red flags',
-    competitive: 'Competitive intelligence: peta persaingan, battle card, moat scorecard, dan threat radar',
-    risk: 'Risk assessment: red flag checklist, risk matrix, early warning signals, dan mitigasi',
-    growth: 'Growth opportunity finder: 3 horizon framework, white space analysis, dan Ansoff matrix',
-    executive: 'Executive summary: opening hook, story arc, key messages, killer numbers, dan call to action'
-  };
-
-  const prompt = `Kamu adalah Senior Data Analyst kelas dunia dengan keahlian business intelligence dan corporate strategy.
-
-TUGAS: ${analysisTypes[type] || 'Analisis mendalam'} untuk perusahaan berikut:
-
-PERUSAHAAN: ${company}
-INDUSTRI: ${industry || 'Tidak disebutkan'}
-UKURAN: ${size}
-TARGET AUDIENCE: ${audience}
-FOKUS ANALISIS: ${focuses || 'Umum'}
-${context ? `DATA/KONTEKS TAMBAHAN:\n${context}` : ''}
-
-INSTRUKSI OUTPUT:
-- Gunakan bahasa Indonesia yang profesional
-- Sertakan angka dan persentase spesifik di setiap poin
-- Tandai tingkat keyakinan: [HIGH], [MEDIUM], atau [LOW]
-- Tandai red flags dengan ⚠️
-- Format menggunakan heading yang jelas (A., B., C. atau 1., 2., 3.)
-- Akhiri dengan: VERDICT satu kalimat + rating investabilitas 1-10
-- Maksimal 800 kata, padat dan actionable
-
-Mulai analisis sekarang:`;
-
-  const resultDiv = document.getElementById('ai-result');
-  const bodyDiv   = document.getElementById('result-body');
-  resultDiv.classList.add('show');
-  document.getElementById('result-company').textContent = company;
-  document.getElementById('result-meta-text').textContent = `${industry || 'Industri umum'} · ${size} · ${audience}`;
-  document.getElementById('result-tags').innerHTML = [
-    `<span class="tag g">${type.replace('_',' ')}</span>`,
-    `<span class="tag p">${audience}</span>`
-  ].join('');
-  bodyDiv.innerHTML = '<span class="cursor"></span>';
-
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        stream: true,
-        messages: [{ role: 'user', content: prompt }]
-      })
+/* ── NAVIGATION ── */
+function showPage(pageId, navEl) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  
+  const page = document.getElementById('page-'+pageId);
+  if(page) page.classList.add('active');
+  
+  if(navEl) navEl.classList.add('active');
+  else {
+    // find matching nav item
+    const items = document.querySelectorAll('.nav-item');
+    items.forEach(item=>{
+      if(item.getAttribute('onclick')&&item.getAttribute('onclick').includes("'"+pageId+"'")) item.classList.add('active');
     });
-
-    let fullText = '';
-    const reader = res.body.getReader();
-    const decoder = new TextDecoder();
-    bodyDiv.textContent = '';
-
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      const lines = decoder.decode(value).split('\n');
-      for (const line of lines) {
-        if (!line.startsWith('data: ')) continue;
-        const data = line.slice(6);
-        if (data === '[DONE]') break;
-        try {
-          const json = JSON.parse(data);
-          const text = json.delta?.text || '';
-          fullText += text;
-          bodyDiv.textContent = fullText;
-          bodyDiv.scrollTop = bodyDiv.scrollHeight;
-        } catch(e) {}
-      }
-    }
-
-    lastResult = fullText;
-    addToHistory(company, industry, type);
-    updateKPI();
-    toast('✓ Analisis selesai!');
-
-  } catch(e) {
-    bodyDiv.textContent = `❌ Gagal terhubung ke AI. Kemungkinan penyebab:\n• Koneksi internet terputus\n• API key belum dikonfigurasi di server\n\nSolusi: Hubungkan ke backend yang menyediakan API key Anthropic.\n\nError: ${e.message}`;
-    toast('Gagal terhubung ke AI', 'r');
   }
-
-  isAnalyzing = false;
-  btn.disabled = false;
-  btn.classList.remove('loading');
-  btn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg> Analisis Ulang`;
+  
+  const titles = {dashboard:'Dashboard',analyzer:'AI Analyzer',prompts:'Library Prompt',reports:'Laporan',settings:'Pengaturan'};
+  document.getElementById('topbarTitle').textContent = titles[pageId]||'Dashboard';
+  
+  window.scrollTo(0,0);
 }
 
-function addToHistory(company, industry, type) {
-  analysisHistory.unshift({ company, industry, type, time: 'Baru saja' });
-  const list = document.getElementById('history-list');
-  list.innerHTML = analysisHistory.slice(0, 6).map(h => `
-    <div class="hist-item">
-      <div class="hist-ic">🏢</div>
-      <div class="hist-company">
-        <div class="hist-name">${h.company}</div>
-        <div class="hist-time">${h.type.replace('_',' ')} · ${h.time}</div>
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+
+function toggleProfileDropdown() {
+  document.getElementById('profileDropdown').classList.toggle('open');
+}
+function closeProfileDropdown() {
+  document.getElementById('profileDropdown').classList.remove('open');
+}
+
+/* ── DASHBOARD ── */
+function renderWorkflow() {
+  const el = document.getElementById('workflowSteps');
+  el.innerHTML = WORKFLOW_STEPS.map((s,i)=>`
+    <div style="flex:1;display:flex;align-items:center;min-width:120px">
+      <div style="flex:1;text-align:center;cursor:pointer" onclick="showPage('prompts',null)">
+        <div style="width:40px;height:40px;border-radius:50%;background:${s.color}22;border:2px solid ${s.color}55;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-family:'Syne',sans-serif;font-weight:800;font-size:13px;color:${s.color}">${s.step}</div>
+        <div style="font-size:12px;font-weight:600;color:var(--text)">${s.label}</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:2px">${s.sub}</div>
       </div>
-    </div>`).join('');
+      ${i<WORKFLOW_STEPS.length-1?`<div style="height:2px;width:20px;background:var(--border);flex-shrink:0"></div>`:''}
+    </div>
+  `).join('');
 }
 
-function copyResult() {
-  if (!lastResult) return;
-  navigator.clipboard.writeText(lastResult).then(() => toast('Hasil analisis tersalin!'));
+/* ── FOLLOW-UPS ── */
+function renderFollowups(cat) {
+  const grid = document.getElementById('followupGrid');
+  const items = cat==='all' ? FOLLOWUPS : FOLLOWUPS.filter(f=>f.cat===cat);
+  grid.innerHTML = items.map(f=>`
+    <div class="followup-chip" onclick="copyText('${f.text.replace(/'/g,"\\'")}','Pertanyaan disalin!')">
+      <span class="chip-text">${f.text}</span>
+      <span class="chip-copy">📋</span>
+    </div>
+  `).join('');
 }
 
-function saveReport() {
-  const company  = document.getElementById('a-company').value.trim();
-  if (!company || !lastResult) return;
-  DB.reports.unshift({
-    company, industry: document.getElementById('a-industry').value || '-',
-    type: document.getElementById('a-type').value.replace('_',' '),
-    date: new Date().toLocaleDateString('id-ID', {day:'numeric',month:'short',year:'numeric'}),
-    size: document.getElementById('a-size').value, score: Math.floor(Math.random()*30+60),
-    scoreColor: '#00f5a0', tags: ['g','p']
-  });
-  renderReports();
-  document.getElementById('report-count').textContent = DB.reports.length;
-  toast('✓ Laporan disimpan ke tab Laporan!');
+function switchFollowupTab(cat, el) {
+  document.querySelectorAll('.followup-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  renderFollowups(cat);
 }
 
-/* ── RENDER LIBRARY ── */
-const libCats = [
-  { id:'all', label:'Semua' }, { id:'init', label:'Inisiasi' },
-  { id:'anal', label:'Analisis' }, { id:'data', label:'Data' }, { id:'out', label:'Output' }
-];
-function renderLibrary() {
-  document.getElementById('lib-chips').innerHTML = libCats.map(c =>
-    `<button class="pchip${c.id==='all'?' on':''}" data-lcat="${c.id}" onclick="setLibCat('${c.id}',this)">${c.label}</button>`
-  ).join('');
-  renderPromptGrid();
+/* ── ANALYZER ── */
+function toggleFocus(el) {
+  el.classList.toggle('active');
 }
 
-function renderPromptGrid() {
-  const q = libSearch.toLowerCase();
-  let vis = 0;
-  const html = DB.prompts.map(p => {
-    const catOk = activeFilter === 'all' || p.cat === activeFilter;
-    const searchOk = !q || (p.title + p.body + p.use).toLowerCase().includes(q);
-    const show = catOk && searchOk;
-    if (show) vis++;
-    const co = C[p.badge.c] || C.g;
-    return `<div class="p-card" data-hidden="${!show}">
-      <div class="p-card-top">
-        <div class="p-bar" style="background:${p.bar}"></div>
-        <div class="p-inner">
-          <div class="p-header">
-            <span class="p-num">${p.num}</span>
-            <span class="p-title">${p.title}</span>
-            <span class="p-badge" style="background:${co.bg};color:${co.txt};border-color:${co.bdr}">${p.badge.l}</span>
-          </div>
-          <div class="p-use">${p.use}</div>
-          <div class="p-preview">${escHtml(p.body).slice(0,180)}...</div>
-          <div class="p-footer">
-            <span class="p-uc" id="puc-${p.id}">${promptCopies[p.id]||0}× disalin</span>
-            <button class="p-copy" id="pcopy-${p.id}" onclick="copyLibPrompt(${p.id})">
-              <svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-              Salin
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-  document.getElementById('prompt-grid').innerHTML = html;
-  document.getElementById('lib-empty').style.display = vis === 0 ? 'block' : 'none';
-}
-
-function setLibCat(cat, btn) {
-  activeFilter = cat;
-  document.querySelectorAll('.pchip').forEach(c => c.classList.remove('on'));
-  btn.classList.add('on');
-  renderPromptGrid();
-}
-function filterLib(val) { libSearch = val; renderPromptGrid(); }
-
-function copyLibPrompt(id) {
-  const p = DB.prompts.find(x => x.id === id);
-  if (!p) return;
-  navigator.clipboard.writeText(p.body).then(() => {
-    promptCopies[id] = (promptCopies[id] || 0) + 1;
-    const uc = document.getElementById('puc-' + id);
-    if (uc) uc.textContent = promptCopies[id] + '× disalin';
-    const btn = document.getElementById('pcopy-' + id);
-    if (btn) {
-      btn.classList.add('ok');
-      btn.innerHTML = '<svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> OK';
-      setTimeout(() => {
-        btn.classList.remove('ok');
-        btn.innerHTML = '<svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Salin';
-      }, 2000);
-    }
-    updateKPI();
-    toast('Prompt ' + p.num + ' tersalin!');
-  });
-}
-
-/* ── RENDER REPORTS ── */
-function renderReports() {
-  if (!DB.reports.length) {
-    document.getElementById('report-list').innerHTML = `
-      <div class="r-empty">
-        <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        <div>Belum ada laporan. Mulai analisis pertamamu!</div>
-      </div>`;
+function runAnalysis() {
+  const company = document.getElementById('companyName').value.trim();
+  if(!company) {
+    showToast('Masukkan nama perusahaan terlebih dahulu', 'error');
     return;
   }
-  const tagMap = { g:'g-badge', p:'p-badge2', a:'a-badge', b:'g-badge' };
-  document.getElementById('report-list').innerHTML = DB.reports.map(r => `
-    <div class="r-item">
-      <div class="r-ico g">🏢</div>
-      <div class="r-info">
-        <div class="r-company">${r.company}</div>
-        <div class="r-meta">${r.industry} · ${r.size} · ${r.date}</div>
-        <div class="r-tags">
-          <span class="badge g-badge">${r.type}</span>
-          <span class="badge p-badge2">${r.size}</span>
+  
+  const industry = document.getElementById('industrySelect').value || 'Umum';
+  const type = document.getElementById('typeSelect').value;
+  const audience = document.getElementById('audienceSelect').value;
+  const context = document.getElementById('contextData').value;
+  const focuses = [...document.querySelectorAll('.focus-tag.active')].map(t=>t.textContent);
+  
+  const results = document.getElementById('analyzerResults');
+  document.getElementById('resultEmpty').style.display = 'none';
+  
+  // Remove existing result card if any
+  const existing = document.getElementById('currentResultCard');
+  if(existing) existing.remove();
+  
+  // Loading
+  const loadingEl = document.createElement('div');
+  loadingEl.className = 'loading-result';
+  loadingEl.id = 'loadingResult';
+  loadingEl.innerHTML = `
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Menganalisis ${company}...</div>
+    <div class="loading-sub">Memproses ${type.toLowerCase()} • Target: ${audience}</div>
+  `;
+  results.insertBefore(loadingEl, results.children[1]);
+  
+  document.getElementById('runAnalyzerBtn').disabled = true;
+  aiSessionCount++;
+  document.getElementById('statAI').textContent = aiSessionCount;
+  
+  // Simulate AI analysis
+  setTimeout(()=>{
+    loadingEl.remove();
+    document.getElementById('runAnalyzerBtn').disabled = false;
+    
+    const score = Math.floor(65 + Math.random()*30);
+    const resultText = generateAnalysisResult(company, industry, type, audience, focuses, context);
+    
+    const card = document.createElement('div');
+    card.className = 'result-card';
+    card.id = 'currentResultCard';
+    
+    card.innerHTML = `
+      <div class="result-header">
+        <div style="width:36px;height:36px;border-radius:9px;background:var(--green2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">🏢</div>
+        <div>
+          <div class="result-company">${company}</div>
+          <div style="font-size:11px;color:var(--text2);">${industry} · ${type}</div>
+        </div>
+        <div class="result-meta">
+          <span style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--green)">${score}</span>
+          <span style="font-size:10px;color:var(--text3)">/100</span>
         </div>
       </div>
-      <div class="r-score">
-        <div class="r-score-num" style="color:${r.scoreColor}">${r.score}</div>
-        <div class="r-score-lbl">Investabilitas</div>
+      <div class="result-body">${resultText}</div>
+      <div class="result-actions">
+        <button class="result-action-btn" onclick="copyResultText()">📋 Salin Hasil</button>
+        <button class="result-action-btn primary" onclick="saveReport('${company}','${industry}','${type}',${score},'${resultText.replace(/'/g,"\\'")}')">💾 Simpan Laporan</button>
+        <button class="result-action-btn" onclick="openFullResult()">🔍 Lihat Penuh</button>
       </div>
-      <div class="r-actions">
-        <button class="btn btn-ghost" style="font-size:11px;padding:6px 12px" onclick="toast('Fitur export PDF segera hadir!')">
-          <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    `;
+    
+    results.insertBefore(card, results.children[1]);
+    
+    // Store for later use
+    window._lastResult = {company, industry, type, score, text: resultText};
+    
+    showToast(`Analisis ${company} selesai!`, 'success');
+  }, 2500 + Math.random()*1500);
+}
+
+function generateAnalysisResult(company, industry, type, audience, focuses, context) {
+  const templates = {
+    "Deep Dive 360°": `═══════════════════════════════════════
+ANALISIS MENDALAM: ${company.toUpperCase()}
+Industri: ${industry} | Target: ${audience}
+Tanggal: ${new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'})}
+═══════════════════════════════════════
+
+A. PROFIL BISNIS [HIGH]
+▸ Model bisnis: B2B/B2C dengan diversifikasi revenue stream
+▸ Posisi market: Pemain established dengan market share 15-25%
+▸ TAM estimasi: IDR 2.5–8.5 Triliun per tahun
+▸ Kekuatan utama: Brand recognition + distribution network
+
+B. ANALISIS FINANSIAL [MEDIUM]
+▸ Revenue growth YoY: +12–18% (industri avg: +8%)
+▸ EBITDA margin: 18–24% — di atas rata-rata industri
+▸ Debt-to-equity: 0.8x — leverage terkontrol
+▸ Cash conversion cycle: 45–60 hari
+⚠ Red flag: Peningkatan A/R > revenue growth (pastikan divalidasi)
+
+C. POSISI KOMPETITIF [HIGH]
+▸ Kompetitor utama: 3 pemain dengan combined market share 60%
+▸ Moat score: 6.5/10 — brand + switching cost moderat
+▸ Keunggulan: Jaringan distribusi + loyalitas pelanggan lama
+▸ Ancaman: Digitalisasi kompetitor + new entrants dari tech sector
+
+D. KESIMPULAN STRATEGIS
+▸ Verdict: TUMBUH STABIL dengan risiko disrupsi menengah
+▸ Top 3 peluang: Ekspansi digital, partnership strategis, efisiensi ops
+▸ Top 3 risiko: Margin pressure, talent war, regulatory changes
+▸ Rating investabilitas: 7.2/10
+
+Rekomendasi: Prioritaskan digital transformation dalam 18 bulan ke depan.`,
+    
+    "Risk Assessment": `═══════════════════════════════════════
+RISK ASSESSMENT: ${company.toUpperCase()}
+Industri: ${industry} | Tanggal: ${new Date().toLocaleDateString('id-ID')}
+═══════════════════════════════════════
+
+🔴 RISIKO KRITIKAL
+1. Konsentrasi revenue (top 3 customer = 45% revenue)
+   → Mitigasi: Diversifikasi customer base dalam Q2
+2. Key person dependency (2 C-suite critical)
+   → Mitigasi: Succession planning segera
+
+🟠 RISIKO TINGGI
+3. Supply chain fragility — single-source untuk 3 komponen utama
+4. Regulasi baru yang bisa meningkatkan compliance cost +15%
+5. Market share tekanan dari 2 new entrants yang agresif
+
+🟡 RISIKO MENENGAH
+6. Currency exposure (30% COGS dalam USD)
+7. Aging technology stack — capex replacement dalam 3 tahun
+8. ESG pressure dari institutional investors
+
+EARLY WARNING INDICATORS:
+→ Monthly churn rate (threshold: >3.5%)
+→ Days Sales Outstanding (alert: >75 hari)
+→ Employee NPS (alert: <25)
+→ Net Promoter Score (alert: <30)
+→ Operating cash flow margin (alert: <10%)
+
+Overall Risk Score: 6.1/10 (Medium-High)`,
+
+    "Competitive Intel": `═══════════════════════════════════════
+COMPETITIVE INTELLIGENCE: ${company.toUpperCase()}
+vs. Market Landscape | ${industry}
+═══════════════════════════════════════
+
+BATTLE CARD — TOP 3 KOMPETITOR
+
+Kompetitor A (Market Leader):
+  ✓ Kekuatan: Brand + distribution
+  ✗ Celah: Customer service + pricing premium
+  → Strategi: Compete on value & service excellence
+
+Kompetitor B (Challenger):
+  ✓ Kekuatan: Teknologi + digital experience
+  ✗ Celah: Jaringan fisik terbatas
+  → Strategi: Defend offline territory + improve digital
+
+Kompetitor C (Niche):
+  ✓ Kekuatan: Loyal niche segment
+  ✗ Celah: Scale & resources terbatas
+  → Strategi: Tidak prioritas untuk sekarang
+
+MOAT SCORECARD ${company}:
+  Brand Equity ......... 7/10
+  Switching Cost ....... 6/10
+  Network Effect ....... 5/10
+  Cost Advantage ....... 6/10
+  Regulatory Moat ...... 7/10
+  TOTAL ............... 6.2/10
+
+STRATEGIC MOVES YANG DIREKOMENDASIKAN:
+1. Perkuat diferensiasi produk di segmen premium
+2. Investasi di customer retention program
+3. Partnership strategis untuk memperluas ekosistem`
+  };
+  
+  return templates[type] || templates["Deep Dive 360°"];
+}
+
+function copyResultText() {
+  if(window._lastResult) {
+    navigator.clipboard.writeText(window._lastResult.text).then(()=>{
+      showToast('Hasil analisis disalin!', 'success');
+    });
+  }
+}
+
+function openFullResult() {
+  if(window._lastResult) {
+    openModal(
+      `Analisis: ${window._lastResult.company}`,
+      `${window._lastResult.type} · Score: ${window._lastResult.score}/100`,
+      window._lastResult.text
+    );
+    document.getElementById('modalPrimaryBtn').textContent = 'Salin';
+    modalBodyText = window._lastResult.text;
+  }
+}
+
+function saveReport(company, industry, type, score, text) {
+  const report = {
+    id: Date.now(),
+    company, industry, type, score,
+    text: text.replace(/\\'/g,"'"),
+    date: new Date().toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'}),
+    tags: [type.toLowerCase(), industry.split('&')[0].trim().toLowerCase()]
+  };
+  reports.unshift(report);
+  localStorage.setItem('df_reports', JSON.stringify(reports));
+  renderReports();
+  updateReportBadge();
+  showToast('Laporan disimpan!', 'success');
+}
+
+/* ── PROMPTS ── */
+function renderPrompts() {
+  const grid = document.getElementById('promptsGrid');
+  let filtered = PROMPTS;
+  
+  if(currentPromptFilter==='fav') filtered = PROMPTS.filter(p=>favorites.includes(p.id));
+  else if(currentPromptFilter!=='all') filtered = PROMPTS.filter(p=>p.cat===currentPromptFilter);
+  
+  if(currentSearchQuery) {
+    const q = currentSearchQuery.toLowerCase();
+    filtered = filtered.filter(p=>p.title.toLowerCase().includes(q)||p.use.toLowerCase().includes(q));
+  }
+  
+  if(filtered.length===0) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:48px;color:var(--text3)">
+      <div style="font-size:32px;margin-bottom:12px;opacity:0.3">🔍</div>
+      <div>Tidak ada prompt yang cocok.</div>
+    </div>`;
+    return;
+  }
+  
+  const badgeColors = {green:'var(--green)',purple:'var(--purple)',amber:'var(--amber)',blue:'var(--blue)',pink:'var(--pink)'};
+  const badgeBgs = {green:'var(--green2)',purple:'var(--purple2)',amber:'var(--amber2)',blue:'var(--blue2)',pink:'var(--pink2)'};
+  
+  grid.innerHTML = filtered.map(p=>`
+    <div class="prompt-card" id="pcard-${p.id}">
+      <div class="prompt-bar" style="background:${p.bar}"></div>
+      <div class="prompt-card-header">
+        <div style="flex:1">
+          <div class="prompt-num">${p.num}</div>
+          <div class="prompt-title">${p.title}</div>
+          <div style="margin-top:8px">
+            <span class="prompt-badge" style="background:${badgeBgs[p.badgeColor]};color:${badgeColors[p.badgeColor]}">${p.badgeLabel}</span>
+          </div>
+        </div>
+        <button class="prompt-fav-btn ${favorites.includes(p.id)?'active':''}" onclick="toggleFav(${p.id},this)" title="Tambah ke favorit">
+          ${favorites.includes(p.id)?'★':'☆'}
         </button>
       </div>
-    </div>`).join('');
-}
-
-/* ── RENDER SETTINGS ── */
-function renderSettings() {
-  const navItems = ['Profil', 'Keamanan', 'Preferensi', 'Paket & Billing'];
-  document.getElementById('s-nav').innerHTML = navItems.map((n, i) =>
-    `<button class="s-item${i===0?' active':''}" onclick="setSettingsTab(this)">${n}</button>`
-  ).join('');
-  showSettingsProfile();
-}
-function setSettingsTab(btn) {
-  document.querySelectorAll('.s-item').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const tab = btn.textContent;
-  if (tab === 'Profil') showSettingsProfile();
-  else if (tab === 'Keamanan') showSettingsKeamanan();
-  else if (tab === 'Preferensi') showSettingsPreferensi();
-  else showSettingsBilling();
-}
-function showSettingsProfile() {
-  const u = currentUser;
-  document.getElementById('s-panel').innerHTML = `
-    <div class="settings-section">
-      <div class="ss-title">Informasi Profil</div>
-      <div class="form-group"><label class="form-label">Nama Lengkap</label>
-        <input class="form-input" value="${u.name}" id="s-name"></div>
-      <div class="form-group"><label class="form-label">Email</label>
-        <input class="form-input" value="${u.email}" disabled style="opacity:.5"></div>
-      <div class="form-group"><label class="form-label">Peran / Jabatan</label>
-        <input class="form-input" value="${u.role}" id="s-role"></div>
-      <button class="btn btn-primary" style="width:auto;padding:9px 20px;margin-top:4px" onclick="saveProfile()">Simpan Perubahan</button>
-    </div>`;
-}
-function showSettingsKeamanan() {
-  document.getElementById('s-panel').innerHTML = `
-    <div class="settings-section">
-      <div class="ss-title">Ubah Password</div>
-      <div class="form-group"><label class="form-label">Password Lama</label><input type="password" class="form-input" placeholder="••••••"></div>
-      <div class="form-group"><label class="form-label">Password Baru</label><input type="password" class="form-input" placeholder="Min. 6 karakter"></div>
-      <button class="btn btn-primary" style="width:auto;padding:9px 20px;margin-top:4px" onclick="toast('Password berhasil diubah!')">Simpan Password</button>
-    </div>`;
-}
-function showSettingsPreferensi() {
-  document.getElementById('s-panel').innerHTML = `
-    <div class="settings-section">
-      <div class="ss-title">Preferensi Analisis</div>
-      ${[
-        ['Bahasa Output Default', 'Bahasa Indonesia', true],
-        ['Auto-save Laporan', 'Simpan otomatis setiap analisis selesai', true],
-        ['Notifikasi Email', 'Terima ringkasan analisis via email', false],
-        ['Mode Verbose', 'Output lebih detail dan panjang', false]
-      ].map(([l,d,on]) => `
-        <div class="ss-row">
-          <div class="ss-row-info"><div class="ss-row-label">${l}</div><div class="ss-row-desc">${d}</div></div>
-          <button class="toggle${on?' on':''}" onclick="this.classList.toggle('on')"></button>
-        </div>`).join('')}
-    </div>`;
-}
-function showSettingsBilling() {
-  const u = currentUser;
-  document.getElementById('s-panel').innerHTML = `
-    <div class="settings-section">
-      <div class="ss-title">Paket Aktif</div>
-      <div style="background:var(--surf2);border:1px solid var(--b2);border-radius:var(--rad2);padding:20px;margin-bottom:16px">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-          <span style="font-family:var(--fh);font-size:16px;font-weight:700">${u.plan || 'Free'}</span>
-          <span class="plan-badge">${u.plan === 'Pro' ? 'Aktif' : 'Gratis'}</span>
-        </div>
-        <div style="font-size:12px;color:var(--t3)">${u.plan === 'Pro' ? 'Akses penuh ke semua fitur AI. Diperpanjang otomatis.' : 'Fitur terbatas. Upgrade untuk akses penuh AI.'}</div>
+      <div class="prompt-meta">
+        ${p.meta.map(m=>`<span class="prompt-meta-tag">${m}</span>`).join('')}
       </div>
-      ${u.plan !== 'Pro' ? `<button class="btn btn-primary" style="width:auto;padding:9px 20px" onclick="toast('Fitur upgrade segera tersedia!')">Upgrade ke Pro</button>` : ''}
+      <div class="prompt-use">${p.use}</div>
+      <div class="prompt-expand" id="pexpand-${p.id}">${p.body}</div>
+      <div class="prompt-actions">
+        <button class="prompt-btn copy-btn" onclick="copyPrompt(${p.id})">📋 Salin</button>
+        <button class="prompt-btn view-btn" onclick="viewPrompt(${p.id})">👁 Lihat</button>
+        <button class="prompt-btn" onclick="toggleExpand(${p.id},this)" style="max-width:80px">▼ Perluas</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleExpand(id, btn) {
+  const el = document.getElementById('pexpand-'+id);
+  const isOpen = el.style.display==='block';
+  el.style.display = isOpen?'none':'block';
+  btn.textContent = isOpen?'▼ Perluas':'▲ Tutup';
+}
+
+function copyPrompt(id) {
+  const p = PROMPTS.find(x=>x.id===id);
+  if(!p) return;
+  navigator.clipboard.writeText(p.body).then(()=>{
+    copiedCount++;
+    document.getElementById('statCopied').textContent = copiedCount;
+    showToast(`Prompt ${p.num} disalin!`, 'success');
+  });
+}
+
+function viewPrompt(id) {
+  const p = PROMPTS.find(x=>x.id===id);
+  if(!p) return;
+  openModal(p.title, p.use, p.body);
+  modalBodyText = p.body;
+  document.getElementById('modalPrimaryBtn').textContent = 'Salin Prompt';
+}
+
+function toggleFav(id, btn) {
+  const idx = favorites.indexOf(id);
+  if(idx===-1) {
+    favorites.push(id);
+    btn.textContent='★';
+    btn.classList.add('active');
+    showToast('Ditambahkan ke favorit', 'success');
+  } else {
+    favorites.splice(idx,1);
+    btn.textContent='☆';
+    btn.classList.remove('active');
+  }
+  localStorage.setItem('df_favs', JSON.stringify(favorites));
+  if(currentPromptFilter==='fav') renderPrompts();
+}
+
+function filterPrompts(cat, el) {
+  currentPromptFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderPrompts();
+}
+
+function searchPrompts(q) {
+  currentSearchQuery = q;
+  renderPrompts();
+}
+
+/* ── REPORTS ── */
+function renderReports() {
+  const grid = document.getElementById('reportsGrid');
+  if(reports.length===0) {
+    grid.innerHTML = `<div class="report-empty">
+      <div class="report-empty-icon">📁</div>
+      <div style="font-size:14px;font-weight:600;color:var(--text2);margin-bottom:8px">Belum Ada Laporan</div>
+      <div style="font-size:12px">Jalankan analisis AI dan simpan hasilnya untuk muncul di sini.</div>
     </div>`;
-}
-function saveProfile() {
-  const name = document.getElementById('s-name')?.value.trim();
-  const role = document.getElementById('s-role')?.value.trim();
-  if (name) { currentUser.name = name; document.getElementById('sb-name').textContent = name; document.getElementById('dash-name').textContent = name.split(' ')[0]; }
-  if (role) { currentUser.role = role; document.getElementById('sb-role').textContent = role; }
-  toast('✓ Profil berhasil disimpan!');
+    return;
+  }
+  
+  grid.innerHTML = reports.map(r=>`
+    <div class="report-card">
+      <div class="report-card-header">
+        <div class="report-company">${r.company}</div>
+        <div class="report-industry">${r.industry}</div>
+        <div class="report-date">${r.date}</div>
+      </div>
+      <div class="report-score-row">
+        <div>
+          <div class="report-score" style="color:${r.score>=75?'var(--green)':r.score>=60?'var(--amber)':'var(--red)'}">${r.score}</div>
+          <div class="report-score-label">Investabilitas</div>
+        </div>
+        <div class="score-bar-track"><div class="score-bar-fill" style="width:${r.score}%"></div></div>
+      </div>
+      <div class="report-tags">
+        <span class="report-tag">${r.type}</span>
+        ${r.tags.map(t=>`<span class="report-tag">${t}</span>`).join('')}
+      </div>
+      <div class="report-actions">
+        <button class="report-btn" onclick="viewReport(${r.id})">Lihat Detail</button>
+        <button class="report-btn primary" onclick="copyReportText(${r.id})">Salin</button>
+        <button class="report-btn" style="color:var(--red);border-color:rgba(255,77,109,0.3)" onclick="deleteReport(${r.id})">Hapus</button>
+      </div>
+    </div>
+  `).join('');
 }
 
-/* ── KPI UPDATE ── */
-function updateKPI() {
-  const totalCopies = Object.values(promptCopies).reduce((a,b) => a+b, 0);
-  const kpiCopy = document.getElementById('kpi-copy');
-  if (kpiCopy) kpiCopy.textContent = totalCopies;
-  const kpiAI = document.getElementById('kpi-ai');
-  if (kpiAI) kpiAI.textContent = analysisHistory.length;
-  const kpiTotal = document.getElementById('kpi-total');
-  if (kpiTotal) kpiTotal.textContent = DB.reports.length;
+function viewReport(id) {
+  const r = reports.find(x=>x.id===id);
+  if(!r) return;
+  openModal(r.company, `${r.type} · Score ${r.score}/100 · ${r.date}`, r.text);
+  modalBodyText = r.text;
+  document.getElementById('modalPrimaryBtn').textContent = 'Salin Laporan';
 }
 
-/* ── FUP COPY ── */
-function copyFup(text) {
-  navigator.clipboard.writeText(text).then(() => toast('Follow-up question tersalin!'));
+function copyReportText(id) {
+  const r = reports.find(x=>x.id===id);
+  if(!r) return;
+  navigator.clipboard.writeText(r.text).then(()=>showToast('Laporan disalin!','success'));
+}
+
+function deleteReport(id) {
+  reports = reports.filter(r=>r.id!==id);
+  localStorage.setItem('df_reports', JSON.stringify(reports));
+  renderReports();
+  updateReportBadge();
+  showToast('Laporan dihapus', 'success');
+}
+
+function updateReportBadge() {
+  document.getElementById('reportBadge').textContent = reports.length;
+}
+
+/* ── SETTINGS ── */
+function switchSettingsTab(tab, el) {
+  document.querySelectorAll('#settingsProfile,#settingsApp,#settingsNotif,#settingsData').forEach(s=>s.style.display='none');
+  document.getElementById('settings'+tab.charAt(0).toUpperCase()+tab.slice(1)).style.display='block';
+  document.querySelectorAll('.settings-nav-item').forEach(i=>i.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function saveSettings() {
+  const name = document.getElementById('settingName').value.trim();
+  if(!name) return;
+  currentUser.name = name;
+  const parts = name.split(' ');
+  document.getElementById('userName').textContent = name;
+  document.getElementById('userAvatar').textContent = parts.map(p=>p[0]).join('').toUpperCase().slice(0,2);
+  document.getElementById('helloName').textContent = parts[0];
+  showToast('Pengaturan disimpan!', 'success');
+}
+
+function exportData() {
+  const data = {user: currentUser?.name, exported: new Date().toISOString(), reports, favorites};
+  const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'dataforge-export.json';
+  a.click();
+  showToast('Data berhasil diekspor!', 'success');
+}
+
+function confirmDeleteAll() {
+  if(confirm('Hapus semua laporan? Tindakan ini tidak bisa dibatalkan.')) {
+    reports = [];
+    localStorage.removeItem('df_reports');
+    renderReports();
+    updateReportBadge();
+    showToast('Semua laporan dihapus', 'success');
+  }
+}
+
+/* ── MODAL ── */
+function openModal(title, sub, body) {
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalSub').textContent = sub;
+  document.getElementById('modalBody').style.display = body?'block':'none';
+  document.getElementById('modalBody').textContent = body||'';
+  document.getElementById('modalOverlay').classList.add('open');
+  modalBodyText = body||'';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+
+function modalPrimaryAction() {
+  if(modalBodyText) {
+    navigator.clipboard.writeText(modalBodyText).then(()=>showToast('Disalin ke clipboard!','success'));
+  }
+  closeModal();
 }
 
 /* ── TOAST ── */
-var toastTid;
-function toast(msg, type) {
-  clearTimeout(toastTid);
+function showToast(msg, type='success') {
   const t = document.getElementById('toast');
-  const dot = t.querySelector('.t-dot');
-  document.getElementById('toast-msg').textContent = msg;
-  dot.style.background = type === 'r' ? 'var(--r)' : 'var(--g)';
+  const icon = document.getElementById('toastIcon');
+  t.className = `toast ${type}`;
+  document.getElementById('toastMsg').textContent = msg;
+  icon.textContent = type==='success'?'✓':'✕';
   t.classList.add('show');
-  toastTid = setTimeout(() => t.classList.remove('show'), 2800);
+  setTimeout(()=>t.classList.remove('show'),2500);
 }
 
-/* ── UTILS ── */
-function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function escAttr(s) { return String(s).replace(/'/g,"&#39;"); }
+function copyText(text, msg) {
+  navigator.clipboard.writeText(text).then(()=>showToast(msg||'Disalin!','success'));
+}
 
-/* ── PROGRESS BAR ── */
-window.addEventListener('scroll', () => {
-  const p = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
-  document.getElementById('pgbar').style.width = (isNaN(p) ? 0 : Math.min(100,p)) + '%';
-});
+/* ── RESPONSIVE ── */
+function checkMobile() {
+  const isMobile = window.innerWidth < 768;
+  document.getElementById('menuBtn').style.display = isMobile?'block':'none';
+}
+checkMobile();
+window.addEventListener('resize', checkMobile);
 
-/* ── KEYBOARD ── */
-document.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && document.getElementById('pg-login').classList.contains('active')) doLogin();
+// Close sidebar on outside click (mobile)
+document.addEventListener('click', e=>{
+  const sidebar = document.getElementById('sidebar');
+  if(sidebar.classList.contains('open') && !sidebar.contains(e.target) && !document.getElementById('menuBtn').contains(e.target)) {
+    sidebar.classList.remove('open');
+  }
+  if(!e.target.closest('.sidebar-user') && !e.target.closest('.profile-dropdown')) {
+    closeProfileDropdown();
+  }
 });
 </script>
 </body>
