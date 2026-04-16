@@ -1,0 +1,21 @@
+{
+  "name": "dataforge-api",
+  "version": "2.1.0",
+  "description": "DataForge Analyst Prompt System - Backend API Edition",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "keywords": ["prompt", "ai", "analysis", "pwa", "business-intelligence"],
+  "author": "BLACKBOXAI Assisted",
+  "license": "MIT"
+}

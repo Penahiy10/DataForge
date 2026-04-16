@@ -1,0 +1,146 @@
+{
+  "app": {
+    "name": "DataForge",
+    "version": "2.1",
+    "tagline": "Analyst Prompt System",
+    "description": "Toolkit lengkap AI untuk data analis. Prompts profesional + data sample Indonesia.",
+    "subtitle": "v2.1 - API Backend"
+  },
+  "prompts": [
+    {
+      "id": 1,
+      "num": "PROMPT 01",
+      "title": "Grand Opening - Aktifkan Mode Analis",
+      "category": "init",
+      "badge": {"label": "Wajib Pertama", "color": "g"},
+      "bar": "g",
+      "meta": ["Efek sepanjang sesi", "Gunakan 1x di awal", "Kompleksitas rendah"],
+      "use": "Mulai SETIAP sesi baru dengan prompt ini.",
+      "body": "Mulai sekarang kamu adalah Senior Data Analyst 10 tahun pengalaman. Keahlian: Financial analysis, Market intelligence, Risk assessment, Valuation modeling.\\n\\nSepanjang sesi: CFO + Head Strategy mindset. Output: Temuan -> Insight -> Aksi. Label [HIGH/MED/LOW]. Angka spesifik.\\n\\nSiap? Jawab: \\"Siap. Mode analis aktif.\\""
+    },
+    {
+      "id": 2,
+      "num": "PROMPT 02",
+      "title": "Company Deep Dive - Analisis 360",
+      "category": "anal",
+      "badge": {"label": "Tanpa Data Awal", "color": "p"},
+      "bar": "p",
+      "meta": ["Executive brief", "McKinsey framework", "5 dimensi"],
+      "use": "Hanya nama perusahaan? Gunakan ini.",
+      "body": "Analisis mendalam {COMPANY} industri {INDUSTRY}.\\nA. Profil bisnis B. Finansial C. Kompetitif D. Sentimen E. Kesimpulan strategis.\\nFormat ringkas siap slide. Angka spesifik."
+    },
+    {
+      "id": 3,
+      "num": "PROMPT 03",
+      "title": "Raw Data Interpreter",
+      "category": "data",
+      "badge": {"label": "Ada Data", "color": "a"},
+      "bar": "a",
+      "meta": ["Input CSV/tabel", "Insight actionable"],
+      "use": "Paste data mentah.",
+      "body": "--- DATA ---\\n[PASTE DATA]\\n--- END ---\\n1. Validasi 2. Statistik 3. Insight 4. Hipotesis 5. Langkah selanjutnya.\\nPrioritas insight bisnis. Angka spesifik."
+    },
+    {
+      "id": 4,
+      "num": "PROMPT 04",
+      "title": "Competitive Intelligence",
+      "category": "anal",
+      "badge": {"label": "Analisis Lanjutan", "color": "bl"},
+      "bar": "bl",
+      "meta": ["Battle card", "Setelah Prompt 02"],
+      "use": "Petakan persaingan.",
+      "body": "Analisis kompetitif {COMPANY} {INDUSTRY}. Battle card 3 kompetitor. Moat scorecard. Threat radar. Strategic recommendation."
+    },
+    {
+      "id": 5,
+      "num": "PROMPT 05",
+      "title": "Red Flag Scanner",
+      "category": "anal",
+      "badge": {"label": "Risk Analysis", "color": "pk"},
+      "bar": "pk",
+      "meta": ["Risk matrix", "Likelihood x impact"],
+      "use": "Sebelum investasi.",
+      "body": "Audit risiko {COMPANY}. Red flag checklist finansial/operasional/strategis. Risk matrix. Early warning. Mitigasi top 3."
+    },
+    {
+      "id": 6,
+      "num": "PROMPT 06",
+      "title": "Growth Opportunity Finder",
+      "category": "data",
+      "badge": {"label": "Strategic", "color": "g"},
+      "bar": "g",
+      "meta": ["Growth roadmap", "1-3 tahun"],
+      "use": "Peluang tersembunyi.",
+      "body": "Peluang growth {COMPANY}. 3 horizon. White space. Ansoff matrix. Top 3 rekomendasi."
+    },
+    {
+      "id": 7,
+      "num": "PROMPT 07",
+      "title": "Executive Storytelling",
+      "category": "out",
+      "badge": {"label": "Finishing Touch", "color": "a"},
+      "bar": "a",
+      "meta": ["Narrative deck", "SCR McKinsey"],
+      "use": "Presentasi akhir.",
+      "body": "Kemas analisis {COMPANY} untuk {AUDIENCE}. Opening hook. Story arc. 3 killer numbers. Objection handling. CTA timeline."
+    }
+  ],
+  "followups": [
+    {"id":1,"cat":"strategic","text":"Insight PALING mengejutkan?"},
+    {"id":2,"cat":"strategic","text":"3 hal pertama sebagai CFO?"},
+    {"id":3,"cat":"financial","text":"Angka mencurigakan?"},
+    {"id":4,"cat":"financial","text":"Metrik paling menentukan?"},
+    {"id":5,"cat":"risk","text":"Skenario terburuk 18 bulan?"},
+    {"id":6,"cat":"risk","text":"Kompetitor pencuri market share?"},
+    {"id":7,"cat":"creative","text":"3 pertanyaan tajam manajemen?"},
+    {"id":8,"cat":"financial","text":"Investor BELI/HOLD/JUAL?"},
+    {"id":9,"cat":"strategic","text":"Benchmark best-in-class gap?"},
+    {"id":10,"cat":"creative","text":"Perspektif berlawanan?"},
+    {"id":11,"cat":"strategic","text":"Elevator pitch 5 menit CEO?"},
+    {"id":12,"cat":"risk","text":"Early warning system 5 indikator?"}
+  ],
+  "tips": [
+    {"icon":"🎯","bg":"g","title":"Satu Sesi Satu Perusahaan","desc":"Jangan ganti topik. Tab baru per perusahaan."},
+    {"icon":"🔢","bg":"p","title":"Paksa Angka Spesifik","desc":"Tambah 'angka persentase spesifik' di akhir prompt."},
+    {"icon":"⚡","bg":"a","title":"Confidence Level","desc":"Label [HIGH/MED/LOW] setiap klaim."},
+    {"icon":"🪞","bg":"bl","title":"Devils Advocate","desc":"Perspektif berlawanan setelah analisis."},
+    {"icon":"📎","bg":"g","title":"Konteks Dulu","desc":"Paste semua data SEBELUM prompt."},
+    {"icon":"🔄","bg":"p","title":"Iterasi 5-7 Putaran","desc":"Follow-up bank setelah setiap jawaban."}
+  ],
+  "workflow": [
+    {"step":1,"label":"Prompt 01","sub":"Aktifkan AI","current":true},
+    {"step":2,"label":"Prompt 02","sub":"Overview 360°","current":false},
+    {"step":3,"label":"03 atau 04","sub":"Data/Kompetitor","current":false},
+    {"step":4,"label":"05 atau 06","sub":"Risiko/Peluang","current":false},
+    {"step":5,"label":"Follow-up Bank","sub":"Gali dalam","current":false},
+    {"step":6,"label":"Prompt 07","sub":"Presentasi","current":false}
+  ],
+  "howto": [
+    {"step":"01","title":"Buka BlackBox AI","desc":"Buka blackbox.ai. Sesi baru.","code":"blackbox.ai"},
+    {"step":"02","title":"Isi Builder","desc":"Nama perusahaan, industri, audience.","code":"Builder → Isi"},
+    {"step":"03","title":"Salin Prompt 01","desc":"Klik salin Prompt 01 → paste AI.","code":"Ctrl+C Paste"},
+    {"step":"04","title":"Ikuti Workflow","desc":"Prompt 02→04→05→Follow-up→07.","code":"Workflow →"}
+  ],
+  "categories": [
+    {"id":"all","label":"Semua"},
+    {"id":"init","label":"Inisiasi"},
+    {"id":"anal","label":"Analisis"},
+    {"id":"data","label":"Data"},
+    {"id":"out","label":"Output"},
+    {"id":"fav","label":"★ Favorit"}
+  ],
+  "fupCats": [
+    {"id":"all","label":"Semua"},
+    {"id":"strategic","label":"Strategic"},
+    {"id":"financial","label":"Financial"},
+    {"id":"risk","label":"Risk"},
+    {"id":"creative","label":"Creative"}
+  ],
+  "colors": {
+    "g": {"bar":"#3bffa0","bg":"rgba(59,255,160,.12)","txt":"#3bffa0","bdr":"rgba(59,255,160,.2)"},
+    "p": {"bar":"#8b7cf8","bg":"rgba(139,124,248,.12)","txt":"#8b7cf8","bdr":"rgba(139,124,248,.2)"},
+    "a": {"bar":"#f5a623","bg":"rgba(245,166,35,.12)","txt":"#f5a623","bdr":"rgba(245,166,35,.2)"},
+    "bl": {"bar":"#4da6ff","bg":"rgba(77,166,255,.12)","txt":"#4da6ff","bdr":"rgba(77,166,255,.2)"},
+    "pk": {"bar":"#ff6b9d","bg":"rgba(255,107,157,.12)","txt":"#ff6b9d","bdr":"rgba(255,107,157,.2)"}
+  }
+}

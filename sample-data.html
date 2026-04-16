@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sample Data</title>
+</head>
+<body>
+    <h1>Sample Data for DataForge</h1>
+    <pre id="data"></pre>
+    <script>
+        fetch('/data.json').then(r=>r.json()).then(data=> document.getElementById('data').textContent = JSON.stringify(data, null, 2));
+    </script>
+</body>
+</html>
