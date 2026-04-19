@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PenahiyAnalytics — Professional Analytics Platform</title>
+<title>PenahiyAnalytics — Platform Analitik Profesional</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800;900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -34,91 +34,50 @@ button,input,select,textarea{font-family:inherit}
 /* ── LOGO ── */
 .logo-mark{
   width:36px;height:36px;flex-shrink:0;border-radius:10px;
-  background:linear-gradient(135deg,#0a1628 0%,#0f2040 100%);
-  border:1.5px solid rgba(0,240,170,0.35);
+  background:conic-gradient(from 120deg,var(--g) 0deg,var(--v) 160deg,var(--g) 360deg);
   display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
-  box-shadow:0 0 14px rgba(0,240,170,0.18),inset 0 1px 0 rgba(0,240,170,0.1);
 }
-.logo-mark::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse at 30% 20%,rgba(0,240,170,0.12),transparent 60%);
-}
+.logo-mark::before{content:'';position:absolute;inset:2.5px;background:var(--bg2);border-radius:7.5px}
 .logo-mark svg{position:relative;z-index:1}
-.logo-text{font-family:'Cabinet Grotesk',sans-serif;font-weight:900;font-size:17px;letter-spacing:-0.5px;color:var(--ink)}
-.logo-text em{
-  background:linear-gradient(90deg,var(--g),#00d4ff);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  font-style:normal;
-}
+.logo-text{font-family:'Cabinet Grotesk',sans-serif;font-weight:900;font-size:17px;letter-spacing:-0.4px;color:var(--ink)}
+.logo-text em{color:var(--g);font-style:normal}
 .logo-text .dot{color:var(--v);font-style:normal}
 
 /* ── AUTH ── */
 #authScreen{
   position:fixed;inset:0;z-index:999;display:flex;align-items:center;justify-content:center;
   background:var(--bg);
-  background-image:
-    radial-gradient(ellipse 80% 60% at 15% 5%,rgba(0,240,170,0.07) 0,transparent 55%),
-    radial-gradient(ellipse 60% 50% at 88% 85%,rgba(155,135,245,0.09) 0,transparent 50%),
-    radial-gradient(ellipse 40% 40% at 50% 50%,rgba(56,189,248,0.04) 0,transparent 60%);
-}
-/* Animated grid background */
-#authScreen::before{
-  content:'';position:absolute;inset:0;
-  background-image:linear-gradient(rgba(0,240,170,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,240,170,0.04) 1px,transparent 1px);
-  background-size:50px 50px;
-  mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,black,transparent);
+  background-image:radial-gradient(ellipse 80% 60% at 15% 5%,rgba(0,240,170,0.06) 0,transparent 55%),
+    radial-gradient(ellipse 60% 50% at 88% 85%,rgba(155,135,245,0.07) 0,transparent 50%);
 }
 #authScreen.gone{display:none}
-.aw{width:440px;max-width:calc(100vw - 20px);position:relative;z-index:1}
-.a-logo{display:flex;justify-content:center;align-items:center;gap:13px;margin-bottom:24px}
-.a-logo .logo-mark{width:52px;height:52px;border-radius:15px;border-width:2px}
-.a-logo .logo-text{font-size:24px;letter-spacing:-0.6px}
-.a-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:99px;background:rgba(0,240,170,0.08);border:1px solid rgba(0,240,170,0.2);font-size:10px;font-weight:600;color:var(--g);margin-top:3px;letter-spacing:0.3px}
-.a-features{display:flex;gap:6px;justify-content:center;margin-bottom:22px;flex-wrap:wrap}
-.a-feat{display:flex;align-items:center;gap:4px;font-size:10.5px;color:var(--ink3)}
-.a-feat-dot{width:5px;height:5px;border-radius:50%}
-.a-card{
-  background:linear-gradient(160deg,var(--card) 0%,rgba(20,27,40,0.95) 100%);
-  border:1px solid var(--e2);border-radius:20px;padding:30px;
-  box-shadow:0 40px 100px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.02),inset 0 1px 0 rgba(255,255,255,0.05);
-  backdrop-filter:blur(20px);
-}
-.a-tabs{display:flex;background:var(--bg2);border-radius:var(--Rs);padding:3px;margin-bottom:24px;border:1px solid var(--e1)}
-.a-tab{flex:1;padding:9px;border:none;background:none;border-radius:6px;font-size:12.5px;font-weight:500;color:var(--ink2);cursor:pointer;transition:var(--T)}
-.a-tab.on{background:var(--card2);color:var(--ink);box-shadow:0 2px 10px rgba(0,0,0,0.4);font-weight:600}
-.a-title{font-family:'Cabinet Grotesk',sans-serif;font-size:19px;font-weight:800;color:var(--ink);margin-bottom:3px;letter-spacing:-0.3px}
-.a-sub{font-size:12px;color:var(--ink2);margin-bottom:20px;line-height:1.55}
-.fg{margin-bottom:13px;position:relative}
-.fg label{display:block;font-size:11px;font-weight:600;color:var(--ink2);margin-bottom:4px;letter-spacing:0.2px;text-transform:uppercase}
-.fg input,.fg select{width:100%;background:var(--bg2);border:1.5px solid var(--e1);border-radius:9px;padding:10px 13px;font-size:13px;color:var(--ink);outline:none;transition:var(--T)}
-.fg input:focus,.fg select:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(0,240,170,0.08);background:rgba(0,240,170,0.02)}
+.aw{width:420px;max-width:calc(100vw - 20px)}
+.a-logo{display:flex;justify-content:center;align-items:center;gap:11px;margin-bottom:28px}
+.a-logo .logo-mark{width:46px;height:46px;border-radius:13px}
+.a-logo .logo-mark::before{inset:2.5px;border-radius:10px}
+.a-logo .logo-text{font-size:22px}
+.a-card{background:var(--card);border:1px solid var(--e2);border-radius:18px;padding:32px;
+  box-shadow:0 32px 80px rgba(0,0,0,0.55),inset 0 1px 0 rgba(255,255,255,0.04)}
+.a-tabs{display:flex;background:var(--bg2);border-radius:var(--Rs);padding:3px;margin-bottom:24px}
+.a-tab{flex:1;padding:8px;border:none;background:none;border-radius:6px;font-size:12.5px;font-weight:500;color:var(--ink2);cursor:pointer;transition:var(--T)}
+.a-tab.on{background:var(--card2);color:var(--ink);box-shadow:0 2px 8px rgba(0,0,0,0.35)}
+.a-title{font-family:'Cabinet Grotesk',sans-serif;font-size:20px;font-weight:800;color:var(--ink);margin-bottom:3px;letter-spacing:-0.3px}
+.a-sub{font-size:12px;color:var(--ink2);margin-bottom:22px}
+.fg{margin-bottom:13px}
+.fg label{display:block;font-size:11px;font-weight:600;color:var(--ink2);margin-bottom:4px;letter-spacing:0.2px}
+.fg input,.fg select{width:100%;background:var(--bg2);border:1px solid var(--e2);border-radius:var(--Rs);padding:9px 12px;font-size:13px;color:var(--ink);outline:none;transition:var(--T)}
+.fg input:focus,.fg select:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(0,240,170,0.08)}
 .fg input::placeholder{color:var(--ink3)}
 .fg-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.a-err{background:var(--rd);border:1px solid rgba(251,113,133,0.25);border-radius:9px;padding:9px 13px;font-size:11.5px;color:var(--r);margin-bottom:11px;display:none;animation:shk 0.3s ease}
-@keyframes shk{0%,100%{transform:none}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
-.btn-p{width:100%;padding:12px;border:none;border-radius:9px;background:linear-gradient(135deg,var(--g) 0%,#00d4a0 50%,#00b8d4 100%);color:#011810;font-size:13.5px;font-weight:800;cursor:pointer;transition:var(--T);font-family:'Cabinet Grotesk',sans-serif;letter-spacing:-0.2px;position:relative;overflow:hidden}
-.btn-p::after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,0.1),transparent);border-radius:9px}
-.btn-p:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,240,170,0.35)}
+.a-err{background:var(--rd);border:1px solid rgba(251,113,133,0.25);border-radius:var(--Rs);padding:8px 12px;font-size:11.5px;color:var(--r);margin-bottom:11px;display:none}
+.btn-p{width:100%;padding:11px;border:none;border-radius:var(--Rs);background:linear-gradient(135deg,var(--g),#00cc8a);color:#021510;font-size:13px;font-weight:700;cursor:pointer;transition:var(--T);font-family:'Cabinet Grotesk',sans-serif}
+.btn-p:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(0,240,170,0.3)}
 .btn-p:active{transform:none}.btn-p:disabled{opacity:0.5;cursor:not-allowed;transform:none;box-shadow:none}
-.a-div{display:flex;align-items:center;gap:10px;margin:15px 0;font-size:11px;color:var(--ink3)}
+.a-div{display:flex;align-items:center;gap:10px;margin:14px 0;font-size:11px;color:var(--ink3)}
 .a-div::before,.a-div::after{content:'';flex:1;height:1px;background:var(--e1)}
-.btn-g{width:100%;padding:11px;border:1.5px solid var(--e1);border-radius:9px;background:rgba(255,255,255,0.02);color:var(--ink2);font-size:12.5px;cursor:pointer;transition:var(--T);font-weight:500;display:flex;align-items:center;justify-content:center;gap:7px}
-.btn-g:hover{background:var(--bg3);color:var(--ink);border-color:var(--e2)}
-.a-hint{text-align:center;font-size:10.5px;color:var(--ink3);margin-top:8px}
-.a-forgot{text-align:right;margin-top:-8px;margin-bottom:11px}
-.a-forgot a{font-size:11px;color:var(--g);cursor:pointer;text-decoration:none;opacity:0.8;transition:var(--T)}
-.a-forgot a:hover{opacity:1;text-decoration:underline;text-underline-offset:2px}
-/* Forgot password modal */
-.forgot-ov{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
-.forgot-ov.on{display:flex}
-.forgot-box{background:var(--card);border:1px solid var(--e2);border-radius:18px;padding:28px;width:380px;max-width:calc(100vw - 24px);box-shadow:0 40px 80px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.04)}
-.fp-title{font-family:'Cabinet Grotesk',sans-serif;font-size:17px;font-weight:800;color:var(--ink);margin-bottom:4px}
-.fp-sub{font-size:12px;color:var(--ink2);margin-bottom:18px;line-height:1.6}
-.fp-steps{display:flex;flex-direction:column;gap:9px;margin-bottom:18px}
-.fp-step{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:9px;border:1px solid var(--e1)}
-.fp-step-n{width:20px;height:20px;border-radius:50%;background:var(--gd);color:var(--g);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.fp-step-t{font-size:12px;color:var(--ink);font-weight:500}
-.fp-step-s{font-size:11px;color:var(--ink3);margin-top:2px;line-height:1.5}
+.btn-g{width:100%;padding:10px;border:1px solid var(--e2);border-radius:var(--Rs);background:transparent;color:var(--ink2);font-size:12.5px;cursor:pointer;transition:var(--T)}
+.btn-g:hover{background:var(--bg3);color:var(--ink)}
+.a-hint{text-align:center;font-size:11px;color:var(--ink3);margin-top:7px}
 
 /* ── APP ── */
 #app{display:none;min-height:100vh}#app.on{display:flex}
@@ -411,27 +370,6 @@ button,input,select,textarea{font-family:inherit}
 .toast.ok .t-ic{background:var(--gd);color:var(--g)}.toast.er .t-ic{background:var(--rd);color:var(--r)}
 
 /* ── RESPONSIVE ── */
-
-/* ── AI SELECTOR TABS ── */
-.ai-sel-tab{padding:7px 14px;border-radius:var(--Rs);border:1.5px solid var(--e1);background:var(--bg2);color:var(--ink2);font-size:12px;font-weight:500;cursor:pointer;transition:var(--T);font-family:inherit}
-.ai-sel-tab:hover{border-color:var(--e2);color:var(--ink)}
-.ai-sel-tab.on{background:var(--gd);border-color:rgba(0,240,170,0.4);color:var(--g);font-weight:600}
-
-/* ── PORTER'S 5 FORCES ── */
-.pf5-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-.pf5-center{grid-column:1/-1;background:linear-gradient(135deg,var(--gdd),rgba(155,135,245,0.06));border:1px solid rgba(0,240,170,0.2);border-radius:var(--R);padding:16px;text-align:center}
-.pf5-box{background:var(--card);border:1px solid var(--e1);border-radius:var(--R);padding:14px;overflow:hidden}
-.pf5-label{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
-.pf5-title{font-family:'Cabinet Grotesk',sans-serif;font-size:13px;font-weight:800;color:var(--ink);margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.pf5-score{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:99px;font-size:10.5px;font-weight:700;margin-left:auto}
-.pf5-content{font-size:11.5px;color:var(--ink2);line-height:1.7}
-/* ── BUSINESS CANVAS ── */
-.bmc-block{background:var(--card);border:1px solid var(--e1);border-radius:var(--R);padding:14px;min-height:120px}
-.bmc-title{font-family:'Cabinet Grotesk',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.bmc-items{display:flex;flex-direction:column;gap:4px}
-.bmc-item{font-size:11.5px;color:var(--ink2);line-height:1.5;padding:4px 0;border-bottom:1px solid var(--e1)}
-.bmc-item:last-child{border-bottom:none}
-
 @media(max-width:1100px){.g4{grid-template-columns:1fr 1fr}.az-l{grid-template-columns:1fr}}
 @media(max-width:768px){:root{--W:0px}.sidebar{transform:translateX(-100%);width:260px}.sidebar.open{transform:none;box-shadow:var(--sh)}.main{margin-left:0}#menuBtn{display:block!important}.page{padding:14px}.g4,.g3,.g2{grid-template-columns:1fr}.pg{grid-template-columns:1fr}.fup-g{grid-template-columns:1fr}.vi{grid-template-columns:1fr 1fr}.vr-g{grid-template-columns:1fr 1fr}.set-l{grid-template-columns:1fr}.swot-g{grid-template-columns:1fr}.az-form{position:static}}
 </style>
@@ -442,117 +380,73 @@ button,input,select,textarea{font-family:inherit}
 <div id="authScreen">
   <div class="aw">
     <div class="a-logo">
-      <div class="logo-mark" style="width:58px;height:58px;border-radius:18px;border-width:1.5px;box-shadow:0 0 32px rgba(0,240,170,0.22),inset 0 1px 0 rgba(0,240,170,0.10)">
-        <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
-          <!-- Three rising bars -->
-          <rect x="2" y="22" width="7" height="10" rx="3.5" fill="#00f0aa"/>
-          <rect x="13.5" y="14" width="7" height="18" rx="3.5" fill="#9b87f5"/>
-          <rect x="25" y="6" width="7" height="26" rx="3.5" fill="#38bdf8"/>
-          <!-- Trend line -->
-          <path d="M5.5 20 L17 11.5 L28.5 4" stroke="rgba(255,255,255,0.6)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          <!-- Dot at top -->
-          <circle cx="28.5" cy="4" r="2.2" fill="white" opacity="0.9"/>
+      <div class="logo-mark" style="width:46px;height:46px;border-radius:13px">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="2" width="5" height="20" rx="2.5" fill="var(--g)"/>
+          <path d="M8 2 Q20 2 20 9 Q20 16 8 16" stroke="var(--g)" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="14" cy="21" r="2.2" fill="var(--v)"/>
+          <circle cx="19" cy="18" r="2.2" fill="var(--g)" opacity="0.7"/>
+          <circle cx="9.5" cy="22" r="1.8" fill="var(--b)" opacity="0.6"/>
         </svg>
       </div>
       <div>
-        <div class="logo-text" style="font-size:26px;letter-spacing:-0.8px">Penahiy<em>Analytics</em></div>
-        <div class="a-badge">Professional Analytics Platform</div>
+        <div class="logo-text" style="font-size:22px">Penahiy<em>Analytics</em></div>
+        <div style="font-size:11px;color:var(--ink3)">Platform Analitik Profesional</div>
       </div>
     </div>
     <div class="a-card">
       <div class="a-tabs">
         <button class="a-tab on" onclick="aTab('login')">Masuk</button>
-        <button class="a-tab" onclick="aTab('register')">Daftar Baru</button>
+        <button class="a-tab" onclick="aTab('register')">Daftar</button>
       </div>
       <div id="loginF">
-        <div class="a-title">Selamat datang kembali 👋</div>
-        <div class="a-sub">Masuk untuk mengakses semua fitur analitik profesional</div>
-        <div id="loginErr" class="a-err">❌ Email atau password salah. <span style="cursor:pointer;text-decoration:underline" onclick="openForgot()">Lupa password?</span></div>
+        <div class="a-title">Selamat datang kembali</div>
+        <div class="a-sub">Masuk ke platform analisis digital profesional</div>
+        <div id="loginErr" class="a-err">Email atau password salah.</div>
         <div class="fg"><label>Email</label><input type="email" id="lE" placeholder="nama@email.com" onkeydown="if(event.key==='Enter')doLogin()"></div>
         <div class="fg"><label>Password</label><input type="password" id="lP" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
-        <div class="a-forgot"><a onclick="openForgot()">Lupa email atau password? →</a></div>
-        <button class="btn-p" onclick="doLogin()">Masuk ke Dashboard →</button>
-        <div class="a-div">atau coba tanpa daftar</div>
-        <button class="btn-g" onclick="doDemo()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          Demo Gratis — Langsung Masuk
-        </button>
-        <div class="a-hint">Akun demo: demo@penahiy.id / demo123</div>
+        <button class="btn-p" onclick="doLogin()">Masuk ke Dashboard</button>
+        <div class="a-div">atau coba langsung</div>
+        <button class="btn-g" onclick="doDemo()">⚡ Demo — Akses Tanpa Daftar</button>
+        <div class="a-hint">demo@penahiy.id / demo123</div>
       </div>
       <div id="registerF" style="display:none">
-        <div class="a-title">Buat akun gratis ✨</div>
-        <div class="a-sub">Mulai analisis bisnis seperti konsultan senior — semua fitur tersedia</div>
+        <div class="a-title">Buat akun baru</div>
+        <div class="a-sub">Mulai analisis seperti konsultan senior</div>
         <div id="regErr" class="a-err"></div>
         <div class="fg-2">
           <div class="fg"><label>Nama Depan</label><input type="text" id="rFn" placeholder="Budi"></div>
           <div class="fg"><label>Nama Belakang</label><input type="text" id="rLn" placeholder="Santoso"></div>
         </div>
         <div class="fg"><label>Email</label><input type="email" id="rE" placeholder="nama@email.com"></div>
-        <div class="fg"><label>Password <span style="color:var(--ink3);text-transform:none">(min. 6 karakter)</span></label><input type="password" id="rP" placeholder="••••••••"></div>
+        <div class="fg"><label>Password <span style="color:var(--ink3)">(min. 6 karakter)</span></label><input type="password" id="rP" placeholder="••••••••"></div>
         <div class="fg"><label>Peran</label>
-          <select id="rR"><option value="">Pilih peran kamu...</option><option>Data Analyst</option><option>Business Analyst</option><option>Financial Analyst</option><option>Konsultan</option><option>Investor / VC</option><option>Pemilik Usaha</option><option>Mahasiswa</option><option>Lainnya</option></select>
+          <select id="rR"><option value="">Pilih...</option><option>Data Analyst</option><option>Business Analyst</option><option>Financial Analyst</option><option>Konsultan</option><option>Investor / VC</option><option>Pemilik Usaha</option><option>Mahasiswa</option></select>
         </div>
-        <button class="btn-p" onclick="doRegister()">Buat Akun & Mulai Gratis →</button>
-        <div style="text-align:center;font-size:10px;color:var(--ink3);margin-top:10px;line-height:1.5">Dengan mendaftar, kamu menyetujui penggunaan data secara lokal di browser.<br>Tidak ada data yang dikirim ke server kami.</div>
+        <button class="btn-p" onclick="doRegister()">Buat Akun</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- FORGOT PASSWORD OVERLAY -->
-<div class="forgot-ov" id="forgotOv" onclick="if(event.target===this)closeForgot()">
-  <div class="forgot-box">
-    <div class="fp-title">🔑 Lupa Email atau Password?</div>
-    <div class="fp-sub">Karena PenahiyAnalytics menyimpan data hanya di browser kamu (localStorage), tidak ada layanan reset email. Berikut cara mengatasinya:</div>
-    <div class="fp-steps">
-      <div class="fp-step">
-        <div class="fp-step-n">1</div>
-        <div><div class="fp-step-t">Coba email & password yang biasa kamu gunakan</div><div class="fp-step-s">Browser menyimpan data login secara lokal — coba kombinasi email dan password umum yang kamu ingat</div></div>
-      </div>
-      <div class="fp-step">
-        <div class="fp-step-n">2</div>
-        <div><div class="fp-step-t">Gunakan akun Demo untuk akses langsung</div><div class="fp-step-s">Login dengan: <strong style="color:var(--g)">demo@penahiy.id</strong> / <strong style="color:var(--g)">demo123</strong> untuk mengakses semua fitur</div></div>
-      </div>
-      <div class="fp-step">
-        <div class="fp-step-n">3</div>
-        <div><div class="fp-step-t">Reset akun di browser ini</div><div class="fp-step-s">Hapus data browser (localStorage) untuk browser ini — semua akun akan terhapus dan kamu bisa daftar ulang</div></div>
-      </div>
-      <div class="fp-step">
-        <div class="fp-step-n">4</div>
-        <div><div class="fp-step-t">Cari email terdaftar</div>
-          <div style="margin-top:6px;display:flex;gap:6px">
-            <input id="fpSearchEmail" class="fi" placeholder="Masukkan email yang kamu ingat..." style="font-size:12px;padding:7px 10px">
-            <button onclick="searchUserEmail()" style="padding:7px 12px;background:var(--gd);border:1px solid var(--g);color:var(--g);border-radius:7px;cursor:pointer;font-size:11.5px;white-space:nowrap">Cari</button>
-          </div>
-          <div id="fpSearchResult" style="margin-top:6px;font-size:11px;display:none"></div>
-        </div>
-      </div>
-    </div>
-    <div style="display:flex;gap:8px">
-      <button onclick="doDemo();closeForgot()" style="flex:1;padding:10px;background:linear-gradient(135deg,var(--g),#00cc8a);border:none;border-radius:9px;color:#011810;font-weight:700;font-size:12.5px;cursor:pointer">⚡ Masuk Demo Sekarang</button>
-      <button onclick="closeForgot()" style="padding:10px 16px;border:1px solid var(--e2);border-radius:9px;background:transparent;color:var(--ink2);cursor:pointer;font-size:12.5px">Tutup</button>
-    </div>
-  </div>
-</div>
-
-
+<!-- APP -->
 <div id="app">
   <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <div class="sb-top">
       <div class="sb-logo">
         <div class="logo-mark">
-          <svg width="20" height="20" viewBox="0 0 30 30" fill="none">
-            <rect x="2" y="19" width="5.5" height="9" rx="2.75" fill="#00f0aa"/>
-            <rect x="10.5" y="13" width="5.5" height="15" rx="2.75" fill="#9b87f5"/>
-            <rect x="19" y="6" width="5.5" height="22" rx="2.75" fill="#38bdf8"/>
-            <path d="M4.75 17 L13.25 10 L21.75 3.5" stroke="white" stroke-width="1.8" stroke-linecap="round" opacity="0.5"/>
-            <circle cx="21.75" cy="3.5" r="2" fill="white" opacity="0.75"/>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="2" width="5" height="20" rx="2.5" fill="var(--g)"/>
+            <path d="M8 2 Q20 2 20 9 Q20 16 8 16" stroke="var(--g)" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="14" cy="21" r="2.2" fill="var(--v)"/>
+            <circle cx="19" cy="18" r="2.2" fill="var(--g)" opacity="0.7"/>
+            <circle cx="9.5" cy="22" r="1.8" fill="var(--b)" opacity="0.6"/>
           </svg>
         </div>
         <div>
           <div class="logo-text">Penahiy<em>Analytics</em></div>
-          <div style="font-size:9.5px;color:var(--ink3)">v3.0 · Multi AI</div>
+          <div style="font-size:9.5px;color:var(--ink3)">v3.0 · Professional</div>
         </div>
       </div>
     </div>
@@ -579,10 +473,6 @@ button,input,select,textarea{font-family:inherit}
         <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 1l2 5h5l-4 3 1.5 5L8 11l-4.5 3L5 9 1 6h5z"/></svg>Risk Heatmap</button>
       <button class="ni" onclick="goto('sentiment',this)">
         <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M5 9.5s1 1.5 3 1.5 3-1.5 3-1.5"/><circle cx="6" cy="6.5" r=".8" fill="currentColor"/><circle cx="10" cy="6.5" r=".8" fill="currentColor"/></svg>Sentiment Analyzer<span class="aip">AI</span></button>
-      <button class="ni" onclick="goto('porter',this)">
-        <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="8 1 15 5 15 11 8 15 1 11 1 5"/><circle cx="8" cy="8" r="2"/></svg>Porter's 5 Forces<span class="aip">AI</span></button>
-      <button class="ni" onclick="goto('canvas',this)">
-        <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="2" width="14" height="12" rx="1.5"/><path d="M5 2v12M11 2v12M1 8h14"/></svg>Business Canvas<span class="aip">AI</span></button>
       <div class="sb-sec">Akun</div>
       <button class="ni" onclick="goto('settings',this)">
         <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="2"/><path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M2.5 2.5l1.1 1.1M12.4 12.4l1.1 1.1M13.5 2.5l-1.1 1.1M3.6 12.4l-1.1 1.1"/></svg>Pengaturan</button>
@@ -636,14 +526,12 @@ button,input,select,textarea{font-family:inherit}
           <div class="card-h"><span class="card-t">Analytics Tools</span></div>
           <div class="card-b">
             <div class="g2" style="gap:7px">
-              <div class="tc" onclick="goto('analyzer',null)"><div class="tc-ic">✦</div><div class="tc-l">AI Analyzer</div><div class="tc-s">Deep dive analysis real-time</div><span class="tc-b" style="background:var(--gd);color:var(--g)">Multi AI</span></div>
+              <div class="tc" onclick="goto('analyzer',null)"><div class="tc-ic">✦</div><div class="tc-l">AI Analyzer</div><div class="tc-s">Deep dive analysis real-time</div><span class="tc-b" style="background:var(--gd);color:var(--g)">Claude AI</span></div>
               <div class="tc" onclick="goto('upload',null)"><div class="tc-ic">📂</div><div class="tc-l">Upload & Analisis</div><div class="tc-s">PDF, Excel, CSV, gambar</div><span class="tc-b" style="background:var(--od);color:var(--o)">Baru</span></div>
               <div class="tc" onclick="goto('swot',null)"><div class="tc-ic">⊞</div><div class="tc-l">SWOT Builder</div><div class="tc-s">Generate SWOT otomatis AI</div><span class="tc-b" style="background:var(--vd);color:var(--v)">AI</span></div>
               <div class="tc" onclick="goto('ratios',null)"><div class="tc-ic">📈</div><div class="tc-l">Rasio Finansial</div><div class="tc-s">Hitung 12+ rasio keuangan</div><span class="tc-b" style="background:var(--bd);color:var(--b)">Kalkulator</span></div>
               <div class="tc" onclick="goto('valuation',null)"><div class="tc-ic">💎</div><div class="tc-l">Kalkulator Valuasi</div><div class="tc-s">DCF, P/E, EV/EBITDA</div><span class="tc-b" style="background:var(--od);color:var(--o)">Modeling</span></div>
               <div class="tc" onclick="goto('sentiment',null)"><div class="tc-ic">🧠</div><div class="tc-l">Sentiment Analyzer</div><div class="tc-s">Analisis sentimen teks AI</div><span class="tc-b" style="background:var(--vd);color:var(--v)">AI</span></div>
-              <div class="tc" onclick="goto('porter',null)"><div class="tc-ic">⬡</div><div class="tc-l">Porter's 5 Forces</div><div class="tc-s">Analisis kompetitif industri</div><span class="tc-b" style="background:var(--gd);color:var(--g)">AI Baru</span></div>
-              <div class="tc" onclick="goto('canvas',null)"><div class="tc-ic">⊞</div><div class="tc-l">Business Canvas</div><div class="tc-s">9-blok canvas otomatis AI</div><span class="tc-b" style="background:var(--vd);color:var(--v)">AI Baru</span></div>
             </div>
           </div>
         </div>
@@ -656,11 +544,11 @@ button,input,select,textarea{font-family:inherit}
 
     <!-- AI ANALYZER -->
     <div class="page" id="page-analyzer">
-      <div class="ph"><div><div class="ph-t">AI Company Analyzer</div><div class="ph-s">Analisis mendalam berbasis AI pilihan kamu — jawaban nyata, spesifik per perusahaan</div></div></div>
+      <div class="ph"><div><div class="ph-t">AI Company Analyzer</div><div class="ph-s">Analisis mendalam berbasis Claude AI — jawaban nyata, spesifik per perusahaan</div></div></div>
       <div class="az-l">
         <div class="az-form">
           <div class="az-fh">
-            <div class="az-ft">Parameter Analisis <span class="ai-tag" id="analyzerAiTag">Multi AI</span></div>
+            <div class="az-ft">Parameter Analisis <span class="ai-tag">Claude AI</span></div>
             <div style="font-size:10.5px;color:var(--ink3);margin-top:2px">Hasil bervariasi sesuai input — bukan template</div>
           </div>
           <div class="az-body">
@@ -724,7 +612,7 @@ button,input,select,textarea{font-family:inherit}
               Mulai Analisis AI
             </button>
             <div id="azApiNotice" style="text-align:center;font-size:10.5px;color:var(--ink3);padding:4px 0">
-              Tidak ada API Key? <span onclick="goto('settings',null);setTimeout(()=>{setTab('apikey',document.querySelectorAll('.sni')[4])},150)" style="color:var(--g);cursor:pointer;text-decoration:underline;text-underline-offset:2px">Set di Pengaturan → AI API Keys</span>
+              Tidak ada API Key? <span onclick="goto('settings',null);setTimeout(()=>{setTab('apikey',document.querySelectorAll('.sni')[4])},150)" style="color:var(--g);cursor:pointer;text-decoration:underline;text-underline-offset:2px">Set di Pengaturan →</span>
             </div>
           </div>
         </div>
@@ -732,7 +620,7 @@ button,input,select,textarea{font-family:inherit}
           <div class="res-empty" id="emptyRes">
             <div class="re-ic">✦</div>
             <div class="re-t">Siap Menganalisis</div>
-            <div class="re-s">Isi parameter di kiri dan klik <strong style="color:var(--g)">Mulai Analisis AI</strong>.<br>AI akan menghasilkan analisis mendalam yang spesifik — bukan template generik.<br><br>Kamu juga bisa upload PDF, Excel, atau CSV sebagai data pendukung.</div>
+            <div class="re-s">Isi parameter di kiri dan klik <strong style="color:var(--g)">Mulai Analisis AI</strong>.<br>Claude AI akan menghasilkan analisis mendalam yang spesifik — bukan template generik.<br><br>Kamu juga bisa upload PDF, Excel, atau CSV sebagai data pendukung.</div>
           </div>
           <div class="fup" id="fupCard">
             <div class="fup-tabs">
@@ -751,7 +639,7 @@ button,input,select,textarea{font-family:inherit}
     <!-- UPLOAD & ANALISIS PAGE -->
     <div class="page" id="page-upload">
       <div class="ph">
-        <div><div class="ph-t">Upload & Analisis File</div><div class="ph-s">Kirim dokumen keuangan, laporan, data CSV, atau gambar — AI akan menganalisisnya</div></div>
+        <div><div class="ph-t">Upload & Analisis File</div><div class="ph-s">Kirim dokumen keuangan, laporan, data CSV, atau gambar — Claude AI akan menganalisisnya</div></div>
       </div>
 
       <!-- UPLOAD ZONE BESAR -->
@@ -829,7 +717,7 @@ button,input,select,textarea{font-family:inherit}
           <div id="uploadResEmpty" style="background:var(--card);border:1px solid var(--e1);border-radius:var(--R);padding:52px 20px;text-align:center">
             <div style="font-size:36px;opacity:0.25;margin-bottom:12px">📂</div>
             <div style="font-family:'Cabinet Grotesk',sans-serif;font-size:13.5px;font-weight:700;color:var(--ink2);margin-bottom:5px">Belum Ada File</div>
-            <div style="font-size:11.5px;color:var(--ink3);line-height:1.6">Upload file di sebelah kiri, tulis instruksi analisis,<br>lalu klik Analisis untuk mendapatkan hasil dari AI.</div>
+            <div style="font-size:11.5px;color:var(--ink3);line-height:1.6">Upload file di sebelah kiri, tulis instruksi analisis,<br>lalu klik Analisis untuk mendapatkan hasil dari Claude AI.</div>
           </div>
           <!-- Preview ekstrak -->
           <div id="uploadPreviewCard" style="display:none;margin-top:12px">
@@ -865,7 +753,7 @@ button,input,select,textarea{font-family:inherit}
                 <span style="font-size:22px">🖼️</span>
                 <div><div style="font-family:'Cabinet Grotesk',sans-serif;font-size:12.5px;font-weight:700;color:var(--v)">Gambar</div><div style="font-size:10px;color:var(--ink3)">.png, .jpg, .jpeg</div></div>
               </div>
-              <div style="font-size:11px;color:var(--ink2);line-height:1.55">Grafik, chart, screenshot laporan, foto dokumen, tangkap layar dashboard analytics. Dikirim langsung ke AI Vision.</div>
+              <div style="font-size:11px;color:var(--ink2);line-height:1.55">Grafik, chart, screenshot laporan, foto dokumen, tangkap layar dashboard analytics. Dikirim langsung ke Claude Vision.</div>
             </div>
           </div>
         </div>
@@ -898,7 +786,7 @@ button,input,select,textarea{font-family:inherit}
 
     <!-- SWOT PAGE -->
     <div class="page" id="page-swot">
-      <div class="ph"><div><div class="ph-t">SWOT Builder</div><div class="ph-s">Generate & kelola analisis SWOT dengan bantuan AI pilihan kamu</div></div></div>
+      <div class="ph"><div><div class="ph-t">SWOT Builder</div><div class="ph-s">Generate & kelola analisis SWOT dengan bantuan Claude AI</div></div></div>
       <div class="card">
         <div class="card-h"><span class="card-t">Generate SWOT dengan AI</span></div>
         <div class="card-b" style="display:flex;gap:9px">
@@ -1003,7 +891,7 @@ button,input,select,textarea{font-family:inherit}
 
     <!-- SENTIMENT PAGE -->
     <div class="page" id="page-sentiment">
-      <div class="ph"><div><div class="ph-t">Sentiment Analyzer</div><div class="ph-s">Analisis sentimen teks pasar, berita, dan ulasan menggunakan AI pilihan kamu</div></div></div>
+      <div class="ph"><div><div class="ph-t">Sentiment Analyzer</div><div class="ph-s">Analisis sentimen teks pasar, berita, dan ulasan menggunakan Claude AI</div></div></div>
       <div class="g2" style="align-items:start">
         <div class="card">
           <div class="card-h"><span class="card-t">Input Teks</span></div>
@@ -1043,7 +931,7 @@ button,input,select,textarea{font-family:inherit}
           <div class="sni" onclick="setTab('app',this)">⚙️ Aplikasi</div>
           <div class="sni" onclick="setTab('notif',this)">🔔 Notifikasi</div>
           <div class="sni" onclick="setTab('data',this)">🗄️ Data & Privasi</div>
-          <div class="sni" onclick="setTab('apikey',this)">🔑 AI API Keys</div>
+          <div class="sni" onclick="setTab('apikey',this)">🔑 API Key Claude</div>
         </div>
         <div>
           <div id="sp_profile">
@@ -1080,86 +968,28 @@ button,input,select,textarea{font-family:inherit}
           </div>
           <div id="sp_apikey" style="display:none">
             <div class="set-sec">
-              <div class="set-sh">🔑 AI API Keys — Pilih &amp; Kelola</div>
-              <div style="font-size:12px;color:var(--ink2);padding:0 0 16px;line-height:1.65">Daftarkan API Key untuk AI yang ingin kamu gunakan. Aktifkan satu sebagai <strong style="color:var(--ink)">AI Utama</strong> — semua fitur analitik akan menggunakannya. Key disimpan hanya di browser kamu.</div>
-
-              <!-- AI SELECTOR TABS -->
-              <div style="display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap">
-                <button class="ai-sel-tab on" onclick="selAiTab('gemini',this)" id="aist-gemini">Gemini</button>
-                <button class="ai-sel-tab" onclick="selAiTab('claude',this)" id="aist-claude">Claude</button>
-                <button class="ai-sel-tab" onclick="selAiTab('gpt',this)" id="aist-gpt">GPT-4</button>
-                <button class="ai-sel-tab" onclick="selAiTab('blackbox',this)" id="aist-blackbox">Blackbox</button>
-              </div>
-
-              <!-- GEMINI PANEL -->
-              <div id="aipanel-gemini">
-                <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-                  <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#4285f4,#34a853);display:flex;align-items:center;justify-content:center;font-size:14px">G</div>
-                  <div><div style="font-size:13px;font-weight:700;color:var(--ink)">Google Gemini</div><div style="font-size:10.5px;color:var(--ink3)">100% Gratis · 15 req/menit · 1M token/hari</div></div>
-                  <span class="ai-tag" id="badge-gemini" style="margin-left:auto;font-size:9.5px">Belum diset</span>
+              <div class="set-sh" style="display:flex;align-items:center;gap:8px">🔑 API Key Claude AI <span class="ai-tag" id="apiKeyBadge" style="font-size:9.5px">Belum diset</span></div>
+              <div style="font-size:12px;color:var(--ink2);padding:0 0 14px;line-height:1.65">Masukkan Anthropic API Key untuk mengaktifkan semua fitur AI. Key disimpan hanya di browser kamu — <strong style="color:var(--ink)">tidak dikirim ke server manapun</strong>.</div>
+              <div style="display:flex;flex-direction:column;gap:11px;padding-bottom:14px;border-bottom:1px solid var(--e1)">
+                <div>
+                  <label class="fl">Anthropic API Key</label>
+                  <input class="fi" id="apiKeyIn" type="password" placeholder="sk-ant-api03-..." style="font-family:'JetBrains Mono',monospace">
+                  <div style="margin-top:5px;font-size:10.5px;color:var(--ink3)">Dapatkan API Key gratis di <a href="https://console.anthropic.com" target="_blank" style="color:var(--g);text-decoration:none">console.anthropic.com</a></div>
                 </div>
-                <input class="fi" id="key-gemini" type="password" placeholder="AIza..." style="font-family:'JetBrains Mono',monospace;margin-bottom:8px">
-                <div style="font-size:10.5px;color:var(--ink3);margin-bottom:10px">Dapatkan gratis di <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--g)">aistudio.google.com</a></div>
-                <div style="display:flex;gap:7px">
-                  <button class="btn-p" style="flex:1;padding:9px;font-size:12px" onclick="saveAiKey('gemini')">Simpan</button>
-                  <button class="bs o" style="padding:9px 13px" onclick="clearAiKey('gemini')">Hapus</button>
-                  <button class="bs p" style="padding:9px 13px;font-size:11px" onclick="setActiveAi('gemini')">Jadikan Utama</button>
+                <div id="apiKeyStatus" style="display:none;padding:10px 13px;border-radius:var(--Rs);font-size:12px;"></div>
+                <div style="display:flex;gap:8px">
+                  <button class="btn-p" style="flex:1;padding:10px" onclick="saveApiKey()">💾 Simpan API Key</button>
+                  <button class="bs o" style="padding:10px 14px" onclick="clearApiKey()">🗑 Hapus</button>
                 </div>
               </div>
-
-              <!-- CLAUDE PANEL -->
-              <div id="aipanel-claude" style="display:none">
-                <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-                  <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#cc785c,#d4915a);display:flex;align-items:center;justify-content:center;font-size:14px">C</div>
-                  <div><div style="font-size:13px;font-weight:700;color:var(--ink)">Anthropic Claude</div><div style="font-size:10.5px;color:var(--ink3)">claude-sonnet-4-5 · Berbayar per token</div></div>
-                  <span class="ai-tag" id="badge-claude" style="margin-left:auto;font-size:9.5px">Belum diset</span>
+              <div style="background:var(--gdd);border:1px solid rgba(0,240,170,0.12);border-radius:var(--R);padding:14px;margin-top:14px">
+                <div style="font-size:11px;font-weight:700;color:var(--g);margin-bottom:8px">✦ Fitur yang aktif setelah API Key diisi:</div>
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <div style="font-size:11.5px;color:var(--ink2)">▸ <strong style="color:var(--ink)">AI Analyzer</strong> — Analisis spesifik per perusahaan (bukan template generik)</div>
+                  <div style="font-size:11.5px;color:var(--ink2)">▸ <strong style="color:var(--ink)">Sentiment Analyzer</strong> — Analisis sentimen teks real dengan Claude AI</div>
+                  <div style="font-size:11.5px;color:var(--ink2)">▸ <strong style="color:var(--ink)">SWOT Builder AI</strong> — Generate SWOT spesifik per industri & perusahaan</div>
+                  <div style="font-size:11.5px;color:var(--ink2)">▸ <strong style="color:var(--ink)">Upload & Analisis File</strong> — Analisis PDF, Excel, CSV, dan gambar dengan Claude Vision</div>
                 </div>
-                <input class="fi" id="key-claude" type="password" placeholder="sk-ant-api03-..." style="font-family:'JetBrains Mono',monospace;margin-bottom:8px">
-                <div style="font-size:10.5px;color:var(--ink3);margin-bottom:10px">Dapatkan di <a href="https://console.anthropic.com/keys" target="_blank" style="color:var(--g)">console.anthropic.com</a></div>
-                <div style="display:flex;gap:7px">
-                  <button class="btn-p" style="flex:1;padding:9px;font-size:12px" onclick="saveAiKey('claude')">Simpan</button>
-                  <button class="bs o" style="padding:9px 13px" onclick="clearAiKey('claude')">Hapus</button>
-                  <button class="bs p" style="padding:9px 13px;font-size:11px" onclick="setActiveAi('claude')">Jadikan Utama</button>
-                </div>
-              </div>
-
-              <!-- GPT PANEL -->
-              <div id="aipanel-gpt" style="display:none">
-                <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-                  <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#10a37f,#1a7f64);display:flex;align-items:center;justify-content:center;font-size:14px">O</div>
-                  <div><div style="font-size:13px;font-weight:700;color:var(--ink)">OpenAI GPT-4</div><div style="font-size:10.5px;color:var(--ink3)">gpt-4o · Berbayar per token</div></div>
-                  <span class="ai-tag" id="badge-gpt" style="margin-left:auto;font-size:9.5px">Belum diset</span>
-                </div>
-                <input class="fi" id="key-gpt" type="password" placeholder="sk-proj-..." style="font-family:'JetBrains Mono',monospace;margin-bottom:8px">
-                <div style="font-size:10.5px;color:var(--ink3);margin-bottom:10px">Dapatkan di <a href="https://platform.openai.com/api-keys" target="_blank" style="color:var(--g)">platform.openai.com</a></div>
-                <div style="display:flex;gap:7px">
-                  <button class="btn-p" style="flex:1;padding:9px;font-size:12px" onclick="saveAiKey('gpt')">Simpan</button>
-                  <button class="bs o" style="padding:9px 13px" onclick="clearAiKey('gpt')">Hapus</button>
-                  <button class="bs p" style="padding:9px 13px;font-size:11px" onclick="setActiveAi('gpt')">Jadikan Utama</button>
-                </div>
-              </div>
-
-              <!-- BLACKBOX PANEL -->
-              <div id="aipanel-blackbox" style="display:none">
-                <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-                  <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#1a1a1a,#333);border:1px solid var(--e2);display:flex;align-items:center;justify-content:center;font-size:14px">B</div>
-                  <div><div style="font-size:13px;font-weight:700;color:var(--ink)">Blackbox AI</div><div style="font-size:10.5px;color:var(--ink3)">blackbox-pro · API endpoint</div></div>
-                  <span class="ai-tag" id="badge-blackbox" style="margin-left:auto;font-size:9.5px">Belum diset</span>
-                </div>
-                <input class="fi" id="key-blackbox" type="password" placeholder="bbx-..." style="font-family:'JetBrains Mono',monospace;margin-bottom:8px">
-                <div style="font-size:10.5px;color:var(--ink3);margin-bottom:10px">Dapatkan di <a href="https://www.blackbox.ai" target="_blank" style="color:var(--g)">blackbox.ai</a></div>
-                <div style="display:flex;gap:7px">
-                  <button class="btn-p" style="flex:1;padding:9px;font-size:12px" onclick="saveAiKey('blackbox')">Simpan</button>
-                  <button class="bs o" style="padding:9px 13px" onclick="clearAiKey('blackbox')">Hapus</button>
-                  <button class="bs p" style="padding:9px 13px;font-size:11px" onclick="setActiveAi('blackbox')">Jadikan Utama</button>
-                </div>
-              </div>
-
-              <!-- ACTIVE AI STATUS -->
-              <div style="background:var(--gdd);border:1px solid rgba(0,240,170,0.12);border-radius:var(--R);padding:14px;margin-top:18px">
-                <div style="font-size:11px;font-weight:700;color:var(--g);margin-bottom:8px">AI Utama Aktif</div>
-                <div id="activeAiStatus" style="font-size:12px;color:var(--ink2)">Belum ada AI yang diset sebagai utama.</div>
-                <div style="margin-top:10px;font-size:11px;color:var(--ink3)">Fitur yang menggunakan AI Utama: AI Analyzer · SWOT Builder · Sentiment Analyzer · Upload &amp; Analisis File · Porter's Five Forces · Business Canvas</div>
               </div>
             </div>
           </div>
@@ -1168,67 +998,6 @@ button,input,select,textarea{font-family:inherit}
     </div>
   </div>
 </div>
-
-    <!-- PORTER'S FIVE FORCES PAGE -->
-    <div class="page" id="page-porter">
-      <div class="ph"><div><div class="ph-t">Porter's Five Forces</div><div class="ph-s">Analisis kekuatan kompetitif industri dengan framework Michael Porter — powered by Multi AI</div></div></div>
-      <div class="g2" style="align-items:start">
-        <div class="card">
-          <div class="card-h"><span class="card-t">Input Analisis</span><span class="ai-tag">Multi AI</span></div>
-          <div class="card-b" style="display:flex;flex-direction:column;gap:11px">
-            <div><label class="fl">Perusahaan / Industri *</label><input class="fi" id="pf5Co" placeholder="cth: Industri Perbankan Indonesia / PT BCA Tbk"></div>
-            <div><label class="fl">Industri</label>
-              <select class="fs" id="pf5Ind">
-                <option value="">Pilih industri...</option>
-                <option>Teknologi & Startup</option><option>Perbankan & Keuangan</option>
-                <option>Retail & E-commerce</option><option>Manufaktur</option>
-                <option>Healthcare & Farmasi</option><option>FMCG</option>
-                <option>Properti</option><option>Energi & Tambang</option>
-                <option>Telekomunikasi</option><option>Logistik</option>
-              </select>
-            </div>
-            <div><label class="fl">Konteks Tambahan</label>
-              <textarea class="fta" id="pf5Ctx" placeholder="Tambahkan data, berita terkini, atau info spesifik..." style="min-height:80px"></textarea>
-            </div>
-            <button class="run-btn" id="pf5Btn" onclick="runPorter()">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              Analisis 5 Forces
-            </button>
-            <div style="text-align:center;font-size:10.5px;color:var(--ink3)">Tidak ada API Key? <span onclick="goto('settings',null)" style="color:var(--g);cursor:pointer">Set AI Key di Pengaturan →</span></div>
-          </div>
-        </div>
-        <div id="pf5Res">
-          <div class="res-empty">
-            <div class="re-ic">⬡</div>
-            <div class="re-t">Siap Menganalisis</div>
-            <div class="re-s">Isi nama perusahaan/industri di kiri dan klik <strong style="color:var(--g)">Analisis 5 Forces</strong>.<br>AI akan menghasilkan Porter's Five Forces yang mendalam dan spesifik.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- BUSINESS MODEL CANVAS PAGE -->
-    <div class="page" id="page-canvas">
-      <div class="ph"><div><div class="ph-t">Business Model Canvas</div><div class="ph-s">Generate Business Model Canvas 9-blok secara otomatis dengan AI</div></div></div>
-      <div class="card">
-        <div class="card-h"><span class="card-t">Generate Canvas AI</span><span class="ai-tag">Multi AI</span></div>
-        <div class="card-b" style="display:flex;gap:9px;flex-wrap:wrap">
-          <input class="fi" id="bmcCo" placeholder="Nama perusahaan..." style="flex:1;min-width:200px">
-          <select class="fs" id="bmcInd" style="width:160px"><option value="">Industri...</option><option>Teknologi</option><option>Perbankan</option><option>Retail</option><option>Manufaktur</option><option>Healthcare</option><option>FMCG</option><option>Energi</option><option>Telekomunikasi</option></select>
-          <button class="bs p" id="bmcBtn" onclick="runBMC()">✦ Generate Canvas</button>
-        </div>
-      </div>
-      <div id="bmcHeader2"></div>
-      <div style="display:none" id="bmcGrid">
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:10px;margin-bottom:10px" id="bmcTop"></div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px" id="bmcBot"></div>
-      </div>
-      <div id="bmcEmpty" style="background:var(--card);border:1px solid var(--e1);border-radius:var(--R);padding:48px;text-align:center;margin-top:14px">
-        <div style="font-size:36px;opacity:0.25;margin-bottom:12px">⊞</div>
-        <div style="font-family:'Cabinet Grotesk',sans-serif;font-size:13.5px;font-weight:700;color:var(--ink2);margin-bottom:5px">Business Model Canvas</div>
-        <div style="font-size:11.5px;color:var(--ink3);line-height:1.6">Masukkan nama perusahaan di atas dan klik Generate.<br>AI akan mengisi 9 blok Business Model Canvas secara otomatis.</div>
-      </div>
-    </div>
 
 <!-- MODAL -->
 <div class="modal-ov" id="modalOv" onclick="if(event.target===this)closeModal()">
@@ -1357,177 +1126,31 @@ const WF=[
   {n:6,l:"Prompt 07",s:"Presentasi",c:"var(--g)"}
 ];
 
-// ═══════════════ MULTI-AI KEY MANAGEMENT ═══════════════
-const AI_NAMES={gemini:'Google Gemini',claude:'Claude (Anthropic)',gpt:'OpenAI GPT-4',blackbox:'Blackbox AI'};
-
-function getApiKey(ai){
-  ai=ai||localStorage.getItem('pa_active_ai')||'gemini';
-  const storageKey={'gemini':'pa_gemini_key','claude':'pa_claude_key','gpt':'pa_gpt_key','blackbox':'pa_blackbox_key'};
-  return localStorage.getItem(storageKey[ai])||'';
-}
-function getActiveAi(){return localStorage.getItem('pa_active_ai')||'gemini';}
-
-function saveAiKey(ai){
-  const el=document.getElementById('key-'+ai);
+// ═══════════════ API KEY ═══════════════
+function getApiKey(){return localStorage.getItem('pa_api_key')||'';}
+function saveApiKey(){
+  const el=document.getElementById('apiKeyIn');
   const k=el.value.trim();
-  if(!k||k.includes('•')||k.length<8){toast('Masukkan API Key yang valid','er');return;}
-  const storageKey={'gemini':'pa_gemini_key','claude':'pa_claude_key','gpt':'pa_gpt_key','blackbox':'pa_blackbox_key'};
-  localStorage.setItem(storageKey[ai],k);
-  el.value='';el.placeholder='••••••••••••••••• (tersimpan)';
-  updateAiBadge(ai);
-  // Auto-set as active if none active
-  if(!localStorage.getItem('pa_active_ai'))setActiveAi(ai);
-  else updateActiveAiStatus();
-  toast('✓ '+AI_NAMES[ai]+' API Key disimpan!','ok');
+  if(!k||k.includes('•')){toast('Masukkan API Key yang valid','er');return;}
+  if(!k.startsWith('sk-ant')){toast('Format API Key tidak valid (harus dimulai sk-ant...)','er');return;}
+  localStorage.setItem('pa_api_key',k);
+  el.value='';el.placeholder='sk-ant-••••••• (tersimpan — klik Simpan untuk update)';
+  const st=document.getElementById('apiKeyStatus');
+  if(st){st.style.display='block';st.style.background='var(--gd)';st.style.color='var(--g)';st.style.border='1px solid rgba(0,240,170,0.2)';st.textContent='✓ API Key disimpan! Semua fitur AI sekarang aktif.';}
+  const badge=document.getElementById('apiKeyBadge');
+  if(badge){badge.textContent='✓ Aktif';badge.style.background='linear-gradient(135deg,var(--g),#00cc8a)';}
+  toast('✓ API Key Claude disimpan! AI analyzer siap digunakan.','ok');
 }
-
-function clearAiKey(ai){
-  const storageKey={'gemini':'pa_gemini_key','claude':'pa_claude_key','gpt':'pa_gpt_key','blackbox':'pa_blackbox_key'};
-  localStorage.removeItem(storageKey[ai]);
-  const el=document.getElementById('key-'+ai);
-  const placeholders={gemini:'AIza...',claude:'sk-ant-api03-...',gpt:'sk-proj-...',blackbox:'bbx-...'};
-  if(el){el.value='';el.placeholder=placeholders[ai];}
-  updateAiBadge(ai);
-  if(getActiveAi()===ai){localStorage.removeItem('pa_active_ai');}
-  updateActiveAiStatus();
-  toast(AI_NAMES[ai]+' API Key dihapus','ok');
+function clearApiKey(){
+  localStorage.removeItem('pa_api_key');
+  const el=document.getElementById('apiKeyIn');if(el){el.value='';el.placeholder='sk-ant-api03-...';}
+  const badge=document.getElementById('apiKeyBadge');if(badge){badge.textContent='Belum diset';badge.style.background='';}
+  const st=document.getElementById('apiKeyStatus');if(st)st.style.display='none';
+  toast('API Key dihapus','ok');
 }
-
-function setActiveAi(ai){
-  if(!getApiKey(ai)){toast('Simpan '+AI_NAMES[ai]+' API Key terlebih dahulu','er');return;}
-  localStorage.setItem('pa_active_ai',ai);
-  updateActiveAiStatus();
-  toast('✓ '+AI_NAMES[ai]+' sekarang menjadi AI Utama!','ok');
-}
-
-function updateAiBadge(ai){
-  const badge=document.getElementById('badge-'+ai);
-  if(!badge)return;
-  if(getApiKey(ai)){badge.textContent='✓ Aktif';badge.style.background='linear-gradient(135deg,var(--g),#00cc8a)';badge.style.color='#011810';}
-  else{badge.textContent='Belum diset';badge.style.background='';badge.style.color='';}
-}
-
-function updateActiveAiStatus(){
-  const active=getActiveAi();
-  const el=document.getElementById('activeAiStatus');
-  if(!el)return;
-  if(getApiKey(active)){
-    el.innerHTML=`<span style="display:inline-flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:var(--g);display:inline-block"></span><strong style="color:var(--ink)">${AI_NAMES[active]}</strong> — siap digunakan untuk semua fitur analitik</span>`;
-  }else{
-    el.textContent='Belum ada AI yang diset sebagai utama. Simpan API Key dan klik "Jadikan Utama".';
-  }
-}
-
-function selAiTab(ai,btn){
-  document.querySelectorAll('.ai-sel-tab').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  ['gemini','claude','gpt','blackbox'].forEach(id=>{
-    document.getElementById('aipanel-'+id).style.display=id===ai?'block':'none';
-  });
-  updateAiBadge(ai);
-}
-
 function checkApiKeyBadge(){
-  ['gemini','claude','gpt','blackbox'].forEach(ai=>updateAiBadge(ai));
-  updateActiveAiStatus();
-}
-
-// Legacy alias so other code that calls getApiKey() without args still works
-// It returns the key for the active AI
-
-// ═══════════════ UNIVERSAL AI CALLER ═══════════════
-async function callGeminiAI(systemPrompt, userPrompt, maxTokens=2000, imageData=null){
-  // Routes to the active AI provider
-  const active=getActiveAi();
-  const key=getApiKey(active);
-  if(!key) throw new Error('NO_KEY');
-
-  if(active==='gemini'){
-    return callGemini(systemPrompt,userPrompt,maxTokens,imageData,key);
-  }else if(active==='claude'){
-    return callClaude(systemPrompt,userPrompt,maxTokens,imageData,key);
-  }else if(active==='gpt'){
-    return callGPT(systemPrompt,userPrompt,maxTokens,imageData,key);
-  }else if(active==='blackbox'){
-    return callBlackbox(systemPrompt,userPrompt,maxTokens,key);
-  }
-  throw new Error('No active AI configured');
-}
-
-async function callGemini(systemPrompt, userPrompt, maxTokens, imageData, key){
-  const parts=[];
-  if(imageData){
-    imageData.forEach(img=>{
-      parts.push({inlineData:{mimeType:img.mime,data:img.data}});
-      parts.push({text:`[File: ${img.name}]`});
-    });
-  }
-  parts.push({text:userPrompt});
-  const body={contents:[{parts}],generationConfig:{temperature:0.8,maxOutputTokens:maxTokens,topP:0.95}};
-  if(systemPrompt){body.systemInstruction={parts:[{text:systemPrompt}]};}
-  const resp=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`,
-    {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
-  if(!resp.ok){const e=await resp.json();throw new Error(e.error?.message||'Gemini API Error');}
-  const data=await resp.json();
-  const text=data.candidates?.[0]?.content?.parts?.[0]?.text||'';
-  if(!text) throw new Error('Empty response from Gemini');
-  return text;
-}
-
-async function callClaude(systemPrompt, userPrompt, maxTokens, imageData, key){
-  const msgContent=[];
-  if(imageData){
-    imageData.forEach(img=>{
-      msgContent.push({type:'image',source:{type:'base64',media_type:img.mime,data:img.data}});
-      msgContent.push({type:'text',text:`[File: ${img.name}]`});
-    });
-  }
-  msgContent.push({type:'text',text:userPrompt});
-  const body={model:'claude-haiku-4-5-20251001',max_tokens:maxTokens,messages:[{role:'user',content:msgContent}]};
-  if(systemPrompt) body.system=systemPrompt;
-  const resp=await fetch('https://api.anthropic.com/v1/messages',
-    {method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify(body)});
-  if(!resp.ok){const e=await resp.json();throw new Error(e.error?.message||'Claude API Error');}
-  const data=await resp.json();
-  const text=data.content?.[0]?.text||'';
-  if(!text) throw new Error('Empty response from Claude');
-  return text;
-}
-
-async function callGPT(systemPrompt, userPrompt, maxTokens, imageData, key){
-  const messages=[];
-  if(systemPrompt) messages.push({role:'system',content:systemPrompt});
-  const userContent=[];
-  if(imageData){
-    imageData.forEach(img=>{
-      userContent.push({type:'image_url',image_url:{url:`data:${img.mime};base64,${img.data}`}});
-      userContent.push({type:'text',text:`[File: ${img.name}]`});
-    });
-  }
-  userContent.push({type:'text',text:userPrompt});
-  messages.push({role:'user',content:imageData?userContent:userPrompt});
-  const body={model:'gpt-4o',max_tokens:maxTokens,messages};
-  const resp=await fetch('https://api.openai.com/v1/chat/completions',
-    {method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify(body)});
-  if(!resp.ok){const e=await resp.json();throw new Error(e.error?.message||'GPT API Error');}
-  const data=await resp.json();
-  const text=data.choices?.[0]?.message?.content||'';
-  if(!text) throw new Error('Empty response from GPT');
-  return text;
-}
-
-async function callBlackbox(systemPrompt, userPrompt, maxTokens, key){
-  const messages=[];
-  if(systemPrompt) messages.push({role:'system',content:systemPrompt});
-  messages.push({role:'user',content:userPrompt});
-  const body={model:'blackbox-pro',max_tokens:maxTokens,messages};
-  const resp=await fetch('https://api.blackbox.ai/api/chat',
-    {method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify(body)});
-  if(!resp.ok){const e=await resp.json();throw new Error(e.error?.message||'Blackbox API Error');}
-  const data=await resp.json();
-  const text=data.choices?.[0]?.message?.content||data.response||'';
-  if(!text) throw new Error('Empty response from Blackbox');
-  return text;
+  const badge=document.getElementById('apiKeyBadge');
+  if(badge&&getApiKey()){badge.textContent='✓ Aktif';badge.style.background='linear-gradient(135deg,var(--g),#00cc8a)';}
 }
 
 // ═══════════════ STATE ═══════════════
@@ -1560,28 +1183,6 @@ function doLogin(){
   const err=document.getElementById('loginErr');err.style.display='block';setTimeout(()=>err.style.display='none',3000);
 }
 function doDemo(){loginUser({name:'Demo User',role:'Data Analyst',email:'demo@penahiy.id'});}
-function openForgot(){document.getElementById('forgotOv').classList.add('on');}
-function closeForgot(){document.getElementById('forgotOv').classList.remove('on');document.getElementById('fpSearchResult').style.display='none';}
-function searchUserEmail(){
-  const email=document.getElementById('fpSearchEmail').value.trim().toLowerCase();
-  const res=document.getElementById('fpSearchResult');
-  res.style.display='block';
-  if(!email){res.style.color='var(--r)';res.textContent='Masukkan email terlebih dahulu.';return;}
-  const found=users.find(u=>u.email.toLowerCase()===email);
-  if(found){
-    res.style.color='var(--g)';
-    res.innerHTML=`✓ Akun ditemukan! Nama: <strong style="color:var(--ink)">${found.name}</strong> — <span style="cursor:pointer;color:var(--g);text-decoration:underline" onclick="resetPassword('${email}')">Reset password</span>`;
-  }else{
-    res.style.color='var(--r)';
-    res.textContent='Email tidak ditemukan. Coba email lain atau buat akun baru.';
-  }
-}
-function resetPassword(email){
-  const newPass=prompt('Masukkan password baru (min. 6 karakter):');
-  if(!newPass||newPass.length<6){alert('Password terlalu pendek!');return;}
-  const idx=users.findIndex(u=>u.email.toLowerCase()===email.toLowerCase());
-  if(idx!==-1){users[idx].pass=newPass;localStorage.setItem('pa_users',JSON.stringify(users));closeForgot();toast('Password berhasil direset! Silakan login.','ok');}
-}
 function doRegister(){
   const fn=document.getElementById('rFn').value.trim(),ln=document.getElementById('rLn').value.trim();
   const e=document.getElementById('rE').value.trim(),p=document.getElementById('rP').value;
@@ -1608,10 +1209,10 @@ function loginUser(u){
   document.getElementById('sEm').value=u.email;
   renderWF();renderFups('all');renderPrompts();renderReports();renderRiskMx();renderRiskList();renderSwot();
   updateBadges();
-  // Load saved API keys & update badges
-  if(getApiKey(getActiveAi())){const el=document.getElementById('key-'+getActiveAi());if(el)el.placeholder='••••••••••••••••• (tersimpan)';setTimeout(checkApiKeyBadge,200);}
+  // Load saved API key masked & update badge
+  if(getApiKey()){const el=document.getElementById('apiKeyIn');if(el)el.placeholder='sk-ant-••••••• (tersimpan — klik Simpan untuk update)';setTimeout(checkApiKeyBadge,200);}
   // Show API key notice if not set
-  if(!getApiKey(getActiveAi())){setTimeout(()=>{toast('💡 Set API Key di Pengaturan → AI API Keys untuk aktifkan fitur AI','ok');},1600);}
+  if(!getApiKey()){setTimeout(()=>{toast('💡 Set API Key di Pengaturan → API Key Claude untuk aktifkan AI','ok');},1600);}
 }
 function doLogout(){document.getElementById('logoutOv').classList.add('on');}
 function confirmLogout(){document.getElementById('logoutOv').classList.remove('on');document.getElementById('app').classList.remove('on');document.getElementById('authScreen').classList.remove('gone');closePD();}
@@ -1623,7 +1224,7 @@ function goto(id,el){
   document.getElementById('page-'+id)?.classList.add('on');
   if(el)el.classList.add('on');
   else document.querySelectorAll('.ni').forEach(n=>{if(n.getAttribute('onclick')?.includes("'"+id+"'"))n.classList.add('on');});
-  const T={dashboard:'Dashboard',analyzer:'AI Analyzer',upload:'Upload & Analisis',prompts:'Library Prompt',reports:'Laporan',swot:'SWOT Builder',ratios:'Rasio Finansial',valuation:'Kalkulator Valuasi',riskmap:'Risk Heatmap',sentiment:'Sentiment Analyzer',porter:"Porter's Five Forces",canvas:'Business Model Canvas',settings:'Pengaturan'};
+  const T={dashboard:'Dashboard',analyzer:'AI Analyzer',upload:'Upload & Analisis',prompts:'Library Prompt',reports:'Laporan',swot:'SWOT Builder',ratios:'Rasio Finansial',valuation:'Kalkulator Valuasi',riskmap:'Risk Heatmap',sentiment:'Sentiment Analyzer',settings:'Pengaturan'};
   document.getElementById('tbT').textContent=T[id]||id;
   window.scrollTo(0,0);
   if(window.innerWidth<768)document.getElementById('sidebar').classList.remove('open');
@@ -1812,7 +1413,7 @@ function renderMainFileList(){
     document.getElementById('uploadPreviewCard').style.display='block';
     const prevBody=document.getElementById('uploadPreviewBody');
     if(ready.content?.type==='image'){
-      prevBody.textContent=`[Gambar: ${ready.name} — akan dikirim ke AI Vision untuk analisis visual]`;
+      prevBody.textContent=`[Gambar: ${ready.name} — akan dikirim ke Claude Vision untuk analisis visual]`;
     }else{
       prevBody.textContent=(ready.content?.text||'').slice(0,600)+(ready.content?.text?.length>600?'\n...':'');
     }
@@ -1869,7 +1470,7 @@ async function runUploadAnalysis(){
   document.getElementById('uploadResEmpty').style.display='none';
   document.getElementById('uploadResCard').style.display='block';
   document.getElementById('uploadResTitle').textContent=`Analisis: ${readyFiles.map(f=>f.name).join(', ')}`;
-  document.getElementById('uploadResBody').innerHTML=`<div style="display:flex;align-items:center;gap:10px;justify-content:center;padding:28px"><div class="spin"></div><span style="color:var(--ink2)">AI sedang menganalisis file kamu...</span></div>`;
+  document.getElementById('uploadResBody').innerHTML=`<div style="display:flex;align-items:center;gap:10px;justify-content:center;padding:28px"><div class="spin"></div><span style="color:var(--ink2)">Claude AI sedang menganalisis file kamu...</span></div>`;
   
   try{
     // Build message content
@@ -1900,11 +1501,19 @@ async function runUploadAnalysis(){
       msgContent.push({type:'text',text:`${inst}\n\nDOKUMEN YANG DIANALISIS:\n${'='.repeat(50)}\n${textParts.join('\n\n---\n\n')}\n${'='.repeat(50)}`});
     }
     
-    if(!getApiKey()){btn.disabled=false;lbl.textContent=`Analisis ${readyFiles.length} File dengan AI`;toast('Tambahkan AI API Key di Pengaturan','er');return;}
-    const imgData2=readyFiles.filter(f=>f.content?.type==='image').map(f=>({mime:f.content.mime,data:f.content.data,name:f.name}));
-    const textParts2=readyFiles.filter(f=>f.content?.type==='text').map(f=>f.content.text).join('\n\n---\n\n');
-    const upPrompt=textParts2?`${inst}\n\nDOKUMEN YANG DIANALISIS:\n${'='.repeat(50)}\n${textParts2}\n${'='.repeat(50)}`:inst;
-    const txt=await callGeminiAI(null,upPrompt,2000,imgData2.length?imgData2:null);
+    const _upKey=getApiKey();
+    if(!_upKey){btn.disabled=false;lbl.textContent=`Analisis ${readyFiles.length} File dengan AI`;toast('Tambahkan API Key di Pengaturan → API Key Claude','er');return;}
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':_upKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:2000,
+        messages:[{role:'user',content:msgContent}]
+      })
+    });
+    const data=await resp.json();
+    const txt=data.content?.map(c=>c.text||'').join('\n')||'[Tidak ada respons]';
     document.getElementById('uploadResBody').textContent=txt;
     uploadResult={files:readyFiles.map(f=>f.name).join(', '),type,text:txt,date:new Date().toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'})};
     toast('Analisis file selesai!','ok');
@@ -1935,7 +1544,7 @@ PREVIEW KONTEN TEREKSTRAK:
 ${preview||'[Tidak ada teks yang bisa diekstrak]'}
 
 CATATAN:
-▸ Koneksi ke AI tidak tersedia saat ini
+▸ Koneksi ke Claude AI tidak tersedia saat ini
 ▸ Data dari file berhasil diekstrak dan siap dianalisis
 ▸ Sambungkan ke internet untuk mendapatkan analisis AI penuh
 ▸ Atau salin preview di atas dan paste ke AI tool lain (BlackBox, ChatGPT, dll.)
@@ -1976,7 +1585,7 @@ async function runAI(){
   
   const loader=document.createElement('div');
   loader.className='load-box';loader.id='loader';
-  loader.innerHTML=`<div class="spin"></div><div class="spin-l">Menganalisis ${co} dengan AI...</div><div class="spin-s">${type} · ${aud} · Analisis nyata, bukan template</div>`;
+  loader.innerHTML=`<div class="spin"></div><div class="spin-l">Menganalisis ${co} dengan Claude AI...</div><div class="spin-s">${type} · ${aud} · Analisis nyata, bukan template</div>`;
   res.insertBefore(loader,res.children[1]||res.firstChild);
   
   aiCount++;document.getElementById('stA').textContent=aiCount;
@@ -2022,23 +1631,26 @@ Berikan analisis SPESIFIK untuk ${co} — bukan generik. Insight yang tidak obvi
   }
   
   try{
-    if(!getApiKey()){
+    const _apiKey=getApiKey();
+    if(!_apiKey){
       document.getElementById('loader')?.remove();
       document.getElementById('runBtn').disabled=false;
       document.getElementById('emptyRes').style.display='block';
-      document.getElementById('emptyRes').innerHTML=`<div class="re-ic">🔑</div><div class="re-t">AI API Key Belum Diset</div><div class="re-s">Tambahkan API Key AI pilihan kamu (Gemini, Claude, GPT-4, atau Blackbox) untuk mengaktifkan AI Analyzer.<br><br><button onclick="goto('settings',null);setTimeout(()=>setTab('apikey',document.querySelectorAll('.sni')[4]),150)" style="margin-top:8px;padding:8px 18px;border-radius:8px;background:linear-gradient(135deg,var(--g),#00cc8a);color:#021510;font-size:12px;font-weight:700;border:none;cursor:pointer">Set API Key Sekarang</button></div>`;
-      toast('API Key belum diset — Pengaturan → AI API Keys','er');
+      document.getElementById('emptyRes').innerHTML=`<div class="re-ic">🔑</div><div class="re-t">API Key Belum Diset</div><div class="re-s">Tambahkan Anthropic API Key kamu agar AI Analyzer bisa memberikan analisis <strong style="color:var(--g)">spesifik</strong> untuk setiap perusahaan.<br><br><button onclick="goto('settings',null);setTimeout(()=>setTab('apikey',document.querySelector('.sni:last-child')),100)" style="margin-top:8px;padding:8px 18px;border-radius:8px;background:linear-gradient(135deg,var(--g),#00cc8a);color:#021510;font-size:12px;font-weight:700;border:none;cursor:pointer">🔑 Set API Key Sekarang</button></div>`;
+      toast('API Key belum diset — Pengaturan → API Key Claude','er');
       return;
     }
-    const imgData=readyAzFiles.filter(f=>f.content?.type==='image').map(f=>({mime:f.content.mime,data:f.content.data,name:f.name}));
-    const textFiles=readyAzFiles.filter(f=>f.content?.type==='text').map(f=>`[${f.name}]:\n${f.content.text.slice(0,2000)}`).join('\n\n---\n\n');
-    const finalPrompt=textFiles?`${userPr}\n\nDATA DARI FILE:\n${textFiles}`:userPr;
-    const txt=await callGeminiAI(sysPr,finalPrompt,2000,imgData.length?imgData:null);
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':_apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2000,system:sysPr,messages:[{role:'user',content:msgContent}]})
+    });
+    const data=await resp.json();
+    const txt=data.content?.map(c=>c.text||'').join('\n')||'Gagal mendapat respons.';
     showResult(co,ind,type,txt);
   }catch(err){
-    if(err.message==='NO_KEY'){toast('Set AI API Key di Pengaturan','er');return;}
     showResult(co,ind,type,genFallback(co,ind,type,aud,ctx));
-    toast('Cek API Key atau koneksi internet: '+err.message,'er');
+    toast('Mode offline — analisis berdasarkan framework','ok');
   }
 }
 
@@ -2189,13 +1801,18 @@ async function runSWOT(){
   const ind=document.getElementById('swotInd').value;
   if(!co){toast('Masukkan nama perusahaan','er');return;}
   const btn=document.getElementById('swotBtn');btn.disabled=true;btn.textContent='Generating...';
-  if(!getApiKey()){btn.disabled=false;btn.textContent='✦ Generate AI';toast('Tambahkan AI API Key di Pengaturan','er');return;}
+  const _swKey=getApiKey();
+  if(!_swKey){btn.disabled=false;btn.textContent='✦ Generate AI';toast('Tambahkan API Key di Pengaturan → API Key Claude','er');return;}
   try{
-    const swotPrompt=`Generate SWOT analysis yang spesifik dan berbasis data untuk ${co}${ind?' di industri '+ind:''}.
-Respond ONLY with valid JSON, no markdown, no other text:
-{"S":["kekuatan spesifik 1 dengan angka/data","kekuatan 2","kekuatan 3","kekuatan 4"],"W":["kelemahan 1 spesifik","kelemahan 2","kelemahan 3"],"O":["peluang 1 dengan konteks pasar Indonesia","peluang 2","peluang 3"],"T":["ancaman 1 spesifik","ancaman 2","ancaman 3"]}`;
-    const raw=await callGeminiAI(null,swotPrompt,900);
-    const parsed=JSON.parse(raw.replace(/```json|```/g,'').replace(/```/g,'').trim());
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json','x-api-key':_swKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:900,messages:[{role:'user',content:`Generate SWOT spesifik untuk ${co}${ind?' industri '+ind:''}.
+Respond ONLY with valid JSON, no other text:
+{"S":["kekuatan spesifik 1 dengan angka/data","kekuatan 2","kekuatan 3","kekuatan 4"],"W":["kelemahan 1","kelemahan 2","kelemahan 3"],"O":["peluang 1 dengan konteks pasar","peluang 2","peluang 3"],"T":["ancaman 1","ancaman 2","ancaman 3"]}`}]})
+    });
+    const data=await resp.json();
+    const raw=data.content?.map(c=>c.text||'').join('')||'{}';
+    const parsed=JSON.parse(raw.replace(/```json|```/g,'').trim());
     if(parsed.S)swotData.S=[...swotData.S,...parsed.S];
     if(parsed.W)swotData.W=[...swotData.W,...parsed.W];
     if(parsed.O)swotData.O=[...swotData.O,...parsed.O];
@@ -2329,14 +1946,19 @@ async function runSentiment(){
   btn.disabled=true;btn.textContent='Menganalisis...';
   document.getElementById('sentResBody').innerHTML=`<div style="text-align:center;padding:28px"><div class="spin" style="margin-bottom:12px"></div><div style="font-size:12px;color:var(--ink2)">Menganalisis sentimen...</div></div>`;
   try{
-    if(!getApiKey()){btn.disabled=false;btn.textContent='🧠 Analisis Sentimen';toast('Tambahkan AI API Key di Pengaturan','er');return;}
-    const sentPrompt=`Analisis sentimen teks ini dari perspektif analis finansial profesional.
+    const _sentKey=getApiKey();
+    if(!_sentKey){btn.disabled=false;btn.textContent='🧠 Analisis Sentimen';toast('Tambahkan API Key di Pengaturan → API Key Claude','er');return;}
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json','x-api-key':_sentKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,messages:[{role:'user',content:`Analisis sentimen teks ini dari perspektif analis finansial profesional.
 Konteks: ${co||'tidak disebutkan'} | Sumber: ${src}
 Teks: "${txt}"
 
-Respond ONLY with valid JSON, no markdown, no other text:
-{"score":75,"sentiment":"Positif","confidence":"Tinggi","positive_aspects":["aspek 1","aspek 2"],"negative_aspects":["aspek negatif"],"risk_signals":["sinyal risiko jika ada"],"key_themes":["tema 1","tema 2"],"investor_implication":"implikasi 1-2 kalimat","summary":"ringkasan 2-3 kalimat"}`;
-    const raw=await callGeminiAI(null,sentPrompt,800);
+Respond ONLY with valid JSON:
+{"score":75,"sentiment":"Positif","confidence":"Tinggi","positive_aspects":["aspek 1","aspek 2"],"negative_aspects":["aspek negatif"],"risk_signals":["sinyal risiko jika ada"],"key_themes":["tema 1","tema 2"],"investor_implication":"implikasi 1-2 kalimat","summary":"ringkasan 2-3 kalimat"}`}]})
+    });
+    const data=await resp.json();
+    const raw=data.content?.map(c=>c.text||'').join('')||'{}';
     const r=JSON.parse(raw.replace(/```json|```/g,'').trim());
     renderSentimentRes(r);
   }catch(e){
@@ -2382,7 +2004,7 @@ function saveSettings(){
 function exportData(){
   const d={user:user?.name,exported:new Date().toISOString(),reports:reps,favorites:favs,risks:riskItems,swot:swotData};
   const b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='penahiyanalytics-export.json';a.click();
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='penahiy-export.json';a.click();
   toast('Data diekspor!','ok');
 }
 function delAllRep(){if(confirm('Hapus semua laporan?')){reps=[];localStorage.removeItem('pa_reps');renderReports();updateBadges();toast('Semua laporan dihapus','ok');}}
@@ -2398,171 +2020,6 @@ function openModal(title,sub,body){
 }
 function closeModal(){document.getElementById('modalOv').classList.remove('on');}
 function mAction(){if(modalTxt)navigator.clipboard.writeText(modalTxt).then(()=>toast('Disalin!','ok'));closeModal();}
-
-
-// ═══════════════ PORTER'S FIVE FORCES ═══════════════
-async function runPorter(){
-  const co=document.getElementById('pf5Co').value.trim();
-  if(!co){toast('Masukkan nama perusahaan/industri','er');return;}
-  const ind=document.getElementById('pf5Ind').value||'Umum';
-  const ctx=document.getElementById('pf5Ctx').value;
-  const btn=document.getElementById('pf5Btn');
-  btn.disabled=true;btn.textContent='Menganalisis...';
-  document.getElementById('pf5Res').innerHTML=`<div class="load-box"><div class="spin"></div><div class="spin-l">Menganalisis Porter's 5 Forces untuk ${co}...</div><div class="spin-s">Powered by AI</div></div>`;
-  try{
-    const prompt=`Lakukan Porter's Five Forces analysis yang mendalam dan spesifik untuk: ${co} | Industri: ${ind}
-${ctx?'Konteks tambahan: '+ctx:''}
-
-Respond ONLY with valid JSON, no markdown:
-{
-  "rivalry":{"score":"Tinggi/Sedang/Rendah","level":75,"summary":"ringkasan 2-3 kalimat spesifik","points":["poin 1","poin 2","poin 3"]},
-  "new_entrants":{"score":"Tinggi/Sedang/Rendah","level":40,"summary":"ringkasan","points":["poin 1","poin 2","poin 3"]},
-  "substitutes":{"score":"Tinggi/Sedang/Rendah","level":55,"summary":"ringkasan","points":["poin 1","poin 2","poin 3"]},
-  "buyer_power":{"score":"Tinggi/Sedang/Rendah","level":60,"summary":"ringkasan","points":["poin 1","poin 2","poin 3"]},
-  "supplier_power":{"score":"Tinggi/Sedang/Rendah","level":35,"summary":"ringkasan","points":["poin 1","poin 2","poin 3"]},
-  "overall":"Kesimpulan strategis 2-3 kalimat dan rekomendasi posisi kompetitif",
-  "attractiveness":"Tinggi/Sedang/Rendah"
-}`;
-    const raw=await callGeminiAI(null,prompt,1200);
-    const d=JSON.parse(raw.replace(/```json|```/g,'').trim());
-    renderPorter(co,ind,d);
-  }catch(e){
-    if(e.message==='NO_KEY'){toast('Set AI API Key di Pengaturan','er');document.getElementById('pf5Res').innerHTML='<div class="res-empty"><div class="re-ic">🔑</div><div class="re-t">API Key Belum Diset</div><div class="re-s">Set AI API Key di Pengaturan → AI API Keys</div></div>';}
-    else toast('Gagal analisis: '+e.message,'er');
-  }
-  btn.disabled=false;btn.textContent='Analisis 5 Forces';
-}
-function renderPorter(co,ind,d){
-  const sc=v=>v>=65?'var(--r)':v>=40?'var(--o)':'var(--g)';
-  const scBg=v=>v>=65?'var(--rd)':v>=40?'var(--od)':'var(--gd)';
-  const forces=[
-    {key:'rivalry',icon:'⚔️',label:'Persaingan Industri',color:sc(d.rivalry?.level||50)},
-    {key:'new_entrants',icon:'🚪',label:'Ancaman Pendatang Baru',color:sc(d.new_entrants?.level||50)},
-    {key:'substitutes',icon:'🔄',label:'Ancaman Produk Substitusi',color:sc(d.substitutes?.level||50)},
-    {key:'buyer_power',icon:'🛒',label:'Daya Tawar Pembeli',color:sc(d.buyer_power?.level||50)},
-    {key:'supplier_power',icon:'🏭',label:'Daya Tawar Pemasok',color:sc(d.supplier_power?.level||50)},
-  ];
-  let html=`<div class="pf5-grid">`;
-  forces.forEach(f=>{
-    const data=d[f.key]||{};
-    const lv=data.level||50;
-    html+=`<div class="pf5-box">
-      <div class="pf5-label" style="color:${f.color}">${f.icon} ${f.label}</div>
-      <div class="pf5-title">${data.score||'Sedang'}<div class="pf5-score" style="background:${scBg(lv)};color:${f.color}">${lv}/100</div></div>
-      <div style="height:5px;background:var(--bg2);border-radius:99px;overflow:hidden;margin-bottom:10px"><div style="height:100%;width:${lv}%;background:${f.color};border-radius:99px"></div></div>
-      <div class="pf5-content">${data.summary||''}</div>
-      ${data.points?.length?`<div style="margin-top:8px;display:flex;flex-direction:column;gap:3px">${data.points.map(p=>`<div style="font-size:10.5px;color:var(--ink3);padding:2px 0">▸ ${p}</div>`).join('')}</div>`:''}
-    </div>`;
-  });
-  const attrColor=d.attractiveness==='Tinggi'?'var(--g)':d.attractiveness==='Rendah'?'var(--r)':'var(--o)';
-  html+=`<div class="pf5-center">
-    <div style="font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Daya Tarik Industri Keseluruhan</div>
-    <div style="font-family:'Cabinet Grotesk',sans-serif;font-size:22px;font-weight:900;color:${attrColor};margin-bottom:10px">${d.attractiveness||'Sedang'}</div>
-    <div style="font-size:12px;color:var(--ink2);line-height:1.7;max-width:600px;margin:0 auto">${d.overall||''}</div>
-    <div style="display:flex;gap:8px;justify-content:center;margin-top:12px">
-      <button class="bs o" onclick="cpPF5Result()" style="font-size:11px;padding:6px 12px">📋 Salin Hasil</button>
-      <button class="bs p" onclick="savePF5Report('${co}','${ind}')" style="font-size:11px;padding:6px 12px">💾 Simpan Laporan</button>
-    </div>
-  </div></div>`;
-  document.getElementById('pf5Res').innerHTML=html;
-  window._pf5last={co,ind,html:document.getElementById('pf5Res').innerText};
-}
-function cpPF5Result(){if(window._pf5last)navigator.clipboard.writeText(window._pf5last.html).then(()=>toast('Hasil disalin!','ok'));}
-function savePF5Report(co,ind){
-  if(!window._pf5last)return;
-  const r={id:Date.now(),company:co,industry:ind,type:"Porter's Five Forces",score:Math.floor(60+Math.random()*30),text:window._pf5last.html,date:new Date().toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'}),tags:["porter","kompetitif",ind.toLowerCase().split('&')[0].trim()]};
-  reps.unshift(r);localStorage.setItem('pa_reps',JSON.stringify(reps));renderReports();updateBadges();toast('Laporan disimpan!','ok');
-}
-
-// ═══════════════ BUSINESS MODEL CANVAS ═══════════════
-async function runBMC(){
-  const co=document.getElementById('bmcCo').value.trim();
-  if(!co){toast('Masukkan nama perusahaan','er');return;}
-  const ind=document.getElementById('bmcInd').value||'Umum';
-  const btn=document.getElementById('bmcBtn');
-  btn.disabled=true;btn.textContent='Generating...';
-  document.getElementById('bmcEmpty').style.display='none';
-  document.getElementById('bmcGrid').style.display='none';
-  document.getElementById('bmcGrid').insertAdjacentHTML('beforebegin','<div id="bmcLoader" class="load-box" style="margin-top:12px"><div class="spin"></div><div class="spin-l">Generating Business Canvas untuk '+co+'...</div></div>');
-  try{
-    const prompt=`Generate Business Model Canvas yang spesifik dan detail untuk: ${co} | Industri: ${ind}
-
-Respond ONLY with valid JSON, no markdown:
-{
-  "key_partners":["partner 1 spesifik","partner 2","partner 3"],
-  "key_activities":["aktivitas utama 1","aktivitas 2","aktivitas 3"],
-  "key_resources":["resource 1 spesifik","resource 2","resource 3"],
-  "value_propositions":["proposisi nilai 1 utama","nilai 2","nilai 3"],
-  "customer_relationships":["hubungan 1","hubungan 2","hubungan 3"],
-  "channels":["channel 1","channel 2","channel 3"],
-  "customer_segments":["segmen 1 spesifik","segmen 2","segmen 3"],
-  "cost_structure":["biaya utama 1","biaya 2","biaya 3"],
-  "revenue_streams":["revenue 1","revenue 2","revenue 3"]
-}`;
-    const raw=await callGeminiAI(null,prompt,1000);
-    const d=JSON.parse(raw.replace(/```json|```/g,'').trim());
-    renderBMC(co,d);
-  }catch(e){
-    document.getElementById('bmcLoader')?.remove();
-    document.getElementById('bmcEmpty').style.display='block';
-    if(e.message==='NO_KEY'){toast('Set AI API Key di Pengaturan','er');}
-    else toast('Gagal generate: '+e.message,'er');
-  }
-  btn.disabled=false;btn.textContent='Generate Canvas';
-}
-function renderBMC(co,d){
-  document.getElementById('bmcLoader')?.remove();
-  const colors={key_partners:'var(--v)',key_activities:'var(--g)',key_resources:'var(--b)',value_propositions:'var(--o)',customer_relationships:'var(--r)',channels:'var(--g)',customer_segments:'var(--b)',cost_structure:'var(--r)',revenue_streams:'var(--g)'};
-  const labels={key_partners:'🤝 Key Partners',key_activities:'⚙️ Key Activities',key_resources:'💎 Key Resources',value_propositions:'✨ Value Propositions',customer_relationships:'💬 Customer Relationships',channels:'📡 Channels',customer_segments:'👥 Customer Segments',cost_structure:'💸 Cost Structure',revenue_streams:'💰 Revenue Streams'};
-  const topBlocks=['key_partners','key_activities','value_propositions','customer_relationships','customer_segments'];
-  const botBlocks=['cost_structure','revenue_streams'];
-  const makeBlock=(key,span=1)=>`<div class="bmc-block" style="border-top:3px solid ${colors[key]};grid-column:span ${span}">
-    <div class="bmc-title" style="color:${colors[key]}">${labels[key]}</div>
-    <div class="bmc-items">${(d[key]||[]).map(item=>`<div class="bmc-item">▸ ${item}</div>`).join('')}</div>
-  </div>`;
-  // Key Activities + Key Resources share middle column
-  const topHTML=`<div class="bmc-block" style="border-top:3px solid ${colors.key_partners};grid-column:span 1">
-    <div class="bmc-title" style="color:${colors.key_partners}">${labels.key_partners}</div>
-    <div class="bmc-items">${(d.key_partners||[]).map(i=>`<div class="bmc-item">▸ ${i}</div>`).join('')}</div>
-  </div>
-  <div style="display:flex;flex-direction:column;gap:10px">
-    <div class="bmc-block" style="border-top:3px solid ${colors.key_activities};flex:1">
-      <div class="bmc-title" style="color:${colors.key_activities}">${labels.key_activities}</div>
-      <div class="bmc-items">${(d.key_activities||[]).map(i=>`<div class="bmc-item">▸ ${i}</div>`).join('')}</div>
-    </div>
-    <div class="bmc-block" style="border-top:3px solid ${colors.key_resources};flex:1">
-      <div class="bmc-title" style="color:${colors.key_resources}">${labels.key_resources}</div>
-      <div class="bmc-items">${(d.key_resources||[]).map(i=>`<div class="bmc-item">▸ ${i}</div>`).join('')}</div>
-    </div>
-  </div>
-  ${makeBlock('value_propositions')}
-  <div style="display:flex;flex-direction:column;gap:10px">
-    <div class="bmc-block" style="border-top:3px solid ${colors.customer_relationships};flex:1">
-      <div class="bmc-title" style="color:${colors.customer_relationships}">${labels.customer_relationships}</div>
-      <div class="bmc-items">${(d.customer_relationships||[]).map(i=>`<div class="bmc-item">▸ ${i}</div>`).join('')}</div>
-    </div>
-    <div class="bmc-block" style="border-top:3px solid ${colors.channels};flex:1">
-      <div class="bmc-title" style="color:${colors.channels}">${labels.channels}</div>
-      <div class="bmc-items">${(d.channels||[]).map(i=>`<div class="bmc-item">▸ ${i}</div>`).join('')}</div>
-    </div>
-  </div>
-  ${makeBlock('customer_segments')}`;
-  document.getElementById('bmcTop').innerHTML=topHTML;
-  document.getElementById('bmcBot').innerHTML=makeBlock('cost_structure')+makeBlock('revenue_streams');
-  document.getElementById('bmcGrid').style.display='block';
-  // Add header
-  if(!document.getElementById('bmcHeader')){
-    const h=document.createElement('div');h.id='bmcHeader';
-    h.innerHTML=`<div class="card-h" style="margin-bottom:10px"><span class="card-t">Business Model Canvas: ${co}</span><div style="display:flex;gap:6px"><button class="bs o" onclick="copyBMC()" style="font-size:11px;padding:5px 10px">📋 Salin</button><button class="bs p" onclick="saveBMCReport('${co}','${d}')" style="font-size:11px;padding:5px 10px">💾 Simpan</button></div></div>`;
-    document.getElementById('bmcGrid').insertAdjacentElement('beforebegin',h);
-  }
-}
-function copyBMC(){navigator.clipboard.writeText(document.getElementById('bmcGrid').innerText).then(()=>toast('Canvas disalin!','ok'));}
-function saveBMCReport(co){
-  const txt=document.getElementById('bmcGrid').innerText;
-  const r={id:Date.now(),company:co,industry:'Canvas',type:'Business Model Canvas',score:Math.floor(70+Math.random()*25),text:txt,date:new Date().toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'}),tags:['canvas','business model']};
-  reps.unshift(r);localStorage.setItem('pa_reps',JSON.stringify(reps));renderReports();updateBadges();toast('Canvas disimpan!','ok');
-}
 
 // ═══════════════ TOAST ═══════════════
 function toast(msg,type='ok'){
