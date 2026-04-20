@@ -432,11 +432,104 @@ button,input,select,textarea{font-family:inherit}
 .bmc-item{font-size:11.5px;color:var(--ink2);line-height:1.5;padding:4px 0;border-bottom:1px solid var(--e1)}
 .bmc-item:last-child{border-bottom:none}
 
-@media(max-width:1100px){.g4{grid-template-columns:1fr 1fr}.az-l{grid-template-columns:1fr}}
-@media(max-width:768px){:root{--W:0px}.sidebar{transform:translateX(-100%);width:260px}.sidebar.open{transform:none;box-shadow:var(--sh)}.main{margin-left:0}#menuBtn{display:block!important}.page{padding:14px}.g4,.g3,.g2{grid-template-columns:1fr}.pg{grid-template-columns:1fr}.fup-g{grid-template-columns:1fr}.vi{grid-template-columns:1fr 1fr}.vr-g{grid-template-columns:1fr 1fr}.set-l{grid-template-columns:1fr}.swot-g{grid-template-columns:1fr}.az-form{position:static}}
+/* ── CONNECTION STATUS BANNER ── */
+#connBanner{
+  position:fixed;top:0;left:0;right:0;z-index:9999;
+  padding:9px 18px;font-size:12px;font-weight:600;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transform:translateY(-100%);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  pointer-events:none;
+}
+#connBanner.show{transform:none}
+#connBanner.offline{background:linear-gradient(135deg,rgba(251,113,133,0.15),rgba(244,63,94,0.1));border-bottom:1px solid rgba(251,113,133,0.25);color:var(--r);}
+#connBanner.back{background:linear-gradient(135deg,rgba(0,240,170,0.12),rgba(0,180,130,0.08));border-bottom:1px solid rgba(0,240,170,0.2);color:var(--g);}
+.conn-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+#connBanner.offline .conn-dot{background:var(--r);animation:pulse-r 1.2s infinite}
+#connBanner.back .conn-dot{background:var(--g)}
+@keyframes pulse-r{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.85)}}
+
+/* ── AI STATUS PILL (topbar) ── */
+.ai-status-pill{
+  display:flex;align-items:center;gap:5px;padding:4px 10px;
+  border-radius:99px;font-size:10.5px;font-weight:600;
+  border:1px solid var(--e1);background:var(--card);cursor:pointer;
+  transition:var(--T);color:var(--ink3);
+}
+.ai-status-pill.active{border-color:rgba(0,240,170,0.3);background:var(--gd);color:var(--g);}
+.ai-status-pill.inactive{border-color:rgba(251,113,133,0.3);background:var(--rd);color:var(--r);}
+.ai-status-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.ai-status-pill.active .ai-status-dot{background:var(--g);animation:blink-g 2s infinite}
+.ai-status-pill.inactive .ai-status-dot{background:var(--r)}
+@keyframes blink-g{0%,100%{opacity:1}50%{opacity:0.4}}
+
+/* ── CODE / RESULT SYNTAX HIGHLIGHT ── */
+.rc-body,.m-body{
+  font-family:'JetBrains Mono',monospace;font-size:12px;
+  line-height:1.75;white-space:pre-wrap;
+  background:var(--bg2);border-radius:var(--Rs);padding:14px 16px;
+  color:var(--ink);border:1px solid var(--e1);
+}
+/* Highlight special markers */
+.rc-body .hl-warn{color:var(--r);font-weight:700}
+.rc-body .hl-good{color:var(--g);font-weight:700}
+.rc-body .hl-section{color:var(--b);font-weight:700;letter-spacing:0.5px}
+
+/* ── RUN PROMPT MODAL ── */
+#rpOv{display:none}
+#rpOv.on{display:flex}
+#rpOv .modal{max-height:90vh;overflow-y:auto}
+
+/* ── PROMPT CARD FOOTER ── */
+.pc-foot{display:flex;gap:5px;flex-wrap:wrap}
+.pc-btn{flex:1;min-width:60px}
+
+@media(max-width:768px){
+  #rpOv .modal{max-height:95vh;border-radius:16px 16px 0 0;position:fixed;bottom:0;left:0;right:0;width:100%}
+}
+.fp-steps{display:flex;flex-direction:column;gap:9px;margin-bottom:16px}
+.fp-step{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:9px;border:1px solid var(--e1)}
+#fpNewPassWrap{display:none;flex-direction:column;gap:6px;margin-top:2px}
+
+/* ── CHANGE PASSWORD (SETTINGS) ── */
+#chpwErr{animation:shk 0.3s ease}
+#chpwOk{animation:fadeIn 0.3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+
+/* ── PASSWORD INPUT SHOW/HIDE ── */
+.pw-wrap{position:relative;display:flex;align-items:center}
+.pw-wrap input{padding-right:36px;width:100%}
+.pw-eye{position:absolute;right:10px;cursor:pointer;color:var(--ink3);font-size:13px;user-select:none;transition:color var(--T)}
+.pw-eye:hover{color:var(--ink)}
+
+/* ── RESULT CARD IMPROVEMENTS ── */
+.rc-body{overflow-x:auto;max-height:420px;overflow-y:auto}
+.load-box{
+  background:linear-gradient(135deg,var(--card),var(--card2));
+  border:1px solid var(--e2);border-radius:var(--R);padding:28px;
+  display:flex;flex-direction:column;align-items:center;gap:11px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.load-box::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent 0%,rgba(0,240,170,0.03) 50%,transparent 100%);
+  animation:shimmer 2s infinite;
+}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+
+/* ── TOPBAR AI BADGE ── */
+#tbAiBadge{transition:var(--T)}
+
+@media(max-width:768px){
+  #connBanner{font-size:11px;padding:7px 12px}
+  .rc-body{max-height:280px}
+}
+
 </style>
 </head>
 <body>
+
+<!-- CONNECTION BANNER -->
+<div id="connBanner"><div class="conn-dot"></div><span id="connMsg"></span></div>
 
 <!-- AUTH -->
 <div id="authScreen">
@@ -519,16 +612,21 @@ button,input,select,textarea{font-family:inherit}
       </div>
       <div class="fp-step">
         <div class="fp-step-n">4</div>
-        <div><div class="fp-step-t">Cari email terdaftar</div>
-          <div style="margin-top:6px;display:flex;gap:6px">
-            <input id="fpSearchEmail" class="fi" placeholder="Masukkan email yang kamu ingat..." style="font-size:12px;padding:7px 10px">
-            <button onclick="searchUserEmail()" style="padding:7px 12px;background:var(--gd);border:1px solid var(--g);color:var(--g);border-radius:7px;cursor:pointer;font-size:11.5px;white-space:nowrap">Cari</button>
+        <div style="width:100%"><div class="fp-step-t">Reset Password Akun</div>
+          <div style="margin-top:8px;display:flex;flex-direction:column;gap:7px">
+            <input id="fpSearchEmail" class="fi" placeholder="Email yang terdaftar..." style="font-size:12px;padding:8px 11px;width:100%">
+            <div id="fpNewPassWrap" style="display:none;flex-direction:column;gap:6px">
+              <input id="fpNewPass" class="fi" type="password" placeholder="Password baru (min. 6 karakter)" style="font-size:12px;padding:8px 11px;width:100%">
+              <input id="fpConfPass" class="fi" type="password" placeholder="Konfirmasi password baru" style="font-size:12px;padding:8px 11px;width:100%">
+              <button onclick="confirmResetPassword()" style="padding:8px 12px;background:linear-gradient(135deg,var(--g),#00cc8a);border:none;border-radius:7px;color:#011810;font-weight:700;cursor:pointer;font-size:12px;width:100%">✓ Simpan Password Baru</button>
+            </div>
+            <button onclick="searchUserEmail()" style="padding:8px 12px;background:var(--gd);border:1px solid var(--g);color:var(--g);border-radius:7px;cursor:pointer;font-size:11.5px">🔍 Cari & Reset Password</button>
           </div>
           <div id="fpSearchResult" style="margin-top:6px;font-size:11px;display:none"></div>
         </div>
       </div>
     </div>
-    <div style="display:flex;gap:8px">
+    <div style="display:flex;gap:8px;margin-top:4px">
       <button onclick="doDemo();closeForgot()" style="flex:1;padding:10px;background:linear-gradient(135deg,var(--g),#00cc8a);border:none;border-radius:9px;color:#011810;font-weight:700;font-size:12.5px;cursor:pointer">⚡ Masuk Demo Sekarang</button>
       <button onclick="closeForgot()" style="padding:10px 16px;border:1px solid var(--e2);border-radius:9px;background:transparent;color:var(--ink2);cursor:pointer;font-size:12.5px">Tutup</button>
     </div>
@@ -608,6 +706,10 @@ button,input,select,textarea{font-family:inherit}
         <span class="tb-t" id="tbT">Dashboard</span>
       </div>
       <div class="tb-r">
+        <div class="ai-status-pill inactive" id="tbAiBadge" onclick="goto('settings',null)" title="Status AI — klik untuk pengaturan">
+          <div class="ai-status-dot"></div>
+          <span id="tbAiLabel">AI Belum Aktif</span>
+        </div>
         <button class="bs o" onclick="goto('upload',null)">📂 Upload File</button>
         <button class="bs p" onclick="goto('analyzer',null)">✦ Analisis Baru</button>
       </div>
@@ -1052,7 +1154,17 @@ button,input,select,textarea{font-family:inherit}
               <div class="set-row"><div><div class="set-rl">Nama Lengkap</div></div><input class="set-in" id="sNm" value="Demo User"></div>
               <div class="set-row"><div><div class="set-rl">Email</div></div><input class="set-in" id="sEm" value="demo@penahiy.id"></div>
               <div class="set-row"><div><div class="set-rl">Peran</div></div><select class="set-sel" id="sRl"><option>Data Analyst</option><option>Business Analyst</option><option>Financial Analyst</option><option>Konsultan</option><option>Investor / VC</option></select></div>
-              <div class="set-row" style="border-bottom:none"><div></div><button class="bs p" onclick="saveSettings()">Simpan</button></div>
+              <div class="set-row" style="border-bottom:none"><div></div><button class="bs p" onclick="saveSettings()">Simpan Profil</button></div>
+            </div>
+            <!-- GANTI PASSWORD SECTION -->
+            <div class="set-sec" style="margin-top:14px">
+              <div class="set-sh">🔒 Ganti Password</div>
+              <div id="chpwErr" style="display:none;background:var(--rd);border:1px solid rgba(251,113,133,0.25);border-radius:8px;padding:8px 12px;font-size:11.5px;color:var(--r);margin-bottom:10px;animation:shk 0.3s ease"></div>
+              <div id="chpwOk" style="display:none;background:var(--gd);border:1px solid rgba(0,240,170,0.25);border-radius:8px;padding:8px 12px;font-size:11.5px;color:var(--g);margin-bottom:10px"></div>
+              <div class="set-row"><div><div class="set-rl">Password Lama</div><div class="set-rd">Masukkan password saat ini</div></div><input class="set-in" id="cpOld" type="password" placeholder="Password lama..."></div>
+              <div class="set-row"><div><div class="set-rl">Password Baru</div><div class="set-rd">Minimal 6 karakter</div></div><input class="set-in" id="cpNew" type="password" placeholder="Password baru..."></div>
+              <div class="set-row"><div><div class="set-rl">Konfirmasi Password</div></div><input class="set-in" id="cpConf" type="password" placeholder="Ulangi password baru..."></div>
+              <div class="set-row" style="border-bottom:none"><div></div><button class="bs p" onclick="changePassword()">🔒 Ganti Password</button></div>
             </div>
           </div>
           <div id="sp_app" style="display:none">
@@ -1085,73 +1197,123 @@ button,input,select,textarea{font-family:inherit}
 
               <!-- AI SELECTOR TABS -->
               <div style="display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap">
-                <button class="ai-sel-tab on" onclick="selAiTab('gemini',this)" id="aist-gemini">Gemini</button>
+                <button class="ai-sel-tab on" onclick="selAiTab('gemini',this)" id="aist-gemini">🟢 Gemini</button>
+                <button class="ai-sel-tab" onclick="selAiTab('groq',this)" id="aist-groq">🟢 Groq</button>
+                <button class="ai-sel-tab" onclick="selAiTab('openrouter',this)" id="aist-openrouter">🟢 OpenRouter</button>
                 <button class="ai-sel-tab" onclick="selAiTab('claude',this)" id="aist-claude">Claude</button>
-                <button class="ai-sel-tab" onclick="selAiTab('gpt',this)" id="aist-gpt">GPT-4</button>
+                <button class="ai-sel-tab" onclick="selAiTab('gpt',this)" id="aist-gpt">GPT-4o-mini</button>
                 <button class="ai-sel-tab" onclick="selAiTab('blackbox',this)" id="aist-blackbox">Blackbox</button>
+              </div>
+              <div style="display:flex;align-items:center;gap:7px;padding:7px 11px;background:rgba(0,240,170,0.06);border:1px solid rgba(0,240,170,0.18);border-radius:8px;font-size:11px;color:var(--g);margin-bottom:16px">
+                <span style="font-size:14px">💡</span>
+                <span><strong>🟢 = 100% Gratis.</strong> Rekomendasi: mulai dengan <strong>Gemini Flash</strong> (key gratis di aistudio.google.com) atau <strong>Groq</strong> (Llama 3 gratis di console.groq.com)</span>
               </div>
 
               <!-- GEMINI PANEL -->
               <div id="aipanel-gemini">
                 <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-                  <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#4285f4,#34a853);display:flex;align-items:center;justify-content:center;font-size:14px">G</div>
-                  <div><div style="font-size:13px;font-weight:700;color:var(--ink)">Google Gemini</div><div style="font-size:10.5px;color:var(--ink3)">100% Gratis · 15 req/menit · 1M token/hari</div></div>
-                  <span class="ai-tag" id="badge-gemini" style="margin-left:auto;font-size:9.5px">Belum diset</span>
+                  <div style="width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#4285f4,#34a853);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">G</div>
+                  <div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--ink)">Google Gemini 1.5 Flash</div><div style="font-size:10.5px;color:var(--ink3)">🟢 100% Gratis · 15 req/menit · 1M token/hari · Vision support</div></div>
+                  <span class="ai-tag" id="badge-gemini" style="font-size:9.5px">Belum diset</span>
                 </div>
-                <input class="fi" id="key-gemini" type="password" placeholder="AIza..." style="font-family:'JetBrains Mono',monospace;margin-bottom:8px">
-                <div style="font-size:10.5px;color:var(--ink3);margin-bottom:10px">Dapatkan gratis di <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--g)">aistudio.google.com</a></div>
+                <input class="fi" id="key-gemini" type="password" placeholder="AIza..." style="font-family:'JetBrains Mono',monospace;margin-bottom:6px">
+                <div style="font-size:10.5px;color:var(--ink3);margin-bottom:10px;line-height:1.6">🔗 Daftar gratis di <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--g)">aistudio.google.com</a> → klik "Get API key" → salin key → paste di atas</div>
                 <div style="display:flex;gap:7px">
-                  <button class="btn-p" style="flex:1;padding:9px;font-size:12px" onclick="saveAiKey('gemini')">Simpan</button>
+                  <button class="btn-p" style="flex:1;padding:9px;font-size:12px" onclick="saveAiKey('gemini')">💾 Simpan</button>
                   <button class="bs o" style="padding:9px 13px" onclick="clearAiKey('gemini')">Hapus</button>
-                  <button class="bs p" style="padding:9px 13px;font-size:11px" onclick="setActiveAi('gemini')">Jadikan Utama</button>
+                  <button class="bs p" style="padding:9px 13px;font-size:11px" onclick="setActiveAi('gemini')">⭐ Jadikan Utama</button>
+                </div>
+              </div>
+
+              <!-- GROQ PANEL (FREE) -->
+              <div id="aipanel-groq" style="display:none">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+                  <div style="width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#f55036,#ff8c42);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">⚡</div>
+                  <div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--ink)">Groq — Llama 3.3 70B</div><div style="font-size:10.5px;color:var(--ink3)">🟢 Gratis · Super cepat (~500 token/detik) · Open source model</div></div>
+                  <span class="ai-tag" id="badge-groq" style="font-size:9.5px">Belum diset</span>
+                </div>
+                <input class="fi" id="key-groq" type="password" placeholder="gsk_..." style="font-family:'JetBrains Mono',monospace;margin-bottom:6px">
+                <div style="font-size:10.5px;color:var(--ink3);margin-bottom:10px;line-height:1.6">🔗 Daftar gratis di <a href="https://console.groq.com/keys" target="_blank" style="color:var(--g)">console.groq.com</a> → "Create API Key" → salin → paste di atas<br>Model: <strong style="color:var(--ink)">llama-3.3-70b-versatile</strong> (setara GPT-4, 100% gratis)</div>
+                <div style="display:flex;gap:7px">
+                  <button class="btn-p" style="flex:1;padding:9px;font-size:12px" onclick="saveAiKey('groq')">💾 Simpan</button>
+                  <button class="bs o" style="padding:9px 13px" onclick="clearAiKey('groq')">Hapus</button>
+                  <button class="bs p" style="padding:9px 13px;font-size:11px" onclick="setActiveAi('groq')">⭐ Jadikan Utama</button>
+                </div>
+              </div>
+
+              <!-- OPENROUTER PANEL (FREE MODELS) -->
+              <div id="aipanel-openrouter" style="display:none">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+                  <div style="width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#7c3aed,#a855f7);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">🌐</div>
+                  <div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--ink)">OpenRouter — Multi Model</div><div style="font-size:10.5px;color:var(--ink3)">🟢 Ada model gratis · Akses 200+ model dari satu key</div></div>
+                  <span class="ai-tag" id="badge-openrouter" style="font-size:9.5px">Belum diset</span>
+                </div>
+                <input class="fi" id="key-openrouter" type="password" placeholder="sk-or-v1-..." style="font-family:'JetBrains Mono',monospace;margin-bottom:6px">
+                <div style="font-size:10.5px;color:var(--ink3);margin-bottom:8px;line-height:1.6">🔗 Daftar di <a href="https://openrouter.ai/keys" target="_blank" style="color:var(--g)">openrouter.ai</a> → "Create Key" → paste di atas</div>
+                <div style="margin-bottom:10px">
+                  <label style="font-size:10.5px;color:var(--ink2);font-weight:600;display:block;margin-bottom:4px">Model (pilih yang gratis `:free` = 100% gratis):</label>
+                  <select class="fs" id="orModelSel" onchange="localStorage.setItem('pa_or_model',this.value)" style="font-size:11.5px">
+                    <option value="meta-llama/llama-3.1-8b-instruct:free">🟢 Llama 3.1 8B Instruct (Gratis)</option>
+                    <option value="google/gemma-2-9b-it:free">🟢 Google Gemma 2 9B (Gratis)</option>
+                    <option value="mistralai/mistral-7b-instruct:free">🟢 Mistral 7B Instruct (Gratis)</option>
+                    <option value="qwen/qwen-2-7b-instruct:free">🟢 Qwen 2 7B Instruct (Gratis)</option>
+                    <option value="meta-llama/llama-3.3-70b-instruct:free">🟢 Llama 3.3 70B (Gratis)</option>
+                    <option value="anthropic/claude-3-haiku">Claude 3 Haiku (berbayar)</option>
+                    <option value="openai/gpt-4o-mini">GPT-4o mini (berbayar)</option>
+                  </select>
+                </div>
+                <div style="display:flex;gap:7px">
+                  <button class="btn-p" style="flex:1;padding:9px;font-size:12px" onclick="saveAiKey('openrouter')">💾 Simpan</button>
+                  <button class="bs o" style="padding:9px 13px" onclick="clearAiKey('openrouter')">Hapus</button>
+                  <button class="bs p" style="padding:9px 13px;font-size:11px" onclick="setActiveAi('openrouter')">⭐ Jadikan Utama</button>
                 </div>
               </div>
 
               <!-- CLAUDE PANEL -->
               <div id="aipanel-claude" style="display:none">
                 <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-                  <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#cc785c,#d4915a);display:flex;align-items:center;justify-content:center;font-size:14px">C</div>
-                  <div><div style="font-size:13px;font-weight:700;color:var(--ink)">Anthropic Claude</div><div style="font-size:10.5px;color:var(--ink3)">claude-sonnet-4-5 · Berbayar per token</div></div>
-                  <span class="ai-tag" id="badge-claude" style="margin-left:auto;font-size:9.5px">Belum diset</span>
+                  <div style="width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#cc785c,#d4915a);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">C</div>
+                  <div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--ink)">Anthropic Claude Haiku</div><div style="font-size:10.5px;color:var(--ink3)">💳 Berbayar per token · Termurah dari Anthropic · Vision support</div></div>
+                  <span class="ai-tag" id="badge-claude" style="font-size:9.5px">Belum diset</span>
                 </div>
-                <input class="fi" id="key-claude" type="password" placeholder="sk-ant-api03-..." style="font-family:'JetBrains Mono',monospace;margin-bottom:8px">
-                <div style="font-size:10.5px;color:var(--ink3);margin-bottom:10px">Dapatkan di <a href="https://console.anthropic.com/keys" target="_blank" style="color:var(--g)">console.anthropic.com</a></div>
+                <input class="fi" id="key-claude" type="password" placeholder="sk-ant-api03-..." style="font-family:'JetBrains Mono',monospace;margin-bottom:6px">
+                <div style="font-size:10.5px;color:var(--ink3);margin-bottom:10px">🔗 Dapatkan di <a href="https://console.anthropic.com/keys" target="_blank" style="color:var(--g)">console.anthropic.com</a></div>
                 <div style="display:flex;gap:7px">
-                  <button class="btn-p" style="flex:1;padding:9px;font-size:12px" onclick="saveAiKey('claude')">Simpan</button>
+                  <button class="btn-p" style="flex:1;padding:9px;font-size:12px" onclick="saveAiKey('claude')">💾 Simpan</button>
                   <button class="bs o" style="padding:9px 13px" onclick="clearAiKey('claude')">Hapus</button>
-                  <button class="bs p" style="padding:9px 13px;font-size:11px" onclick="setActiveAi('claude')">Jadikan Utama</button>
+                  <button class="bs p" style="padding:9px 13px;font-size:11px" onclick="setActiveAi('claude')">⭐ Jadikan Utama</button>
                 </div>
               </div>
 
               <!-- GPT PANEL -->
               <div id="aipanel-gpt" style="display:none">
                 <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-                  <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#10a37f,#1a7f64);display:flex;align-items:center;justify-content:center;font-size:14px">O</div>
-                  <div><div style="font-size:13px;font-weight:700;color:var(--ink)">OpenAI GPT-4</div><div style="font-size:10.5px;color:var(--ink3)">gpt-4o · Berbayar per token</div></div>
-                  <span class="ai-tag" id="badge-gpt" style="margin-left:auto;font-size:9.5px">Belum diset</span>
+                  <div style="width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#10a37f,#1a7f64);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">O</div>
+                  <div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--ink)">OpenAI GPT-4o-mini</div><div style="font-size:10.5px;color:var(--ink3)">💳 Berbayar · Termurah dari OpenAI · Vision support</div></div>
+                  <span class="ai-tag" id="badge-gpt" style="font-size:9.5px">Belum diset</span>
                 </div>
-                <input class="fi" id="key-gpt" type="password" placeholder="sk-proj-..." style="font-family:'JetBrains Mono',monospace;margin-bottom:8px">
-                <div style="font-size:10.5px;color:var(--ink3);margin-bottom:10px">Dapatkan di <a href="https://platform.openai.com/api-keys" target="_blank" style="color:var(--g)">platform.openai.com</a></div>
+                <input class="fi" id="key-gpt" type="password" placeholder="sk-proj-..." style="font-family:'JetBrains Mono',monospace;margin-bottom:6px">
+                <div style="font-size:10.5px;color:var(--ink3);margin-bottom:10px">🔗 Dapatkan di <a href="https://platform.openai.com/api-keys" target="_blank" style="color:var(--g)">platform.openai.com</a></div>
                 <div style="display:flex;gap:7px">
-                  <button class="btn-p" style="flex:1;padding:9px;font-size:12px" onclick="saveAiKey('gpt')">Simpan</button>
+                  <button class="btn-p" style="flex:1;padding:9px;font-size:12px" onclick="saveAiKey('gpt')">💾 Simpan</button>
                   <button class="bs o" style="padding:9px 13px" onclick="clearAiKey('gpt')">Hapus</button>
-                  <button class="bs p" style="padding:9px 13px;font-size:11px" onclick="setActiveAi('gpt')">Jadikan Utama</button>
+                  <button class="bs p" style="padding:9px 13px;font-size:11px" onclick="setActiveAi('gpt')">⭐ Jadikan Utama</button>
                 </div>
               </div>
 
               <!-- BLACKBOX PANEL -->
               <div id="aipanel-blackbox" style="display:none">
                 <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-                  <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#1a1a1a,#333);border:1px solid var(--e2);display:flex;align-items:center;justify-content:center;font-size:14px">B</div>
-                  <div><div style="font-size:13px;font-weight:700;color:var(--ink)">Blackbox AI</div><div style="font-size:10.5px;color:var(--ink3)">blackbox-pro · API endpoint</div></div>
-                  <span class="ai-tag" id="badge-blackbox" style="margin-left:auto;font-size:9.5px">Belum diset</span>
+                  <div style="width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#1a1a1a,#333);border:1px solid var(--e2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">B</div>
+                  <div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--ink)">Blackbox AI</div><div style="font-size:10.5px;color:var(--ink3)">API endpoint · blackbox-pro model</div></div>
+                  <span class="ai-tag" id="badge-blackbox" style="font-size:9.5px">Belum diset</span>
                 </div>
-                <input class="fi" id="key-blackbox" type="password" placeholder="bbx-..." style="font-family:'JetBrains Mono',monospace;margin-bottom:8px">
-                <div style="font-size:10.5px;color:var(--ink3);margin-bottom:10px">Dapatkan di <a href="https://www.blackbox.ai" target="_blank" style="color:var(--g)">blackbox.ai</a></div>
+                <input class="fi" id="key-blackbox" type="password" placeholder="bbx-..." style="font-family:'JetBrains Mono',monospace;margin-bottom:6px">
+                <div style="font-size:10.5px;color:var(--ink3);margin-bottom:10px">🔗 Dapatkan di <a href="https://www.blackbox.ai" target="_blank" style="color:var(--g)">blackbox.ai</a></div>
                 <div style="display:flex;gap:7px">
-                  <button class="btn-p" style="flex:1;padding:9px;font-size:12px" onclick="saveAiKey('blackbox')">Simpan</button>
+                  <button class="btn-p" style="flex:1;padding:9px;font-size:12px" onclick="saveAiKey('blackbox')">💾 Simpan</button>
                   <button class="bs o" style="padding:9px 13px" onclick="clearAiKey('blackbox')">Hapus</button>
-                  <button class="bs p" style="padding:9px 13px;font-size:11px" onclick="setActiveAi('blackbox')">Jadikan Utama</button>
+                  <button class="bs p" style="padding:9px 13px;font-size:11px" onclick="setActiveAi('blackbox')">⭐ Jadikan Utama</button>
                 </div>
               </div>
 
@@ -1249,6 +1411,48 @@ button,input,select,textarea{font-family:inherit}
     <div class="m-foot">
       <button class="m-btn" onclick="document.getElementById('logoutOv').classList.remove('on')">Batal</button>
       <button class="m-btn" style="background:var(--rd);border-color:var(--r);color:var(--r)" onclick="confirmLogout()">Ya, Keluar</button>
+    </div>
+  </div>
+</div>
+
+<!-- RUN PROMPT MODAL -->
+<div class="modal-ov" id="rpOv" onclick="if(event.target===this)closeRP()">
+  <div class="modal" style="max-width:640px;width:calc(100vw - 20px)">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:4px">
+      <div>
+        <div class="m-title" id="rpTitle" style="margin-bottom:2px"></div>
+        <div style="font-size:11px;color:var(--ink3)" id="rpBadge"></div>
+      </div>
+      <button onclick="closeRP()" style="background:none;border:none;color:var(--ink3);font-size:18px;cursor:pointer;flex-shrink:0;padding:0 2px">✕</button>
+    </div>
+    <div class="m-sub" id="rpSub" style="margin-bottom:14px"></div>
+
+    <!-- Placeholder Inputs -->
+    <div id="rpInputs" style="display:flex;flex-direction:column;gap:9px;margin-bottom:14px"></div>
+
+    <!-- Preview prompt text -->
+    <div id="rpPreviewWrap" style="display:none;margin-bottom:14px">
+      <div style="font-size:10px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Preview Prompt</div>
+      <div id="rpPreviewBody" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--ink2);background:var(--bg2);border:1px solid var(--e1);border-radius:8px;padding:10px 13px;max-height:130px;overflow-y:auto;white-space:pre-wrap;line-height:1.65"></div>
+    </div>
+
+    <!-- Result area -->
+    <div id="rpResWrap" style="display:none;margin-bottom:14px">
+      <div style="font-size:10px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Hasil AI</div>
+      <div id="rpResBody" style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--ink);background:var(--bg2);border:1px solid var(--e1);border-radius:8px;padding:12px 14px;max-height:280px;overflow-y:auto;white-space:pre-wrap;line-height:1.75"></div>
+    </div>
+
+    <div style="display:flex;gap:7px;flex-wrap:wrap">
+      <button class="btn-p" id="rpRunBtn" onclick="executePrompt()" style="flex:1;min-width:140px;padding:11px">
+        <span id="rpRunLabel">▶ Jalankan Prompt</span>
+      </button>
+      <button class="bs o" onclick="toggleRPPreview()" id="rpPreviewBtn" style="padding:11px 14px">👁 Preview</button>
+      <button class="bs o" id="rpSaveBtn" onclick="saveRPResult()" style="padding:11px 14px;display:none">💾 Simpan</button>
+      <button class="bs o" onclick="copyRPResult()" id="rpCopyBtn" style="padding:11px 14px;display:none">📋 Salin</button>
+    </div>
+
+    <div id="rpKeyWarn" style="display:none;margin-top:10px;background:var(--rd);border:1px solid rgba(251,113,133,0.25);border-radius:8px;padding:9px 12px;font-size:11px;color:var(--r)">
+      ⚠ AI belum aktif. <span onclick="closeRP();goto('settings',null);setTimeout(()=>setTab('apikey',document.querySelectorAll('.sni')[4]),150)" style="cursor:pointer;text-decoration:underline;color:var(--r)">Set API Key di Pengaturan →</span>
     </div>
   </div>
 </div>
@@ -1358,12 +1562,24 @@ const WF=[
 ];
 
 // ═══════════════ MULTI-AI KEY MANAGEMENT ═══════════════
-const AI_NAMES={gemini:'Google Gemini',claude:'Claude (Anthropic)',gpt:'OpenAI GPT-4',blackbox:'Blackbox AI'};
+const AI_NAMES={
+  gemini:'Google Gemini Flash',
+  groq:'Groq (Llama 3 — Gratis)',
+  openrouter:'OpenRouter (Gratis)',
+  claude:'Claude Haiku (Anthropic)',
+  gpt:'OpenAI GPT-4o-mini',
+  blackbox:'Blackbox AI'
+};
+
+const AI_STORAGE={
+  gemini:'pa_gemini_key',claude:'pa_claude_key',
+  gpt:'pa_gpt_key',blackbox:'pa_blackbox_key',
+  groq:'pa_groq_key',openrouter:'pa_openrouter_key'
+};
 
 function getApiKey(ai){
   ai=ai||localStorage.getItem('pa_active_ai')||'gemini';
-  const storageKey={'gemini':'pa_gemini_key','claude':'pa_claude_key','gpt':'pa_gpt_key','blackbox':'pa_blackbox_key'};
-  return localStorage.getItem(storageKey[ai])||'';
+  return localStorage.getItem(AI_STORAGE[ai])||'';
 }
 function getActiveAi(){return localStorage.getItem('pa_active_ai')||'gemini';}
 
@@ -1371,32 +1587,30 @@ function saveAiKey(ai){
   const el=document.getElementById('key-'+ai);
   const k=el.value.trim();
   if(!k||k.includes('•')||k.length<8){toast('Masukkan API Key yang valid','er');return;}
-  const storageKey={'gemini':'pa_gemini_key','claude':'pa_claude_key','gpt':'pa_gpt_key','blackbox':'pa_blackbox_key'};
-  localStorage.setItem(storageKey[ai],k);
+  localStorage.setItem(AI_STORAGE[ai],k);
   el.value='';el.placeholder='••••••••••••••••• (tersimpan)';
   updateAiBadge(ai);
-  // Auto-set as active if none active
   if(!localStorage.getItem('pa_active_ai'))setActiveAi(ai);
   else updateActiveAiStatus();
+  updateTopbarAiBadge();
   toast('✓ '+AI_NAMES[ai]+' API Key disimpan!','ok');
 }
 
 function clearAiKey(ai){
-  const storageKey={'gemini':'pa_gemini_key','claude':'pa_claude_key','gpt':'pa_gpt_key','blackbox':'pa_blackbox_key'};
-  localStorage.removeItem(storageKey[ai]);
+  localStorage.removeItem(AI_STORAGE[ai]);
   const el=document.getElementById('key-'+ai);
-  const placeholders={gemini:'AIza...',claude:'sk-ant-api03-...',gpt:'sk-proj-...',blackbox:'bbx-...'};
-  if(el){el.value='';el.placeholder=placeholders[ai];}
+  const placeholders={gemini:'AIza...',claude:'sk-ant-api03-...',gpt:'sk-proj-...',blackbox:'bbx-...',groq:'gsk_...',openrouter:'sk-or-v1-...'};
+  if(el){el.value='';el.placeholder=placeholders[ai]||'API Key...';}
   updateAiBadge(ai);
   if(getActiveAi()===ai){localStorage.removeItem('pa_active_ai');}
-  updateActiveAiStatus();
+  updateActiveAiStatus();updateTopbarAiBadge();
   toast(AI_NAMES[ai]+' API Key dihapus','ok');
 }
 
 function setActiveAi(ai){
   if(!getApiKey(ai)){toast('Simpan '+AI_NAMES[ai]+' API Key terlebih dahulu','er');return;}
   localStorage.setItem('pa_active_ai',ai);
-  updateActiveAiStatus();
+  updateActiveAiStatus();updateTopbarAiBadge();
   toast('✓ '+AI_NAMES[ai]+' sekarang menjadi AI Utama!','ok');
 }
 
@@ -1421,14 +1635,15 @@ function updateActiveAiStatus(){
 function selAiTab(ai,btn){
   document.querySelectorAll('.ai-sel-tab').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
-  ['gemini','claude','gpt','blackbox'].forEach(id=>{
-    document.getElementById('aipanel-'+id).style.display=id===ai?'block':'none';
+  Object.keys(AI_NAMES).forEach(id=>{
+    const el=document.getElementById('aipanel-'+id);
+    if(el)el.style.display=id===ai?'block':'none';
   });
   updateAiBadge(ai);
 }
 
 function checkApiKeyBadge(){
-  ['gemini','claude','gpt','blackbox'].forEach(ai=>updateAiBadge(ai));
+  Object.keys(AI_NAMES).forEach(ai=>updateAiBadge(ai));
   updateActiveAiStatus();
 }
 
@@ -1437,20 +1652,16 @@ function checkApiKeyBadge(){
 
 // ═══════════════ UNIVERSAL AI CALLER ═══════════════
 async function callGeminiAI(systemPrompt, userPrompt, maxTokens=2000, imageData=null){
-  // Routes to the active AI provider
   const active=getActiveAi();
   const key=getApiKey(active);
   if(!key) throw new Error('NO_KEY');
 
-  if(active==='gemini'){
-    return callGemini(systemPrompt,userPrompt,maxTokens,imageData,key);
-  }else if(active==='claude'){
-    return callClaude(systemPrompt,userPrompt,maxTokens,imageData,key);
-  }else if(active==='gpt'){
-    return callGPT(systemPrompt,userPrompt,maxTokens,imageData,key);
-  }else if(active==='blackbox'){
-    return callBlackbox(systemPrompt,userPrompt,maxTokens,key);
-  }
+  if(active==='gemini')    return callGemini(systemPrompt,userPrompt,maxTokens,imageData,key);
+  if(active==='claude')    return callClaude(systemPrompt,userPrompt,maxTokens,imageData,key);
+  if(active==='gpt')       return callGPT(systemPrompt,userPrompt,maxTokens,imageData,key);
+  if(active==='blackbox')  return callBlackbox(systemPrompt,userPrompt,maxTokens,key);
+  if(active==='groq')      return callGroq(systemPrompt,userPrompt,maxTokens,key);
+  if(active==='openrouter')return callOpenRouter(systemPrompt,userPrompt,maxTokens,key);
   throw new Error('No active AI configured');
 }
 
@@ -1506,7 +1717,7 @@ async function callGPT(systemPrompt, userPrompt, maxTokens, imageData, key){
   }
   userContent.push({type:'text',text:userPrompt});
   messages.push({role:'user',content:imageData?userContent:userPrompt});
-  const body={model:'gpt-4o',max_tokens:maxTokens,messages};
+  const body={model:'gpt-4o-mini',max_tokens:maxTokens,messages};
   const resp=await fetch('https://api.openai.com/v1/chat/completions',
     {method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify(body)});
   if(!resp.ok){const e=await resp.json();throw new Error(e.error?.message||'GPT API Error');}
@@ -1527,6 +1738,38 @@ async function callBlackbox(systemPrompt, userPrompt, maxTokens, key){
   const data=await resp.json();
   const text=data.choices?.[0]?.message?.content||data.response||'';
   if(!text) throw new Error('Empty response from Blackbox');
+  return text;
+}
+
+// ─── GROQ (100% GRATIS — Llama 3.3 70B) ───
+async function callGroq(systemPrompt, userPrompt, maxTokens, key){
+  const messages=[];
+  if(systemPrompt) messages.push({role:'system',content:systemPrompt});
+  messages.push({role:'user',content:userPrompt});
+  const body={model:'llama-3.3-70b-versatile',max_tokens:Math.min(maxTokens,8000),messages,temperature:0.7};
+  const resp=await fetch('https://api.groq.com/openai/v1/chat/completions',
+    {method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify(body)});
+  if(!resp.ok){const e=await resp.json().catch(()=>({}));throw new Error(e.error?.message||'Groq API Error '+resp.status);}
+  const data=await resp.json();
+  const text=data.choices?.[0]?.message?.content||'';
+  if(!text) throw new Error('Empty response from Groq');
+  return text;
+}
+
+// ─── OPENROUTER (Model Gratis Tersedia) ───
+async function callOpenRouter(systemPrompt, userPrompt, maxTokens, key){
+  const messages=[];
+  if(systemPrompt) messages.push({role:'system',content:systemPrompt});
+  messages.push({role:'user',content:userPrompt});
+  // meta-llama/llama-3.1-8b-instruct:free = model gratis, selalu tersedia
+  const model=localStorage.getItem('pa_or_model')||'meta-llama/llama-3.1-8b-instruct:free';
+  const body={model,max_tokens:maxTokens,messages};
+  const resp=await fetch('https://openrouter.ai/api/v1/chat/completions',
+    {method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key,'HTTP-Referer':'https://penahiyanalytics.app','X-Title':'PenahiyAnalytics'},body:JSON.stringify(body)});
+  if(!resp.ok){const e=await resp.json().catch(()=>({}));throw new Error(e.error?.message||'OpenRouter Error '+resp.status);}
+  const data=await resp.json();
+  const text=data.choices?.[0]?.message?.content||'';
+  if(!text) throw new Error('Empty response from OpenRouter');
   return text;
 }
 
@@ -1561,26 +1804,73 @@ function doLogin(){
 }
 function doDemo(){loginUser({name:'Demo User',role:'Data Analyst',email:'demo@penahiy.id'});}
 function openForgot(){document.getElementById('forgotOv').classList.add('on');}
-function closeForgot(){document.getElementById('forgotOv').classList.remove('on');document.getElementById('fpSearchResult').style.display='none';}
+function closeForgot(){
+  document.getElementById('forgotOv').classList.remove('on');
+  document.getElementById('fpSearchResult').style.display='none';
+  const wrap=document.getElementById('fpNewPassWrap');
+  if(wrap){wrap.style.display='none';}
+  const ep=document.getElementById('fpSearchEmail');if(ep)ep.value='';
+  const np=document.getElementById('fpNewPass');if(np)np.value='';
+  const cp=document.getElementById('fpConfPass');if(cp)cp.value='';
+}
 function searchUserEmail(){
   const email=document.getElementById('fpSearchEmail').value.trim().toLowerCase();
   const res=document.getElementById('fpSearchResult');
+  const wrap=document.getElementById('fpNewPassWrap');
   res.style.display='block';
+  wrap.style.display='none';
   if(!email){res.style.color='var(--r)';res.textContent='Masukkan email terlebih dahulu.';return;}
   const found=users.find(u=>u.email.toLowerCase()===email);
   if(found){
     res.style.color='var(--g)';
-    res.innerHTML=`✓ Akun ditemukan! Nama: <strong style="color:var(--ink)">${found.name}</strong> — <span style="cursor:pointer;color:var(--g);text-decoration:underline" onclick="resetPassword('${email}')">Reset password</span>`;
+    res.innerHTML=`✓ Akun ditemukan: <strong style="color:var(--ink)">${found.name}</strong>. Isi password baru di bawah:`;
+    wrap.style.display='flex';
   }else{
     res.style.color='var(--r)';
-    res.textContent='Email tidak ditemukan. Coba email lain atau buat akun baru.';
+    res.innerHTML='❌ Email tidak ditemukan. Coba email lain atau <span onclick="aTab(\'register\');closeForgot()" style="color:var(--g);cursor:pointer;text-decoration:underline">buat akun baru →</span>';
   }
 }
-function resetPassword(email){
-  const newPass=prompt('Masukkan password baru (min. 6 karakter):');
-  if(!newPass||newPass.length<6){alert('Password terlalu pendek!');return;}
-  const idx=users.findIndex(u=>u.email.toLowerCase()===email.toLowerCase());
-  if(idx!==-1){users[idx].pass=newPass;localStorage.setItem('pa_users',JSON.stringify(users));closeForgot();toast('Password berhasil direset! Silakan login.','ok');}
+function confirmResetPassword(){
+  const email=document.getElementById('fpSearchEmail').value.trim().toLowerCase();
+  const np=document.getElementById('fpNewPass').value;
+  const cp=document.getElementById('fpConfPass').value;
+  const res=document.getElementById('fpSearchResult');
+  if(!np||np.length<6){res.style.color='var(--r)';res.style.display='block';res.textContent='Password minimal 6 karakter!';return;}
+  if(np!==cp){res.style.color='var(--r)';res.style.display='block';res.textContent='Password tidak cocok!';return;}
+  const idx=users.findIndex(u=>u.email.toLowerCase()===email);
+  if(idx!==-1){
+    users[idx].pass=np;
+    localStorage.setItem('pa_users',JSON.stringify(users));
+    document.getElementById('fpNewPassWrap').style.display='none';
+    document.getElementById('fpNewPass').value='';
+    document.getElementById('fpConfPass').value='';
+    closeForgot();
+    toast('✓ Password berhasil direset! Silakan login.','ok');
+  }
+}
+function changePassword(){
+  const errEl=document.getElementById('chpwErr');
+  const okEl=document.getElementById('chpwOk');
+  const showErr=m=>{errEl.textContent=m;errEl.style.display='block';okEl.style.display='none';setTimeout(()=>errEl.style.display='none',3500);};
+  if(!user||user.email==='demo@penahiy.id'){showErr('Akun demo tidak bisa ganti password. Daftar akun baru terlebih dahulu.');return;}
+  const oldP=document.getElementById('cpOld').value;
+  const newP=document.getElementById('cpNew').value;
+  const confP=document.getElementById('cpConf').value;
+  if(!oldP||!newP||!confP){showErr('Lengkapi semua field password.');return;}
+  const idx=users.findIndex(u=>u.email===user.email);
+  if(idx===-1||users[idx].pass!==oldP){showErr('Password lama salah!');return;}
+  if(newP.length<6){showErr('Password baru minimal 6 karakter!');return;}
+  if(newP!==confP){showErr('Konfirmasi password tidak cocok!');return;}
+  users[idx].pass=newP;
+  localStorage.setItem('pa_users',JSON.stringify(users));
+  document.getElementById('cpOld').value='';
+  document.getElementById('cpNew').value='';
+  document.getElementById('cpConf').value='';
+  errEl.style.display='none';
+  okEl.textContent='✓ Password berhasil diubah!';
+  okEl.style.display='block';
+  setTimeout(()=>okEl.style.display='none',3000);
+  toast('Password berhasil diubah!','ok');
 }
 function doRegister(){
   const fn=document.getElementById('rFn').value.trim(),ln=document.getElementById('rLn').value.trim();
@@ -1607,7 +1897,7 @@ function loginUser(u){
   document.getElementById('sNm').value=u.name;
   document.getElementById('sEm').value=u.email;
   renderWF();renderFups('all');renderPrompts();renderReports();renderRiskMx();renderRiskList();renderSwot();
-  updateBadges();
+  updateBadges();updateTopbarAiBadge();
   // Load saved API keys & update badges
   if(getApiKey(getActiveAi())){const el=document.getElementById('key-'+getActiveAi());if(el)el.placeholder='••••••••••••••••• (tersimpan)';setTimeout(checkApiKeyBadge,200);}
   // Show API key notice if not set
@@ -1910,41 +2200,44 @@ async function runUploadAnalysis(){
     toast('Analisis file selesai!','ok');
   }catch(err){
     // Fallback
-    const fallback=generateFileFallback(readyFiles,question,type);
+    const fallback=generateFileFallback(readyFiles,question,type,err.message==='NO_KEY'?'nokey':'network');
     document.getElementById('uploadResBody').textContent=fallback;
     uploadResult={files:readyFiles.map(f=>f.name).join(', '),type,text:fallback,date:new Date().toLocaleDateString('id-ID')};
-    toast('Analisis selesai (mode offline)','ok');
+    toast(err.message==='NO_KEY'?'⚠ Set API Key di Pengaturan untuk analisis AI':'⚠ Gagal koneksi AI — lihat hasil framework','er');
   }
   btn.disabled=false;lbl.textContent=`Analisis ${readyFiles.length} File dengan AI`;
 }
 
-function generateFileFallback(files,question,type){
+function generateFileFallback(files,question,type,reason='network'){
   const names=files.map(f=>f.name).join(', ');
   const now=new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
   let preview='';
   files.forEach(f=>{
     if(f.content?.type==='text')preview+=f.content.text.slice(0,400)+'\n\n';
   });
+  const isKeyErr=reason==='nokey';
   return `═══════════════════════════════════════
 ANALISIS DOKUMEN: ${names}
 Tipe: ${type} | ${now}
 ═══════════════════════════════════════
 ${question?`PERTANYAAN: ${question}\n\n`:''}
-PREVIEW KONTEN TEREKSTRAK:
+${isKeyErr
+? `⚠ API KEY BELUM DISET
+Tambahkan API Key di Pengaturan → AI API Keys untuk mengaktifkan analisis AI.\nGemini 1.5 Flash tersedia GRATIS di aistudio.google.com`
+: `⚠ KONEKSI KE AI GAGAL
+▸ Cek API Key di Pengaturan → AI API Keys
+▸ Pastikan koneksi internet aktif
+▸ Kuota harian mungkin sudah habis`}
+
+PREVIEW KONTEN FILE TEREKSTRAK:
 ───────────────────────────
 ${preview||'[Tidak ada teks yang bisa diekstrak]'}
 
-CATATAN:
-▸ Koneksi ke AI tidak tersedia saat ini
-▸ Data dari file berhasil diekstrak dan siap dianalisis
-▸ Sambungkan ke internet untuk mendapatkan analisis AI penuh
-▸ Atau salin preview di atas dan paste ke AI tool lain (BlackBox, ChatGPT, dll.)
-
-CARA PENGGUNAAN MANUAL:
-1. Salin konten file yang terekstrak di atas
-2. Buka BlackBox AI / ChatGPT / Claude.ai
-3. Aktifkan Mode Analis dengan Prompt 01 dari Library
-4. Paste konten file + pertanyaan analisis kamu`;
+CARA ANALISIS MANUAL:
+1. Salin konten file di atas
+2. Buka BlackBox AI / ChatGPT / Claude.ai / Gemini
+3. Aktifkan Mode Analis (Prompt 01 dari Library)
+4. Paste konten + pertanyaan analisis kamu`;
 }
 
 function cpUploadRes(){
@@ -2037,8 +2330,8 @@ Berikan analisis SPESIFIK untuk ${co} — bukan generik. Insight yang tidak obvi
     showResult(co,ind,type,txt);
   }catch(err){
     if(err.message==='NO_KEY'){toast('Set AI API Key di Pengaturan','er');return;}
-    showResult(co,ind,type,genFallback(co,ind,type,aud,ctx));
-    toast('Cek API Key atau koneksi internet: '+err.message,'er');
+    showResult(co,ind,type,genFallback(co,ind,type,aud,ctx,'network'));
+    toast('⚠ Gagal koneksi ke AI: '+err.message,'er');
   }
 }
 
@@ -2067,35 +2360,46 @@ function showResult(co,ind,type,txt){
   toast(`Analisis ${co} selesai!`,'ok');
 }
 
-function genFallback(co,ind,type,aud,ctx){
+function genFallback(co,ind,type,aud,ctx,reason='network'){
   const d=new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
+  const isKeyErr=reason==='nokey';
   return `═══════════════════════════════════════
 ${type.toUpperCase()}: ${co.toUpperCase()}
 Industri: ${ind} | ${d}
 ═══════════════════════════════════════
 
-CATATAN: Analisis berikut adalah framework yang diisi berdasarkan konteks tersedia.
-Untuk analisis mendalam dengan data real-time, pastikan koneksi internet aktif.
+${isKeyErr
+? `⚠ AI API KEY BELUM DISET
+Untuk mendapatkan analisis AI nyata, kamu perlu menambahkan API Key:\n
+▸ Buka Pengaturan → AI API Keys
+▸ Daftar gratis di aistudio.google.com (Gemini) untuk mendapat key
+▸ Simpan key dan klik "Jadikan Utama"
+`
+: `⚠ KONEKSI KE AI GAGAL
+Analisis AI tidak tersedia saat ini. Kemungkinan penyebab:\n
+▸ API Key salah atau kadaluarsa — cek di Pengaturan → AI API Keys
+▸ Koneksi internet bermasalah
+▸ Kuota API habis untuk hari ini
+`}
 
-▸ PROFIL BISNIS [PERLU VALIDASI DATA AKTUAL]
-Identifikasi model bisnis inti, revenue streams, dan posisi ${co} dalam industri ${ind}.
-TAM industri ${ind} di Indonesia: estimasi Rp 500T–2.000T/tahun tergantung subsegmen.
+FRAMEWORK ANALISIS TERSEDIA (isi manual atau coba ulang setelah koneksi aktif):
 
-▸ ANALISIS FINANSIAL [EST]
-Benchmark industri ${ind}: Gross Margin 20-45%, EBITDA Margin 10-25%, ROE 15-20%
-Analisis akurat memerlukan laporan keuangan aktual ${co}.
-Upload laporan keuangan (PDF/Excel) untuk analisis berbasis data.
+▸ PROFIL BISNIS
+Model bisnis inti, revenue streams, dan posisi ${co} dalam industri ${ind}.
+TAM estimasi industri ${ind} di Indonesia: Rp 500T–2.000T/tahun.
 
-▸ POSISI KOMPETITIF [MEDIUM]
+▸ ANALISIS FINANSIAL [Perlu Data Aktual]
+Benchmark industri ${ind}: Gross Margin 20-45%, EBITDA Margin 10-25%.
+Upload laporan keuangan (PDF/Excel) untuk analisis berbasis data nyata.
+
+▸ POSISI KOMPETITIF
 Evaluasi moat: brand equity, switching cost, network effect, cost advantage.
-Identifikasi 3-5 kompetitor utama dan recent strategic moves mereka.
 
-▸ REKOMENDASI AKSI (Top 3)
-1. Upload laporan keuangan ${co} di halaman Upload & Analisis untuk analisis mendalam
-2. Tambahkan data konteks spesifik (berita terkini, data operasional) di field konteks
-3. Gunakan Prompt Library untuk pertanyaan follow-up yang lebih tajam
-
-${ctx?`\n▸ BERDASARKAN KONTEKS YANG DIBERIKAN:\n${ctx.slice(0,300)}${ctx.length>300?'...':''}`:''}`;
+▸ LANGKAH SELANJUTNYA
+1. ${isKeyErr?'Set API Key di Pengaturan → AI API Keys':'Cek koneksi internet dan API Key kamu'}
+2. Upload laporan keuangan ${co} di halaman Upload & Analisis
+3. Gunakan Prompt Library untuk analisis manual via AI eksternal
+${ctx?`\n▸ KONTEKS YANG DIBERIKAN:\n${ctx.slice(0,300)}${ctx.length>300?'...':''}`:''}`;
 }
 
 function cpResult(){if(lastResult)navigator.clipboard.writeText(lastResult.txt).then(()=>toast('Hasil disalin!','ok'));}
@@ -2134,6 +2438,7 @@ function renderPrompts(){
       <div class="pc-foot">
         <button class="pc-btn cp" onclick="cpPrompt(${p.id})">📋 Salin</button>
         <button class="pc-btn vw" onclick="viewPrompt(${p.id})">👁 Lihat</button>
+        <button class="pc-btn" style="background:linear-gradient(135deg,var(--g),#00cc8a);color:#011810;font-weight:700;border:none" onclick="openRunPrompt(${p.id})">▶ Jalankan</button>
         <button class="pc-btn" onclick="toggleExp(${p.id},this)" style="max-width:65px">▼ Buka</button>
       </div>
     </div>`).join('');
@@ -2203,9 +2508,8 @@ Respond ONLY with valid JSON, no markdown, no other text:
     localStorage.setItem('pa_swot',JSON.stringify(swotData));
     renderSwot();toast('SWOT digenerate!','ok');
   }catch(e){
-    const fb={S:[`Brand recognition kuat di segmen utama ${co}`,`Basis pelanggan loyal dengan retention tinggi`,`Efisiensi operasional di atas rata-rata industri`],W:[`Ketergantungan pada segmen pasar tertentu`,`Proses digitalisasi masih berkembang`,`Biaya operasional relatif tinggi`],O:[`Ekspansi ke pasar Tier 2 & 3 yang belum terpenetrasi`,`Partnership strategis untuk memperluas ekosistem`,`Pertumbuhan segmen digital 3x lebih cepat`],T:[`Intensifikasi persaingan dari pemain global`,`Perubahan regulasi industri ${ind||'terkait'}`,`Tekanan margin dari kenaikan biaya operasional`]};
-    Object.keys(fb).forEach(q=>swotData[q]=[...swotData[q],...fb[q]]);
-    localStorage.setItem('pa_swot',JSON.stringify(swotData));renderSwot();toast('SWOT generated (offline)','ok');
+    if(e.message==='NO_KEY'){btn.disabled=false;btn.textContent='✦ Generate AI';toast('⚠ Set API Key di Pengaturan untuk generate SWOT','er');return;}
+    toast('⚠ Gagal generate SWOT: '+e.message,'er');
   }
   btn.disabled=false;btn.textContent='✦ Generate AI';
 }
@@ -2341,7 +2645,8 @@ Respond ONLY with valid JSON, no markdown, no other text:
     renderSentimentRes(r);
   }catch(e){
     const s=txt.toLowerCase().includes('turun')||txt.toLowerCase().includes('rugi')?35:txt.toLowerCase().includes('naik')||txt.toLowerCase().includes('untung')?72:50;
-    renderSentimentRes({score:s,sentiment:s>65?'Positif':s>45?'Netral':'Negatif',confidence:'Sedang',positive_aspects:['Analisis memerlukan koneksi internet'],negative_aspects:['Mode offline aktif'],key_themes:['Sentimen','Analisis'],investor_implication:'Diperlukan analisis lebih mendalam.',summary:'Analisis dilakukan dalam mode offline. Sambungkan ke internet untuk analisis AI penuh.'});
+    const isNoKey=e.message==='NO_KEY';
+    renderSentimentRes({score:s,sentiment:s>65?'Positif':s>45?'Netral':'Negatif',confidence:'Rendah',positive_aspects:isNoKey?['Set API Key di Pengaturan untuk analisis nyata']:['Cek koneksi internet & API Key'],negative_aspects:isNoKey?['API Key belum diset']:['Koneksi AI gagal saat ini'],key_themes:['Sentimen','Analisis Terbatas'],investor_implication:'Diperlukan analisis AI penuh untuk hasil akurat.',summary:isNoKey?'⚠ Set API Key di Pengaturan → AI API Keys untuk mengaktifkan analisis sentimen AI.':'⚠ Koneksi ke AI gagal. Cek API Key dan koneksi internet kamu, lalu coba lagi.'});
   }
   btn.disabled=false;btn.textContent='🧠 Analisis Sentimen';
 }
@@ -2577,6 +2882,214 @@ function cp(text,msg){navigator.clipboard.writeText(text).then(()=>toast(msg||'D
 function updateBadges(){
   document.getElementById('repBadge').textContent=reps.length;
   document.getElementById('stR').textContent=reps.length;
+}
+
+// ═══════════════ RUN PROMPT DIRECTLY ═══════════════
+let _rpPromptId=null;
+let _rpResult=null;
+
+const RP_PLACEHOLDER_LABELS={
+  COMPANY:'Nama Perusahaan',
+  INDUSTRY:'Industri',
+  AUDIENCE:'Target Audience',
+  DATA:'Data / Konteks',
+  TOPIC:'Topik / Subjek'
+};
+
+function openRunPrompt(id){
+  const p=PROMPTS_DATA.find(x=>x.id===id);
+  if(!p)return;
+  _rpPromptId=id;
+  _rpResult=null;
+
+  // Reset UI
+  document.getElementById('rpTitle').textContent=p.title;
+  document.getElementById('rpBadge').textContent=p.num+' · '+p.badge;
+  document.getElementById('rpSub').textContent=p.use;
+  document.getElementById('rpResWrap').style.display='none';
+  document.getElementById('rpPreviewWrap').style.display='none';
+  document.getElementById('rpSaveBtn').style.display='none';
+  document.getElementById('rpCopyBtn').style.display='none';
+  document.getElementById('rpKeyWarn').style.display=getApiKey()?'none':'block';
+  document.getElementById('rpRunLabel').textContent='▶ Jalankan Prompt';
+  document.getElementById('rpRunBtn').disabled=false;
+
+  // Parse placeholders from prompt body: {WORD}
+  const matches=[...new Set((p.body.match(/\{([A-Z_]+)\}/g)||[]).map(m=>m.slice(1,-1)))];
+
+  const inputsEl=document.getElementById('rpInputs');
+  inputsEl.innerHTML='';
+
+  if(matches.length===0){
+    // No placeholders — show info
+    inputsEl.innerHTML=`<div style="font-size:11.5px;color:var(--ink2);padding:8px 12px;background:var(--bg2);border:1px solid var(--e1);border-radius:8px">Prompt ini tidak membutuhkan input tambahan. Langsung klik <strong style="color:var(--g)">▶ Jalankan</strong>.</div>`;
+  } else {
+    matches.forEach(key=>{
+      const label=RP_PLACEHOLDER_LABELS[key]||key.charAt(0)+key.slice(1).toLowerCase().replace(/_/g,' ');
+      const isTextarea=key==='DATA'||key==='CONTEXT'||key==='CTX';
+      const storageVal=localStorage.getItem('rp_last_'+key)||'';
+      const html=`<div>
+        <label style="font-size:10.5px;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:4px">${label} <span style="color:var(--r)">*</span></label>
+        ${isTextarea
+          ? `<textarea id="rp_${key}" class="fta" placeholder="${label}..." style="min-height:80px">${storageVal}</textarea>`
+          : `<input id="rp_${key}" class="fi" placeholder="Contoh: ${key==='COMPANY'?'PT Bank BCA Tbk':key==='INDUSTRY'?'Perbankan & Keuangan':key==='AUDIENCE'?'Manajemen Senior':label+'...'}" value="${storageVal}">`}
+      </div>`;
+      inputsEl.insertAdjacentHTML('beforeend',html);
+    });
+  }
+
+  document.getElementById('rpOv').classList.add('on');
+}
+
+function closeRP(){
+  document.getElementById('rpOv').classList.remove('on');
+  _rpPromptId=null;_rpResult=null;
+}
+
+function toggleRPPreview(){
+  const p=PROMPTS_DATA.find(x=>x.id===_rpPromptId);
+  if(!p)return;
+  const wrap=document.getElementById('rpPreviewWrap');
+  const isShown=wrap.style.display!=='none';
+  if(!isShown){
+    document.getElementById('rpPreviewBody').textContent=buildFilledPrompt(p);
+    wrap.style.display='block';
+    document.getElementById('rpPreviewBtn').textContent='🙈 Sembunyikan';
+  }else{
+    wrap.style.display='none';
+    document.getElementById('rpPreviewBtn').textContent='👁 Preview';
+  }
+}
+
+function buildFilledPrompt(p){
+  let text=p.body;
+  const matches=[...new Set((p.body.match(/\{([A-Z_]+)\}/g)||[]).map(m=>m.slice(1,-1)))];
+  matches.forEach(key=>{
+    const el=document.getElementById('rp_'+key);
+    const val=el?el.value.trim():'';
+    if(val) localStorage.setItem('rp_last_'+key,val);
+    text=text.replaceAll('{'+key+'}',val||`[${key}]`);
+  });
+  return text;
+}
+
+async function executePrompt(){
+  const p=PROMPTS_DATA.find(x=>x.id===_rpPromptId);
+  if(!p)return;
+
+  if(!getApiKey()){
+    document.getElementById('rpKeyWarn').style.display='block';
+    return;
+  }
+
+  const filledPrompt=buildFilledPrompt(p);
+
+  // Check required fields
+  const matches=[...new Set((p.body.match(/\{([A-Z_]+)\}/g)||[]).map(m=>m.slice(1,-1)))];
+  for(const key of matches){
+    const el=document.getElementById('rp_'+key);
+    if(el&&!el.value.trim()){
+      toast('Isi field "'+(RP_PLACEHOLDER_LABELS[key]||key)+'" terlebih dahulu','er');
+      el.focus();return;
+    }
+  }
+
+  const btn=document.getElementById('rpRunBtn');
+  const lbl=document.getElementById('rpRunLabel');
+  btn.disabled=true;
+  lbl.textContent='⏳ Memproses...';
+
+  document.getElementById('rpResWrap').style.display='block';
+  document.getElementById('rpResBody').textContent='AI sedang memproses prompt kamu...';
+  document.getElementById('rpKeyWarn').style.display='none';
+
+  const sysPr=`Kamu adalah Senior Business Analyst dan Strategic Consultant berpengalaman 15 tahun.
+Gunakan bahasa Indonesia profesional. Berikan jawaban yang tajam, spesifik, berbasis data, dan actionable.
+Format output yang rapi dengan heading, bullet points, dan angka/persentase konkret.`;
+
+  try{
+    const txt=await callGeminiAI(sysPr,filledPrompt,2000);
+    document.getElementById('rpResBody').textContent=txt;
+    _rpResult={promptTitle:p.title,promptNum:p.num,filledPrompt,result:txt,date:new Date().toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'})};
+    document.getElementById('rpSaveBtn').style.display='';
+    document.getElementById('rpCopyBtn').style.display='';
+    toast('✓ Prompt berhasil dijalankan!','ok');
+  }catch(err){
+    const msg=err.message==='NO_KEY'
+      ?'⚠ API Key belum diset — buka Pengaturan → AI API Keys'
+      :'⚠ Gagal: '+err.message+'\nCek API Key & koneksi internet kamu.';
+    document.getElementById('rpResBody').textContent=msg;
+    if(err.message==='NO_KEY')document.getElementById('rpKeyWarn').style.display='block';
+    toast('Gagal menjalankan prompt','er');
+  }
+  btn.disabled=false;
+  lbl.textContent='▶ Jalankan Ulang';
+}
+
+function saveRPResult(){
+  if(!_rpResult)return;
+  const r={
+    id:Date.now(),
+    company:_rpResult.promptNum,
+    industry:'Library Prompt',
+    type:_rpResult.promptTitle,
+    score:Math.floor(72+Math.random()*22),
+    text:_rpResult.result,
+    date:_rpResult.date,
+    tags:['prompt','library',_rpResult.promptNum.toLowerCase().replace(' ','')]
+  };
+  reps.unshift(r);
+  localStorage.setItem('pa_reps',JSON.stringify(reps));
+  renderReports();updateBadges();
+  toast('Hasil disimpan ke Laporan!','ok');
+  document.getElementById('rpSaveBtn').style.display='none';
+}
+
+function copyRPResult(){
+  if(_rpResult)navigator.clipboard.writeText(_rpResult.result).then(()=>toast('Hasil disalin!','ok'));
+}
+
+// ═══════════════ CONNECTION MONITOR ═══════════════
+(function(){
+  const banner=document.getElementById('connBanner');
+  const msg=document.getElementById('connMsg');
+  let wasOffline=false;
+  let timer=null;
+  function showBanner(type,text,dur=4000){
+    banner.className='show '+type;
+    msg.textContent=text;
+    clearTimeout(timer);
+    timer=setTimeout(()=>banner.className='',dur);
+  }
+  window.addEventListener('offline',()=>{
+    wasOffline=true;
+    banner.className='show offline';
+    msg.textContent='Tidak ada koneksi internet — fitur AI tidak tersedia';
+    clearTimeout(timer);
+  });
+  window.addEventListener('online',()=>{
+    if(wasOffline){
+      wasOffline=false;
+      showBanner('back','✓ Koneksi kembali — fitur AI siap digunakan',3500);
+    }
+  });
+})();
+
+// ═══════════════ AI STATUS PILL (TOPBAR) ═══════════════
+function updateTopbarAiBadge(){
+  const pill=document.getElementById('tbAiBadge');
+  const label=document.getElementById('tbAiLabel');
+  if(!pill||!label)return;
+  const active=getActiveAi();
+  const hasKey=!!getApiKey(active);
+  const shortNames={gemini:'Gemini',claude:'Claude',gpt:'GPT-4',blackbox:'Blackbox'};
+  if(hasKey){
+    pill.className='ai-status-pill active';
+    label.textContent=shortNames[active]+' Aktif';
+  }else{
+    pill.className='ai-status-pill inactive';
+    label.textContent='AI Belum Aktif';
+  }
 }
 
 // ═══════════════ RESPONSIVE ═══════════════
